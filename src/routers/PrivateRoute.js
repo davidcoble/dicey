@@ -12,6 +12,7 @@ export const PrivateRoute = ({
                                  startSaveUserPage,
                                  ...rest
                              }) => {
+    /* TODO:  move startSaveUserPage out of this ... constructor? */
     console.log("path = " + path);
     startSaveUserPage(path);
     return (

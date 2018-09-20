@@ -6,6 +6,7 @@ export default (state = {}, action) => {
                 name: action.name
             };
         case 'LOGOUT':
+            console.log("LOGOUT really called!");
             return {};
         default:
             return state;

@@ -6,6 +6,7 @@ import configureStore from './store/configureStore';
 import { startSetExpenses } from './actions/expenses';
 import { startSetPlayers} from "./actions/players";
 import { startSetLoggedIn } from "./actions/auth";
+import { startMakePlayerAdmin } from "./actions/players";
 import { login, logout } from './actions/auth';
 import getVisibleExpenses from './selectors/expenses';
 import 'normalize.css/normalize.css';
@@ -38,7 +39,7 @@ firebase.auth().onAuthStateChanged((user) => {
         store.dispatch(startSetLoggedIn()).then(() => {
             if(user.uid == 'dyMIEyrAb8T4PgLkIeVrpxLSPkE3') {
                 console.log("welcome, admin");
-                store.getState().auth.admin=true;
+                store.dispatch(startMakePlayerAdmin(user.uid, true));
             }
             console.log("personal information updated.");
         }).then(store.dispatch(startSetPlayers()));
