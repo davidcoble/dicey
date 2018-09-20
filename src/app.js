@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
 import { startSetExpenses } from './actions/expenses';
+import { startSetPlayers} from "./actions/players";
 import { startSetLoggedIn } from "./actions/auth";
 import { login, logout } from './actions/auth';
 import getVisibleExpenses from './selectors/expenses';
@@ -35,8 +36,12 @@ firebase.auth().onAuthStateChanged((user) => {
         console.log("user's name = " + user.providerData[0].displayName);
         store.dispatch(login(user.uid, user.providerData[0].displayName));
         store.dispatch(startSetLoggedIn()).then(() => {
-            console.log("personal information updated.")
-        });
+            if(user.uid == 'dyMIEyrAb8T4PgLkIeVrpxLSPkE3') {
+                console.log("welcome, admin");
+                store.getState().auth.admin=true;
+            }
+            console.log("personal information updated.");
+        }).then(store.dispatch(startSetPlayers()));
         store.dispatch(startSetExpenses()).then(() => {
             renderApp();
             if (history.location.pathname === '/') {

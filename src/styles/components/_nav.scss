@@ -1,0 +1,31 @@
+.nav {
+  background: #333;
+  display: block;
+  top: 100px;
+  width: 150px;
+  height: 100%;
+  position: fixed;
+  align-content: right;
+}
+
+div.navDiv {
+
+}
+
+.nav__link {
+  color: #999;
+  font-size: $m-size;
+  padding-right: 5px;
+}
+
+.title {
+  font-size: $l-size;
+  justify-content: center;
+
+}
+
+@media (max-width: 45rem) {
+  .nav {
+    top: 80px;
+  }
+}

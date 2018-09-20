@@ -21,8 +21,10 @@ export const startLogin = () => {
 export const startSaveUserPage = (path) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        console.log("recording user's path in the database.  path = " + path);
-        return database.ref(`users/${uid}/personal/path`).set(path);
+        if(uid) {
+            console.log("recording user's path in the database.  path = " + path);
+            return database.ref(`users/${uid}/path`).set(path);
+        }
     }
 }
 
@@ -31,9 +33,8 @@ export const startSetLoggedIn = () => {
         const uid = getState().auth.uid;
         const name = getState().auth.name;
         console.log("recording user's name in the database.  name = " + name);
-        return database.ref(`users/${uid}/personal`).set({
-            name,
-            loggedIn: true
+        return database.ref(`users/${uid}/name`).set(name).then(() => {
+            database.ref(`users/${uid}/loggedIn`).set(true);
         });
     }
 };
@@ -43,8 +44,11 @@ export const logout = () => ({
 });
 
 export const startLogout = () => {
-    return () => {
-        //const uid = getState().auth.uid;
-        return firebase.auth().signOut();
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        console.log("logging out uid = " + uid);
+        return firebase.auth().signOut().then(() => {
+            database.ref(`users/${uid}/loggedIn`).set(false);
+        });
     };
 };

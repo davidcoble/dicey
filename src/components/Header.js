@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
+import Nav from "./Nav";
 
 export const Header = (props) => {
     const startLogout = props.startLogout;
@@ -12,7 +13,7 @@ export const Header = (props) => {
             <div className="content-container">
                 <div className="header__content">
                     <Link className="header__title" to="/dashboard">
-                        <h1>Expensify</h1>
+                        <h1>Slice and Dice</h1>
                     </Link>
                     <div className="header__right">
                         <p>Logged in as {name}</p><br/>
@@ -20,6 +21,7 @@ export const Header = (props) => {
                     </div>
                 </div>
             </div>
+            <Nav/>
         </header>
     );
 };
