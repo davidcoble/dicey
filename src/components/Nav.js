@@ -9,10 +9,10 @@ isAdmin
         <nav className='navNav'>
             <Link className='nav__link' to='/players'>players</Link>
             { isAdmin ? (
-                <Link className='nav__link' to='/'>aaa</Link>
+                <Link className='nav__link' to='/'>aaaa</Link>
 
             ): (
-                <Link className='nav__link' to='/'>bbb</Link>
+                <Link className='nav__link' to='/'>bbbb</Link>
 
             )}
 
