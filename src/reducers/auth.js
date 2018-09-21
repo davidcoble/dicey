@@ -3,7 +3,8 @@ export default (state = {}, action) => {
         case 'LOGIN':
             return {
                 uid: action.uid,
-                name: action.name
+                name: action.name,
+                isAdmin: action.isAdmin
             };
         case 'LOGOUT':
             console.log("LOGOUT really called!");

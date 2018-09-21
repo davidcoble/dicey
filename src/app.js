@@ -35,11 +35,12 @@ firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         //console.log("user = " + JSON.stringify(user, null, 4));
         console.log("user's name = " + user.providerData[0].displayName);
-        store.dispatch(login(user.uid, user.providerData[0].displayName));
+        store.dispatch(login(user.uid, user.providerData[0].displayName, false));
         store.dispatch(startSetLoggedIn()).then(() => {
             if(user.uid == 'dyMIEyrAb8T4PgLkIeVrpxLSPkE3') {
                 console.log("welcome, admin");
                 store.dispatch(startMakePlayerAdmin(user.uid, true));
+
             }
             console.log("personal information updated.");
         }).then(store.dispatch(startSetPlayers()));

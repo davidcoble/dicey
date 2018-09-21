@@ -32,7 +32,7 @@ export const startSetPlayers = () => {
 };
 
 export const makePlayerAdmin = (uid, isAdmin) => ({
-    type: 'MAKE_ADMIN',
+    type: 'EDIT_PLAYER',
     uid,
     isAdmin
 });
