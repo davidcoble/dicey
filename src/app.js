@@ -33,9 +33,12 @@ ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        //console.log("user = " + JSON.stringify(user, null, 4));
-        console.log("user's name = " + user.providerData[0].displayName);
-        store.dispatch(login(user.uid, user.providerData[0].displayName, false));
+        console.log("user = " + JSON.stringify(user, null, 4));
+        console.log("user's uid = " + user.uid);
+        console.log("user's name = " + user.displayName);
+        console.log("user's email = " + user.email);
+        console.log("user's photoURL = " + user.photoURL);
+        store.dispatch(login(user.uid, user.displayName, user.email, user.photoURL));
         store.dispatch(startSetLoggedIn()).then(() => {
             if(user.uid == 'dyMIEyrAb8T4PgLkIeVrpxLSPkE3') {
                 console.log("welcome, admin");

@@ -23,6 +23,8 @@ export const startSetPlayers = () => {
                     name: val.name,
                     loggedIn: val.loggedIn,
                     path: val.path,
+                    email: val.email,
+                    photoURL: val.photoURL,
                     isAdmin: val.isAdmin
                 });
             };

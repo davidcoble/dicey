@@ -10,6 +10,7 @@ import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import PlayerManagementPage from '../components/PlayerManagementPage';
+import GamesManagementPage from '../components/GamesManagementPage';
 import TableExamplePage from '../components/TableExamplePage';
 
 export const history = createHistory();

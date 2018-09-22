@@ -4,7 +4,8 @@ export default (state = {}, action) => {
             return {
                 uid: action.uid,
                 name: action.name,
-                isAdmin: action.isAdmin
+                email: action.email,
+                photoURL: action.photoURL
             };
         case 'LOGOUT':
             console.log("LOGOUT really called!");

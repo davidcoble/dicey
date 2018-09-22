@@ -2,13 +2,17 @@ import { firebase, googleAuthProvider } from '../firebase/firebase';
 import database from '../firebase/firebase';
 
 
-export const login = (uid, name, isAdmin) => {
-    console.log("auth.login uid = " + uid + " name = " + name + " isAdmin = " + isAdmin);
+export const login = (uid, name, email, photoURL) => {
+    console.log("auth.login uid = " + uid
+        + " name = " + name
+        + " email = " + email
+        + " photoURL = " + photoURL);
     return {
         type: 'LOGIN',
         uid,
         name,
-        isAdmin
+        email,
+        photoURL
     }
 };
 
@@ -36,20 +40,25 @@ export const startSetLoggedIn = () => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         const name = getState().auth.name;
+        const email = getState().auth.email;
+        const photoURL = getState().auth.photoURL;
         let isAdmin = false;
         getState().players.map((player) => {
-            if(player.uid === uid) {
+            if (player.uid === uid) {
                 isAdmin = player.isAdmin;
             }
         });
         console.log("recording user's name in the database.  name = " + name);
         return database.ref(`users/${uid}/name`).set(name).then(() => {
-            database.ref(`users/${uid}/loggedIn`).set(true).then(() => {
-                console.log("dispatch login uid = " + uid + " name = " + name + " isAdmin = " + isAdmin);
-                dispatch(login(uid, name, isAdmin));
-            });
+            database.ref(`users/${uid}/loggedIn`).set(true);
+        }).then(() => {
+            database.ref(`users/${uid}/email`).set(email);
+        }).then(() => {
+            database.ref(`users/${uid}/photoURL`).set(photoURL);
+        }).then(() => {
+            dispatch(login(uid, name, email, photoURL));
         });
-    }
+    };
 };
 
 export const logout = () => ({
