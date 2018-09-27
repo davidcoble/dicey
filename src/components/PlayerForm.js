@@ -31,16 +31,40 @@ export default class PlayerForm extends React.Component {
         return (
             <form className="form" onSubmit={this.onSubmit}>
                 {this.state.error && <p className="form__error">{this.state.error}</p>}
-                <div>Name: {this.state.name}</div>
-                <div>Name: {this.state.email}</div>
-                <div><img src={this.state.photoURL} width='20px' height='20px'/></div>
-                <div>Logged In: {this.state.isLoggedIn ? 'Yes' : 'No'}</div>
-                <div>path = {this.state.path}</div>
-                <div>Is Admin: <input
-                    type='checkbox'
-                    checked={this.state.isAdmin}
-                    onChange={this.onAdminChange}
-                /></div>
+                <table>
+                    <tbody>
+                    <tr>
+                        <td>
+                            <div>Name: {this.state.name}</div>
+                        </td>
+                        <td>
+                            <div>Name: {this.state.email}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div><img src={this.state.photoURL} width='20px' height='20px'/></div>
+                        </td>
+                        <td>
+                            <div>Logged In: {this.state.isLoggedIn ? 'Yes' : 'No'}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>path = {this.state.path}</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>Is Admin: <input
+                                type='checkbox'
+                                checked={this.state.isAdmin}
+                                onChange={this.onAdminChange}
+                            /></div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
                 <div>
                     <button className="button">Save Player</button>
                 </div>

@@ -13,6 +13,7 @@ const PlayerList = (props) => (
                     <div>No Players</div>
                 ) : (
                     props.players.map((player) => {
+                        console.log("playermap player = " + JSON.stringify(player));
                         return <PlayerDetail key={player.uid} {...player} />
                     })
                 )
@@ -21,8 +22,9 @@ const PlayerList = (props) => (
     </div>
 );
 const mapStateToProps = (state) => {
+    console.log("playerlist map state to props");
     return {
-        players: state.players != undefined ? state.players : []
+        players: state.players != undefined ? state.players: []
     };
 };
 

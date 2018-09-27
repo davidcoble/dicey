@@ -14,6 +14,7 @@ export const PrivateRoute = ({
                              }) => {
     /* TODO:  move startSaveUserPage out of this ... constructor? */
     console.log("path = " + path);
+    console.log("PrivateRoute props = " + JSON.stringify(...rest, null, 4));
     startSaveUserPage(path);
     return (
         <Route {...rest} component={(props) => (
