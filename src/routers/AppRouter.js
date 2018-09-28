@@ -10,7 +10,7 @@ import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import PlayerManagementPage from '../components/players/PlayerManagementPage';
-import GamesManagementPage from '../components/GamesManagementPage';
+import GamesManagementPage from '../components/games/GamesManagementPage';
 import TableExamplePage from '../components/TableExamplePage';
 import { startSaveUserPage } from '../actions/auth';
 import connect from "react-redux/es/connect/connect";
