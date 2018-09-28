@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PlayerForm from './PlayerForm';
-import { startMakePlayerAdmin } from '../actions/players';
+import { startMakePlayerAdmin } from '../../actions/players';
 
-export class EditPlayerPage extends React.Component {
+export class PlayerEditPage extends React.Component {
   onSubmit = (isAdmin) => {
-    console.log("EditPlayerPage.onSubmit isAdmin="+JSON.stringify(isAdmin));
     this.props.startMakePlayerAdmin(this.props.player.uid, isAdmin);
     this.props.history.push('/players');
   };
@@ -29,7 +28,6 @@ export class EditPlayerPage extends React.Component {
 };
 
 const mapStateToProps = (state, props) => {
-  //console.log("EditPlayerPage mapStateToProps props = " + JSON.stringify(props, null,2 ));
   return ({
         player: state.players.find((player) => player.uid === props.match.params.id)
     });
@@ -39,4 +37,4 @@ const mapDispatchToProps = (dispatch, props) => ({
     startMakePlayerAdmin: (id, props) => dispatch(startMakePlayerAdmin(id, props.isAdmin))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditPlayerPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerEditPage);

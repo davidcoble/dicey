@@ -4,7 +4,6 @@ import moment from 'moment';
 export default class PlayerForm extends React.Component {
     constructor(props) {
         super(props);
-        console.log("PlayerForm ctor props = " + JSON.stringify(props, null, 2));
         this.state = {
             name: props.player ? props.player.name : '',
             isAdmin: props.player ? props.player.isAdmin : '',
@@ -17,7 +16,6 @@ export default class PlayerForm extends React.Component {
     }
     onAdminChange = (e) => {
         const isAdmin = e.target.checked;
-        console.log("isAdmin set to " + isAdmin);
         this.setState(() => ({ isAdmin }));
     };
     onSubmit = (e) => {

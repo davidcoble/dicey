@@ -13,22 +13,21 @@ export const PrivateRoute = ({
                                  ...rest
                              }) => {
     /* TODO:  move startSaveUserPage out of this ... constructor? */
-    console.log("path = " + path);
-    console.log("PrivateRoute props = " + JSON.stringify(...rest, null, 4));
-    startSaveUserPage(path);
     return (
-        <Route {...rest} component={(props) => (
-            isAuthenticated ? (
+        <Route {...rest} component={(props) => {
+            startSaveUserPage(window.location.href);
+            return (isAuthenticated ? (
                 <div>
-                    <Header />
+                    <Header/>
                     <Component {...props} />
                 </div>
             ) : (
-                <Redirect to="/" />
-            )
-        )} />
-    );
+                <Redirect to="/"/>
+            ));
+        }}/>
+    )
 };
+
 
 const mapStateToProps = (state) => ({
     isAuthenticated: !!state.auth.uid,

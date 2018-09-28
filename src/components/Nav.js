@@ -25,11 +25,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 });
 const mapStateToProps = (state) => {
-    console.log("Nav.mapStateToProps state = " + JSON.stringify(state, null, 2));
-    let isAdmin = (JSON.stringify(state.auth.isAdmin) === 'true');
-    console.log("Nav.mapStateToProps isAdmin = " + isAdmin);
-    let name = state.auth.name;
-    console.log("Nav.mapStateToProps name = " + name);
     return {
         auth: state.auth
     }

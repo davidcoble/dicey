@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const GameDetail = ({uid, name, loggedIn, isAdmin, path}) => (
-    <Link to={`/editGame/${uid}`}>
+const GameDetail = (game) => (
+    <Link to={`/editGame/${game.id}`}>
         <div>
-            <p>name: {name} loggedIn: {loggedIn ? 'yes' : 'no'} isAdmin: {isAdmin ? 'yes':'no'} path: {path} uid: {uid}</p>
+            <p>name: {name}</p>
         </div>
     </Link>
 );

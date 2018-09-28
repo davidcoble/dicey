@@ -3,12 +3,6 @@ import database from '../firebase/firebase';
 
 
 export const login = (auth) => {
-    console.log("auth.login uid = " + auth.uid
-        + " name = " + auth.name
-        + " email = " + auth.email
-        + " photoURL = " + auth.photoURL
-        + " isAdmin = " + auth.isAdmin
-    );
     return {
         type: 'LOGIN',
         ...auth
@@ -20,7 +14,6 @@ export const startLogin = () => {
         'prompt': 'select_account'
     });
     return () => {
-        console.log("logging in");
         return firebase.auth().signInWithPopup(googleAuthProvider);
     };
 };
@@ -45,10 +38,12 @@ export const startLogin = () => {
 // };
 
 export const startSaveUserPage = (path) => {
+    console.log("startSaveUserPage called with path = " + path);
     return (dispatch, getState) => {
+        console.log("state = " + JSON.stringify(getState()));
         const uid = getState().auth.uid;
+        console.log("uid="+uid);
         if(uid) {
-            console.log("recording user's path in the database.  path = " + path);
             return database.ref(`users/${uid}/path`).set(path);
         }
     }
@@ -62,7 +57,6 @@ export const startSetLoggedIn = () => {
         const email = auth.email;
         const photoURL = auth.photoURL;
         auth.isAdmin = false;
-        console.log("recording user's name in the database.  name = " + name);
         return database.ref(`users/${uid}/name`).set(name).then(() => {
             database.ref(`users/${uid}/loggedIn`).set(true);
         }).then(() => {
@@ -71,12 +65,10 @@ export const startSetLoggedIn = () => {
             database.ref(`users/${uid}/photoURL`).set(photoURL);
         }).then(() => {
             database.ref(`users/${uid}/isAdmin`).on('value', (snap) => {
-                console.log("ZZZZZZZZZZZZZZZ snap = " + JSON.stringify(snap));
                 auth.isAdmin = JSON.stringify(snap);
 
             });
         }).then(() => {
-            console.log("about to dispatch login auth = " + JSON.stringify(auth,null,4));
             dispatch(login(auth));
         });
     };
@@ -89,7 +81,6 @@ export const logout = () => ({
 export const startLogout = () => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        console.log("logging out uid = " + uid);
         return firebase.auth().signOut().then(() => {
             database.ref(`users/${uid}/loggedIn`).set(false);
         });

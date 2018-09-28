@@ -3,7 +3,6 @@
 const playersReducerDefaultState = [];
 
 export default (state = playersReducerDefaultState, action) => {
-    console.log("In Player Reducer, action =" + JSON.stringify(action, null, 4));
   switch (action.type) {
       case 'SET_PLAYERS':
           //console.log("SET_PLAYERS called");

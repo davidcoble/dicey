@@ -33,11 +33,6 @@ ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-        //console.log("user = " + JSON.stringify(user, null, 4));
-        console.log("user's uid = " + user.uid);
-        console.log("user's name = " + user.displayName);
-        console.log("user's email = " + user.email);
-        console.log("user's photoURL = " + user.photoURL);
         let auth = {
             uid: user.uid,
             name: user.displayName,
@@ -45,21 +40,15 @@ firebase.auth().onAuthStateChanged((user) => {
             photoURL: user.photoURL,
             isAdmin: 'false'
         };
-        console.log("about to dispatch login auth = " + JSON.stringify(auth,null,4));
         store.dispatch(login(auth));
-        // console.log("state 1. " + JSON.stringify(store.getState(), null, 4));
         store.dispatch(startSetLoggedIn())
-            // .then(() => { console.log("state 2. " + JSON.stringify(store.getState(), null, 4)); })
             .then(() => {
                 if(user.uid == 'dyMIEyrAb8T4PgLkIeVrpxLSPkE3') {
                     store.dispatch(startMakePlayerAdmin(user.uid, true));
                 }
             })
-            // .then(() => { console.log("state 3. " + JSON.stringify(store.getState(), null, 4)); })
             .then(store.dispatch(startSetPlayers()))
-            // .then(() => { console.log("state 4. " + JSON.stringify(store.getState(), null, 4)); })
             .then(store.dispatch(startSetLoggedIn()))
-            // .then(() => { console.log("state 5. " + JSON.stringify(store.getState(), null, 4)); })
             .then(store.dispatch(startSetExpenses()))
             .then(() => {
                 renderApp();

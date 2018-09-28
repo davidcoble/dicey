@@ -7,7 +7,6 @@ import Nav from "./Nav";
 export const Header = (props) => {
     const startLogout = props.startLogout;
     const name = props.name;
-    //console.log(props);
     return (
         <header className="header">
             <div className="content-container">
