@@ -7,6 +7,7 @@ import { startSetPlayers} from "./actions/players";
 import { startSetLoggedIn } from "./actions/auth";
 import { startMakePlayerAdmin } from "./actions/players";
 import { startSetExpenses } from "./actions/expenses";
+import { startSetGames } from "./actions/games";
 import { login, logout } from './actions/auth';
 import getVisibleExpenses from './selectors/expenses';
 import 'normalize.css/normalize.css';
@@ -50,6 +51,7 @@ firebase.auth().onAuthStateChanged((user) => {
             .then(store.dispatch(startSetPlayers()))
             .then(store.dispatch(startSetLoggedIn()))
             .then(store.dispatch(startSetExpenses()))
+            .then(store.dispatch(startSetGames()))
             .then(() => {
                 renderApp();
                 if (history.location.pathname === '/') {

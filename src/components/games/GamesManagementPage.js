@@ -4,8 +4,8 @@ import GamesSummary from './GamesSummary';
 
 const GamesManagementPage = () => (
     <div>
-        <GameList />
         <GamesSummary />
+        <GameList />
     </div>
 );
 

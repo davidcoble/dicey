@@ -38,11 +38,11 @@ export const startLogin = () => {
 // };
 
 export const startSaveUserPage = (path) => {
-    console.log("startSaveUserPage called with path = " + path);
+    //console.log("startSaveUserPage called with path = " + path);
     return (dispatch, getState) => {
-        console.log("state = " + JSON.stringify(getState()));
+        //console.log("state = " + JSON.stringify(getState()));
         const uid = getState().auth.uid;
-        console.log("uid="+uid);
+        //console.log("uid="+uid);
         if(uid) {
             return database.ref(`users/${uid}/path`).set(path);
         }

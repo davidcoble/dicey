@@ -19,7 +19,7 @@ export const history = createHistory();
 
 const AppRouter = ({startSaveUserPage}) => {
     let path = window.location.href;
-    console.log("path = " + path);
+    //console.log("path = " + path);
     startSaveUserPage(path);
     return (
         <Router history={history}>
