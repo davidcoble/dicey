@@ -1,6 +1,6 @@
 # Git Commands
 
-Wonder how you add newlines here\n
+Wonder how you add newlines here
 
 git init - Create a new git repo
 
