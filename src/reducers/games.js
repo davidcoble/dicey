@@ -3,6 +3,7 @@
 const gamesReducerDefaultState = [];
 
 export default (state = gamesReducerDefaultState, action) => {
+    //console.log("reducer action = " + JSON.stringify(action));
     switch (action.type) {
         case 'ADD_GAME':
             return [

@@ -1,14 +1,14 @@
 import moment from 'moment';
 
-// Get visible games
+// Get visible chats
 
-export default (games, { text, sortBy, startDate, endDate }) => {
-    //console.log("games = " + JSON.stringify(games));
-    return games.filter((game) => {
-        const createdAtMoment = moment(game.createdAt);
+export default (chat, { text, sortBy, startDate, endDate }) => {
+    console.log("chat = " + JSON.stringify(chat));
+    return chat.filter((chat) => {
+        const createdAtMoment = moment(chat.createdAt);
         const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true;
         const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true;
-        const textMatch = game.description.toLowerCase().includes(text.toLowerCase());
+        const textMatch = chat.description.toLowerCase().includes(text.toLowerCase());
 
         return startDateMatch && endDateMatch && textMatch;
     }).sort((a, b) => {

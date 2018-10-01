@@ -17,3 +17,19 @@
 .button--secondary {
   background: #888;
 }
+
+.button-round {
+  width: 30px;
+  height: 30px;
+  padding-left: 12px;
+  padding-top: 5px;
+  background: $blue;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  display: inline-block;
+  font-size: $font-size-large;
+  font-weight: 300;
+  line-height: 1;
+  text-decoration: none;
+}

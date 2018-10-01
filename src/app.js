@@ -7,6 +7,8 @@ import { startSetPlayers} from "./actions/players";
 import { startSetLoggedIn } from "./actions/auth";
 import { startMakePlayerAdmin } from "./actions/players";
 import { startSetExpenses } from "./actions/expenses";
+import { startSetChannel } from "./actions/channel";
+import { startSetChat } from "./actions/chat";
 import { startSetGames } from "./actions/games";
 import { login, logout } from './actions/auth';
 import getVisibleExpenses from './selectors/expenses';
@@ -52,6 +54,8 @@ firebase.auth().onAuthStateChanged((user) => {
             .then(store.dispatch(startSetLoggedIn()))
             .then(store.dispatch(startSetExpenses()))
             .then(store.dispatch(startSetGames()))
+            .then(store.dispatch(startSetChannel()))
+            .then(store.dispatch(startSetChat()))
             .then(() => {
                 renderApp();
                 if (history.location.pathname === '/') {

@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const GameDetail = (game) => (
-    <Link to={`/editGame/${game.id}`}>
+const GameDetail = (game) => {
+    //console.log("GameDetail: game = " + JSON.stringify(game, null, 4));
+    return (
         <div>
-            <p>name: {name}</p>
+            <Link className="button-round" to={`/game/delete/${game.id}`}>-</Link>
+            <Link to={`/game/edit/${game.id}`}>
+                <b>{game.name} ({game.description}) created/updated by {game.createdBy}</b>
+            </Link>
         </div>
-    </Link>
-);
+    );
+};
 
 export default GameDetail;

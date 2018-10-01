@@ -7,6 +7,8 @@ export const Nav = (props) => (
         <nav className='navNav'>
             <Link className='nav__link' to='/table'>table</Link>
             <Link className='nav__link' to='/players'>players</Link>
+            <Link className='nav__link' to='/channels'>channel</Link>
+            <Link className='nav__link' to='/chats'>chat</Link>
             <Link className='nav__link' to='/games'>games</Link>
 
             { props.auth.isAdmin === 'true' ? (

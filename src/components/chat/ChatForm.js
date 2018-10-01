@@ -1,15 +1,14 @@
 import React from 'react';
 import moment from 'moment';
 
-export default class GameForm extends React.Component {
+export default class ChatForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            name: props.game ? props.game.name : '',
-            description: props.game ? props.game.description : '',
-            createdAt: props.game ? moment(props.game.createdAt) : moment(),
-            createdBy: '',
+            name: props.chat ? props.chat.name : '',
+            description: props.chat ? props.chat.description : '',
+            createdAt: props.chat ? moment(props.chat.createdAt) : moment(),
             error: ''
         };
     }
@@ -30,7 +29,6 @@ export default class GameForm extends React.Component {
             name: this.state.name,
             description: this.state.description,
             createdAt: this.state.createdAt.valueOf(),
-            createdBy: this.state.createdBy.valueOf()
         });
     };
     render() {
@@ -53,7 +51,7 @@ export default class GameForm extends React.Component {
                     onChange={this.onDescriptionChange}
                 />
                 <div>
-                    <button className="button">Save Game</button>
+                    <button className="button">Save Chat</button>
                 </div>
             </form>
         )

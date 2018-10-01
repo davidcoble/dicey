@@ -9,14 +9,14 @@ export const addGame = (game) => ({
 
 export const startAddGame = (gameData = {}) => {
     return (dispatch, getState) => {
-        const uid = getState().auth.uid;
+        const userName = getState().auth.name;
         const {
             description = '',
-            note = '',
-            amount = 0,
-            createdAt = 0
+            name = '',
+            createdAt = 0,
+            createdBy = userName
         } = gameData;
-        const game = { description, note, amount, createdAt };
+        const game = { description, name, createdAt, createdBy  };
         return database.ref(`games`).push(game).then((ref) => {
             dispatch(addGame({
                 id: ref.key,
@@ -50,7 +50,8 @@ export const editGame = (id, updates) => ({
 
 export const startEditGame = (id, updates) => {
     return (dispatch, getState) => {
-        const uid = getState().auth.uid;
+        const userName = getState().auth.name;
+        updates.createdBy = userName;
         return database.ref(`games/${id}`).update(updates).then(() => {
             dispatch(editGame(id, updates));
         });
@@ -66,16 +67,25 @@ export const setGames = (games) => ({
 export const startSetGames = () => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        return database.ref(`games`).once('value').then((snapshot) => {
+        let gamesRef = database.ref('games');
+        gamesRef.once('value', (snapshot) => {
             const games = [];
-
             snapshot.forEach((childSnapshot) => {
                 games.push({
                     id: childSnapshot.key,
                     ...childSnapshot.val()
                 });
             });
-
+            dispatch(setGames(games));
+        });
+        gamesRef.on('value', (snapshot) => {
+            const games = [];
+            snapshot.forEach((childSnapshot) => {
+                games.push({
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                });
+            });
             dispatch(setGames(games));
         });
     };

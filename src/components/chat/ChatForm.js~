@@ -9,7 +9,6 @@ export default class GameForm extends React.Component {
             name: props.game ? props.game.name : '',
             description: props.game ? props.game.description : '',
             createdAt: props.game ? moment(props.game.createdAt) : moment(),
-            createdBy: '',
             error: ''
         };
     }
@@ -30,7 +29,6 @@ export default class GameForm extends React.Component {
             name: this.state.name,
             description: this.state.description,
             createdAt: this.state.createdAt.valueOf(),
-            createdBy: this.state.createdBy.valueOf()
         });
     };
     render() {

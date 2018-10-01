@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import GameForm from './GameForm';
 import { startAddGame } from '../../actions/games';
 
-export class GameAddPage extends React.Component {
+export class ChatAddPage extends React.Component {
   onSubmit = (game) => {
     this.props.startAddGame(game);
     this.props.history.push('/games');
@@ -30,4 +30,4 @@ const mapDispatchToProps = (dispatch) => ({
   startAddGame: (game) => dispatch(startAddGame(game))
 });
 
-export default connect(undefined, mapDispatchToProps)(GameAddPage);
+export default connect(undefined, mapDispatchToProps)(ChatAddPage);

@@ -4,13 +4,21 @@ import createHistory from 'history/createBrowserHistory';
 import ExpenseDashboardPage from '../components/ExpenseDashboardPage';
 import AddExpensePage from '../components/AddExpensePage';
 import EditExpensePage from '../components/EditExpensePage';
+import ChannelAddPage from '../components/channel/ChannelAddPage';
+import ChannelEditPage from '../components/channel/ChannelEditPage';
+import ChannelManagementPage from '../components/channel/ChannelManagementPage';
+import ChatAddPage from '../components/chat/ChatAddPage';
+import ChatEditPage from '../components/chat/ChatEditPage';
+import ChatManagementPage from '../components/chat/ChatManagementPage';
+import GameAddPage from '../components/games/GameAddPage';
+import GameEditPage from '../components/games/GameEditPage';
+import GamesManagementPage from '../components/games/GamesManagementPage';
 import PlayerEditPage from '../components/players/PlayerEditPage';
+import PlayerManagementPage from '../components/players/PlayerManagementPage';
 import NotFoundPage from '../components/NotFoundPage';
 import LoginPage from '../components/LoginPage';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
-import PlayerManagementPage from '../components/players/PlayerManagementPage';
-import GamesManagementPage from '../components/games/GamesManagementPage';
 import TableExamplePage from '../components/TableExamplePage';
 import { startSaveUserPage } from '../actions/auth';
 import connect from "react-redux/es/connect/connect";
@@ -27,7 +35,15 @@ const AppRouter = ({startSaveUserPage}) => {
                 <Switch>
                     <PublicRoute path="/" component={LoginPage} exact={true}/>
                     <PrivateRoute path="/players" component={PlayerManagementPage}/>
+                    <PrivateRoute path="/channels" component={ChannelManagementPage}/>
+                    <PrivateRoute path="/channel/create" component={ChannelAddPage}/>
+                    <PrivateRoute path="/channel/edit/:id" component={ChannelEditPage}/>
+                    <PrivateRoute path="/chats" component={ChatManagementPage}/>
+                    <PrivateRoute path="/chat/create" component={ChatAddPage}/>
+                    <PrivateRoute path="/chat/edit/:id" component={ChatEditPage}/>
                     <PrivateRoute path="/games" component={GamesManagementPage}/>
+                    <PrivateRoute path="/game/create" component={GameAddPage}/>
+                    <PrivateRoute path="/game/edit/:id" component={GameEditPage}/>
                     <PrivateRoute path="/table" component={TableExamplePage}/>
                     <PrivateRoute path="/dashboard" component={ExpenseDashboardPage}/>
                     <PrivateRoute path="/create" component={AddExpensePage}/>
