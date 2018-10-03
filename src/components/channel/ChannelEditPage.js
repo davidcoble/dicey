@@ -6,11 +6,11 @@ import { startEditChannel, startRemoveChannel } from '../../actions/channel';
 export class EditChannelPage extends React.Component {
   onSubmit = (channel) => {
     this.props.startEditChannel(this.props.channel.id, channel);
-    this.props.history.push('/channel');
+    this.props.history.push('/channels');
   };
   onRemove = () => {
     this.props.startRemoveChannel({ id: this.props.channel.id });
-    this.props.history.push('/channel');
+    this.props.history.push('/channels');
   };
   render() {
     return (
@@ -32,9 +32,12 @@ export class EditChannelPage extends React.Component {
   }
 };
 
-const mapStateToProps = (state, props) => ({
-  channel: state.channels.find((channel) => channel.id === props.match.params.id)
-});
+const mapStateToProps = (state, props) => {
+    console.log("ChannelEditPage mapStateToProps state = " + JSON.stringify(state));
+    return ({
+        channel: state.channels.find((channel) => channel.id === props.match.params.id)
+    });
+};
 
 const mapDispatchToProps = (dispatch, props) => ({
   startEditChannel: (id, channel) => dispatch(startEditChannel(id, channel)),

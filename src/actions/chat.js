@@ -19,10 +19,6 @@ export const startAddChat = (chatData = {}) => {
         const chat = { description, name, createdAt, createdBy };
         return database.ref(`chats`).push(chat).then((ref) => {
             console.log("startAddChat, ref = " + JSON.stringify(ref, null, 4));
-            // dispatch(addChat({
-            //     id: ref.key,
-            //     ...chat
-            // }));
         });
     };
 };
@@ -35,8 +31,8 @@ export const removeChat = ({ id } = {}) => ({
 
 export const startRemoveChat = ({ id } = {}) => {
     return (dispatch, getState) => {
-        const uid = getState().auth.uid;
-        return database.ref(`chat/${id}`).remove().then(() => {
+        //const uid = getState().auth.uid;
+        return database.ref(`chats/${id}`).remove().then(() => {
             dispatch(removeChat({ id }));
         });
     };
@@ -52,7 +48,7 @@ export const editChat = (id, updates) => ({
 export const startEditChat = (id, updates) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        return database.ref(`chat/${id}`).update(updates).then(() => {
+        return database.ref(`chats/${id}`).update(updates).then(() => {
             dispatch(editChat(id, updates));
         });
     };

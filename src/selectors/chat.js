@@ -2,9 +2,9 @@ import moment from 'moment';
 
 // Get visible chats
 
-export default (chat, { text, sortBy, startDate, endDate }) => {
-    console.log("chat = " + JSON.stringify(chat));
-    return chat.filter((chat) => {
+export default (chats, { text, sortBy, startDate, endDate }) => {
+    console.log("chat = " + JSON.stringify(chats));
+    return chats.filter((chat) => {
         const createdAtMoment = moment(chat.createdAt);
         const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true;
         const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true;

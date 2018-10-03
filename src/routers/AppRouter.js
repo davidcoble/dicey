@@ -6,9 +6,11 @@ import AddExpensePage from '../components/AddExpensePage';
 import EditExpensePage from '../components/EditExpensePage';
 import ChannelAddPage from '../components/channel/ChannelAddPage';
 import ChannelEditPage from '../components/channel/ChannelEditPage';
+import ChannelViewPage from '../components/channel/ChannelViewPage';
 import ChannelManagementPage from '../components/channel/ChannelManagementPage';
 import ChatAddPage from '../components/chat/ChatAddPage';
 import ChatEditPage from '../components/chat/ChatEditPage';
+import ChatDeletePage from '../components/chat/ChatDeletePage';
 import ChatManagementPage from '../components/chat/ChatManagementPage';
 import GameAddPage from '../components/games/GameAddPage';
 import GameEditPage from '../components/games/GameEditPage';
@@ -38,9 +40,11 @@ const AppRouter = ({startSaveUserPage}) => {
                     <PrivateRoute path="/channels" component={ChannelManagementPage}/>
                     <PrivateRoute path="/channel/create" component={ChannelAddPage}/>
                     <PrivateRoute path="/channel/edit/:id" component={ChannelEditPage}/>
+                    <PrivateRoute path="/channel/view/:id" component={ChannelViewPage}/>
                     <PrivateRoute path="/chats" component={ChatManagementPage}/>
                     <PrivateRoute path="/chat/create" component={ChatAddPage}/>
                     <PrivateRoute path="/chat/edit/:id" component={ChatEditPage}/>
+                    <PrivateRoute path="/chat/delete/:id" component={ChatDeletePage}/>
                     <PrivateRoute path="/games" component={GamesManagementPage}/>
                     <PrivateRoute path="/game/create" component={GameAddPage}/>
                     <PrivateRoute path="/game/edit/:id" component={GameEditPage}/>

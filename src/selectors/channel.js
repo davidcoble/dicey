@@ -2,9 +2,9 @@ import moment from 'moment';
 
 // Get visible channels
 
-export default (channel, { text, sortBy, startDate, endDate }) => {
+export default (channels, { text, sortBy, startDate, endDate }) => {
     //console.log("channel = " + JSON.stringify(channel));
-    return channel.filter((channel) => {
+    return channels.filter((channel) => {
         const createdAtMoment = moment(channel.createdAt);
         const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true;
         const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true;
