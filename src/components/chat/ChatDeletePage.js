@@ -1,19 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ChannelForm from './ChannelForm';
-import { startEditChannel, startRemoveChannel } from '../../actions/channel';
+import ChatForm from './ChatForm';
+import { startEditChat, startRemoveChat } from '../../actions/chat';
 
-export class ChannelDeletePage extends React.Component {
+export class ChatDeletePage extends React.Component {
     componentWillMount() {
-        this.props.startRemoveChannel({ id: this.props.channel.id });
-        this.props.history.push('/channels');
+        this.props.startRemoveChat({ id: this.props.chat.id });
+        this.props.history.push('/chats');
     }
     render() {
         return (
             <div>
                 <div className="page-header">
                     <div className="content-container">
-                        <h1 className="page-header__title">Deleting Channel</h1>
+                        <h1 className="page-header__title">Deleting Chat</h1>
                     </div>
                 </div>
             </div>
@@ -22,14 +22,14 @@ export class ChannelDeletePage extends React.Component {
 };
 
 const mapStateToProps = (state, props) => {
-    // console.log("ChannelEditPage mapStateToProps state.channel = " + JSON.stringify(state.channel, null, 4));
+    // console.log("ChatEditPage mapStateToProps state.chat = " + JSON.stringify(state.chat, null, 4));
     return {
-        channel: state.channel.find((channel) => channel.id === props.match.params.id)
+        chat: state.chat.find((chat) => chat.id === props.match.params.id)
     };
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    startRemoveChannel: (data) => dispatch(startRemoveChannel(data))
+    startRemoveChat: (data) => dispatch(startRemoveChat(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelDeletePage);
+export default connect(mapStateToProps, mapDispatchToProps)(ChatDeletePage);

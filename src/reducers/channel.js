@@ -3,7 +3,7 @@
 const channelsReducerDefaultState = [];
 
 export default (state = channelsReducerDefaultState, action) => {
-    console.log("reducer action = " + JSON.stringify(action));
+    //console.log("reducer action = " + JSON.stringify(action));
     switch (action.type) {
         case 'ADD_CHANNEL':
             return [

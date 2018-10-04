@@ -3,33 +3,22 @@ import { connect } from 'react-redux';
 import ChannelForm from './ChannelForm';
 import { startEditChannel, startRemoveChannel } from '../../actions/channel';
 
-export class EditChannelPage extends React.Component {
-  onSubmit = (channel) => {
-    this.props.startEditChannel(this.props.channel.id, channel);
-    this.props.history.push('/channels');
-  };
-  onRemove = () => {
-    this.props.startRemoveChannel({ id: this.props.channel.id });
-    this.props.history.push('/channels');
-  };
-  render() {
-    return (
-      <div>
-        <div className="page-header">
-          <div className="content-container">
-            <h1 className="page-header__title">Edit Channel</h1>
-          </div>
-        </div>
-        <div className="content-container">
-          <ChannelForm
-            channel={this.props.channel}
-            onSubmit={this.onSubmit}
-          />
-          <button className="button button--secondary" onClick={this.onRemove}>Remove Channel</button>
-        </div>
-      </div>
-    );
-  }
+export class ChannelDeletePage extends React.Component {
+    componentWillMount() {
+        this.props.startRemoveChannel({ id: this.props.channel.id });
+        this.props.history.push('/channels');
+    }
+    render() {
+        return (
+            <div>
+                <div className="page-header">
+                    <div className="content-container">
+                        <h1 className="page-header__title">Deleting Channel</h1>
+                    </div>
+                </div>
+            </div>
+        );
+    }
 };
 
 const mapStateToProps = (state, props) => {
@@ -40,8 +29,7 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-  startEditChannel: (id, channel) => dispatch(startEditChannel(id, channel)),
-  startRemoveChannel: (data) => dispatch(startRemoveChannel(data))
+    startRemoveChannel: (data) => dispatch(startRemoveChannel(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditChannelPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelDeletePage);

@@ -6,6 +6,7 @@ import AddExpensePage from '../components/AddExpensePage';
 import EditExpensePage from '../components/EditExpensePage';
 import ChannelAddPage from '../components/channel/ChannelAddPage';
 import ChannelEditPage from '../components/channel/ChannelEditPage';
+import ChannelDeletePage from '../components/channel/ChannelDeletePage';
 import ChannelManagementPage from '../components/channel/ChannelManagementPage';
 import ChatAddPage from '../components/chat/ChatAddPage';
 import ChatEditPage from '../components/chat/ChatEditPage';
@@ -38,6 +39,7 @@ const AppRouter = ({startSaveUserPage}) => {
                     <PrivateRoute path="/channels" component={ChannelManagementPage}/>
                     <PrivateRoute path="/channel/create" component={ChannelAddPage}/>
                     <PrivateRoute path="/channel/edit/:id" component={ChannelEditPage}/>
+                    <PrivateRoute path="/channel/delete/:id" component={ChannelDeletePage}/>
                     <PrivateRoute path="/chats" component={ChatManagementPage}/>
                     <PrivateRoute path="/chat/create" component={ChatAddPage}/>
                     <PrivateRoute path="/chat/edit/:id" component={ChatEditPage}/>
