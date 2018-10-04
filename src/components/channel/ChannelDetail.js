@@ -6,10 +6,12 @@ const ChannelDetail = (channel) => {
     return (
         <div>
             <Link className="button-round" to={`/channel/delete/${channel.id}`}>-</Link>
-            <Link to={`/channel/edit/${channel.id}`}>
+            <Link to={`/channel/view/${channel.id}`}>
                 <b>{channel.name}</b>
             </Link>
-
+            <Link to={`/channel/edit/${channel.id}`}>
+                <b>(edit)</b>
+            </Link>
         </div>
     );
 };

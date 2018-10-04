@@ -33,11 +33,11 @@ export class EditChannelPage extends React.Component {
 };
 
 const mapStateToProps = (state, props) => {
-    // console.log("ChannelEditPage mapStateToProps state.channel = " + JSON.stringify(state.channel, null, 4));
-    return {
-        channel: state.channel.find((channel) => channel.id === props.match.params.id)
-    };
-}
+    // console.log("ChannelEditPage mapStateToProps state = " + JSON.stringify(state));
+    return ({
+        channel: state.channels.find((channel) => channel.id === props.match.params.id)
+    });
+};
 
 const mapDispatchToProps = (dispatch, props) => ({
   startEditChannel: (id, channel) => dispatch(startEditChannel(id, channel)),

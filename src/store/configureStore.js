@@ -14,8 +14,8 @@ export default () => {
     const store = createStore(
         combineReducers({
             auth: authReducer,
-            channel: channelReducer,
-            chat: chatReducer,
+            channels: channelReducer,
+            chats: chatReducer,
             expenses: expensesReducer,
             filters: filtersReducer,
             games: gamesReducer,

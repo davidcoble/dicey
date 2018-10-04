@@ -25,7 +25,7 @@ const mapStateToProps = (state) => {
     // console.log("mapStateToProps state.chat = " + JSON.stringify(state));
     // console.log("mapStateToProps filters = " + JSON.stringify(state.filters));
     return {
-        chats: selectChat(state.chat, state.filters)
+        chats: selectChat(state.chats, state.filters)
     };
 };
 

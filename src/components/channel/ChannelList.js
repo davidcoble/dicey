@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
     // console.log("mapStateToProps state.channel = " + JSON.stringify(state.channel, null, 4));
     // console.log("mapStateToProps filters = " + JSON.stringify(state.filters));
     return {
-        channels: selectChannel(state.channel, state.filters)
+        channels: selectChannel(state.channels, state.filters)
     };
 };
 

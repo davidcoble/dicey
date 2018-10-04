@@ -9,26 +9,16 @@ export class ChatDeletePage extends React.Component {
         this.props.history.push('/chats');
     }
     render() {
-        return (
-            <div>
-                <div className="page-header">
-                    <div className="content-container">
-                        <h1 className="page-header__title">Deleting Chat</h1>
-                    </div>
-                </div>
-            </div>
-        );
+        return (<div></div>);
     }
 };
 
-const mapStateToProps = (state, props) => {
-    // console.log("ChatEditPage mapStateToProps state.chat = " + JSON.stringify(state.chat, null, 4));
-    return {
-        chat: state.chat.find((chat) => chat.id === props.match.params.id)
-    };
-}
+const mapStateToProps = (state, props) => ({
+    chat: state.chats.find((chat) => chat.id === props.match.params.id)
+});
 
 const mapDispatchToProps = (dispatch, props) => ({
+    startEditChat: (id, chat) => dispatch(startEditChat(id, chat)),
     startRemoveChat: (data) => dispatch(startRemoveChat(data))
 });
 

@@ -17,9 +17,9 @@ export const startAddChannel = (channelData = {}) => {
             createdBy = ''
         } = channelData;
         const channel = { description, name, createdAt, createdBy };
-        return database.ref(`channel`).push(channel)
+        return database.ref('channels').push(channel)
             .then((ref) => {
-            console.log("startAddChanel, ref = " + JSON.stringify(ref, null, 4));
+            // console.log("startAddChanel, ref = " + JSON.stringify(ref, null, 4));
             // dispatch(addChannel({
             //     id: ref.key,
             //     ...channel
@@ -36,8 +36,7 @@ export const removeChannel = ({ id } = {}) => ({
 
 export const startRemoveChannel = ({ id } = {}) => {
     return (dispatch, getState) => {
-        const uid = getState().auth.uid;
-        return database.ref(`channel/${id}`).remove().then(() => {
+        return database.ref(`channels/${id}`).remove().then(() => {
             dispatch(removeChannel({ id }));
         });
     };
@@ -51,9 +50,9 @@ export const editChannel = (id, updates) => ({
 });
 
 export const startEditChannel = (id, updates) => {
+    console.log("startEditChannel updates = " + JSON.stringify(updates, null, 4));
     return (dispatch, getState) => {
-        const uid = getState().auth.uid;
-        return database.ref(`channel/${id}`).update(updates).then(() => {
+        return database.ref(`channels/${id}`).update(updates).then(() => {
             dispatch(editChannel(id, updates));
         });
     };
@@ -66,7 +65,7 @@ export const setChannel = (channels) => ({
 });
 
 export const startSetChannel = () => {
-    console.log("startSetChannel");
+    // console.log("startSetChannel");
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         let channelsRef = database.ref('channel');
@@ -78,7 +77,7 @@ export const startSetChannel = () => {
                     ...childSnapshot.val()
                 });
             });
-            console.log("startSetChannel dispatch setChannel channels = " + JSON.stringify(channels));
+            // console.log("startSetChannel dispatch setChannel channels = " + JSON.stringify(channels));
             dispatch(setChannel(channels));
         });
         channelsRef.on('value', (snapshot) => {
