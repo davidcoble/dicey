@@ -24,7 +24,9 @@ export class ChannelViewPage extends React.Component {
                 </div>
                 <div className='chatDiv'>
                     <ChatList />
-                    <ChatChannelForm />
+                    <ChatChannelForm
+                    channel={this.props.channel}
+                    />
                 </div>
             </div>
         );
@@ -34,7 +36,7 @@ export class ChannelViewPage extends React.Component {
 const mapStateToProps = (state, props) => {
     console.log("ChannelEditPage mapStateToProps state = " + JSON.stringify(state));
     return ({
-        channel: state.channels.find((channel) => channel.id === props.match.params.id)
+        channel: state.channels.find((channel) => channel.id === props.match.params.id),
     });
 };
 

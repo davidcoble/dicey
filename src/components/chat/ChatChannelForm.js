@@ -4,7 +4,7 @@ import moment from 'moment';
 export default class ChatChannelForm extends React.Component {
     constructor(props) {
         super(props);
-
+        console.log("[ChatChannelForm] props = " + JSON.stringify(props, null, 4));
         this.state = {
             name: props.chat ? props.chat.name : '',
             description: props.chat ? props.chat.description : '',

@@ -12,10 +12,10 @@ export const Nav = (props) => (
             <Link className='nav__link' to='/games'>games</Link>
 
             { props.auth.isAdmin === 'true' ? (
-                <Link className='nav__link' to='/'>aaaa {props.auth.name}</Link>
+                <Link className='nav__link' to='/'>ddd {props.auth.name}</Link>
 
             ): (
-                <Link className='nav__link' to='/'>bbbb {props.auth.name}</Link>
+                <Link className='nav__link' to='/'>ccc {props.auth.name}</Link>
 
             )}
 
