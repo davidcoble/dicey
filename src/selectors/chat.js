@@ -2,15 +2,10 @@ import moment from 'moment';
 
 // Get visible chats
 
-export default (chats, { text, sortBy, startDate, endDate }) => {
+export default (chats, { channel }) => {
     console.log("chat = " + JSON.stringify(chats));
     return chats.filter((chat) => {
-        const createdAtMoment = moment(chat.createdAt);
-        const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day') : true;
-        const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true;
-        const textMatch = chat.description.toLowerCase().includes(text.toLowerCase());
-
-        return startDateMatch && endDateMatch && textMatch;
+        return chat.channel === channel;
     }).sort((a, b) => {
         //console.log("comparing a to b " + JSON.stringify(a) + " " + JSON.stringify(b));
         return a.name < b.name ? -1 : 1;

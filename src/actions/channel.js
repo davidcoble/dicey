@@ -8,6 +8,7 @@ export const addChannel = (channel) => ({
 });
 
 export const startAddChannel = (channelData = {}) => {
+    console.log("startAddChannel channelData = " + JSON.stringify(channelData, null, 4));
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         const {
@@ -68,7 +69,7 @@ export const startSetChannel = () => {
     // console.log("startSetChannel");
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        let channelsRef = database.ref('channel');
+        let channelsRef = database.ref('channels');
         channelsRef.once('value', (snapshot) => {
             const channels = [];
             snapshot.forEach((childSnapshot) => {

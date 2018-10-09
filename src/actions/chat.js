@@ -13,10 +13,11 @@ export const startAddChat = (chatData = {}) => {
         const {
             description = '',
             name = '',
+            channel = '',
             createdAt = 0,
             createdBy = ''
         } = chatData;
-        const chat = { description, name, createdAt, createdBy };
+        const chat = { description, name, channel, createdAt, createdBy };
         return database.ref(`chats`).push(chat).then((ref) => {
             console.log("startAddChat, ref = " + JSON.stringify(ref, null, 4));
         });

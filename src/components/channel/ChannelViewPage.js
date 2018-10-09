@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ChannelForm from './ChannelForm';
+import ChatChannelForm from '../chat/ChatChannelForm';
 import { startEditChannel, startRemoveChannel } from '../../actions/channel';
 import ChannelList from "./ChannelList";
 import ChatList from "../chat/ChatList";
+import ChatForm from "../chat/ChatForm";
 
 export class ChannelViewPage extends React.Component {
     onSubmit = (channel) => {
@@ -23,6 +24,7 @@ export class ChannelViewPage extends React.Component {
                 </div>
                 <div className='chatDiv'>
                     <ChatList />
+                    <ChatChannelForm />
                 </div>
             </div>
         );

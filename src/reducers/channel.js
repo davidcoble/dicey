@@ -2,7 +2,7 @@
 
 const channelsReducerDefaultState = [];
 
-export default (state = channelsReducerDefaultState, action) => {
+export const channelReducer = (state = channelsReducerDefaultState, action) => {
     //console.log("reducer action = " + JSON.stringify(action));
     switch (action.type) {
         case 'ADD_CHANNEL':
@@ -29,3 +29,21 @@ export default (state = channelsReducerDefaultState, action) => {
             return state;
     }
 };
+
+const channelsFilterDefaultState = {
+    member: ''
+};
+
+export const channelFilter = (state = channelsFilterDefaultState, action) => {
+    switch (action.type) {
+        case 'SET_MEMBER':
+            return {
+                ...state,
+                member: action.member
+            }
+        default:
+            return state;
+    }
+
+
+}

@@ -24,7 +24,7 @@ export class ChannelDeletePage extends React.Component {
 const mapStateToProps = (state, props) => {
     // console.log("ChannelEditPage mapStateToProps state.channel = " + JSON.stringify(state.channel, null, 4));
     return {
-        channel: state.channel.find((channel) => channel.id === props.match.params.id)
+        channel: state.channels.find((channel) => channel.id === props.match.params.id)
     };
 }
 

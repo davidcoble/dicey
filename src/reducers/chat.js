@@ -2,7 +2,7 @@
 
 const chatsReducerDefaultState = [];
 
-export default (state = chatsReducerDefaultState, action) => {
+export const chatReducer = (state = chatsReducerDefaultState, action) => {
     //console.log("reducer action = " + JSON.stringify(action));
     switch (action.type) {
         case 'ADD_CHAT':
@@ -29,3 +29,21 @@ export default (state = chatsReducerDefaultState, action) => {
             return state;
     }
 };
+
+const chatsFilterDefaultState = {
+    channel: ''
+};
+
+export const chatFilter = (state = chatsFilterDefaultState, action) => {
+    switch (action.type) {
+        case 'SET_CHANNEL':
+            return {
+                ...state,
+                channel: action.channel
+            }
+        default:
+            return state;
+    }
+
+
+}
