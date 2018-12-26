@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import ExpenseForm from './ExpenseForm';
-import { startEditExpense, startRemoveExpense } from '../actions/expenses';
+import GameForm from './GameForm';
+import { startEditExpense, startRemoveExpense } from '../../actions/expenses';
 
-export class EditExpensePage extends React.Component {
+export class EditGamePage extends React.Component {
   onSubmit = (expense) => {
     this.props.startEditExpense(this.props.expense.id, expense);
     this.props.history.push('/');
@@ -21,7 +21,7 @@ export class EditExpensePage extends React.Component {
           </div>
         </div>
         <div className="content-container">
-          <ExpenseForm
+          <GameForm
             expense={this.props.expense}
             onSubmit={this.onSubmit}
           />
@@ -41,4 +41,4 @@ const mapDispatchToProps = (dispatch, props) => ({
   startRemoveExpense: (data) => dispatch(startRemoveExpense(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EditExpensePage);
+export default connect(mapStateToProps, mapDispatchToProps)(EditGamePage);
