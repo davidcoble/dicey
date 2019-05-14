@@ -2,8 +2,11 @@
   "name": "expensify",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "Andrew Mead",
-  "license": "MIT",
+  "author": "Dave Coble",
+  "license": "Bleeph",
+  "engines": {
+    "node": "6.16.0"
+  },
   "scripts": {
     "build:dev": "webpack --watch",
     "build:prod": "webpack -p --env production",
