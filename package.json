@@ -5,7 +5,9 @@
   "author": "Dave Coble",
   "license": "Bleeph",
   "engines": {
-    "node": "6.16.0"
+    "node": "6.16.0",
+    "npm": "3.3.0",
+    "yarn": "1.16.0"
   },
   "scripts": {
     "build:dev": "webpack --watch",
