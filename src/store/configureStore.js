@@ -5,7 +5,7 @@ import { channelReducer, channelFilter } from '../reducers/channel';
 import { chatReducer, chatFilter } from '../reducers/chat';
 import expensesReducer from '../reducers/expenses';
 // import filtersReducer from '../reducers/filters';
-import gamesReducer from '../reducers/games';
+import { gameReducer, gameFilter } from '../reducers/games';
 import playersReducer from '../reducers/players';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -18,8 +18,9 @@ export default () => {
             channelFilter: channelFilter,
             chats: chatReducer,
             chatFilter: chatFilter,
+            gameFilter: gameFilter,
             expenses: expensesReducer,
-            games: gamesReducer,
+            games: gameReducer,
             players: playersReducer
         }),
         composeEnhancers(applyMiddleware(thunk))

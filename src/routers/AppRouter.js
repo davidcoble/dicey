@@ -15,6 +15,9 @@ import ChatDeletePage from '../components/chat/ChatDeletePage';
 import ChatManagementPage from '../components/chat/ChatManagementPage';
 import GameAddPage from '../components/games/GameAddPage';
 import GameEditPage from '../components/games/GameEditPage';
+import GameDeletePage from '../components/games/GameDeletePage';
+import GamePlayerAddPage from '../components/games/GamePlayerAddPage';
+import GamePlayerRemovePage from '../components/games/GamePlayerRemovePage';
 import GamesManagementPage from '../components/games/GamesManagementPage';
 import PlayerEditPage from '../components/players/PlayerEditPage';
 import PlayerManagementPage from '../components/players/PlayerManagementPage';
@@ -50,6 +53,9 @@ const AppRouter = ({startSaveUserPage}) => {
                     <PrivateRoute path="/games" component={GamesManagementPage}/>
                     <PrivateRoute path="/game/create" component={GameAddPage}/>
                     <PrivateRoute path="/game/edit/:id" component={GameEditPage}/>
+                    <PrivateRoute path="/game/delete/:id" component={GameDeletePage}/>
+                    <PrivateRoute path="/game/:gid/player/:pid/add" component={GamePlayerAddPage}/>
+                    <PrivateRoute path="/game/:gid/player/:pid/remove" component={GamePlayerRemovePage}/>
                     <PrivateRoute path="/table" component={TableExamplePage}/>
                     <PrivateRoute path="/dashboard" component={ExpenseDashboardPage}/>
                     <PrivateRoute path="/create" component={AddExpensePage}/>

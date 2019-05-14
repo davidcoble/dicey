@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import GameForm from './GameForm';
-import { startEditGame, startRemoveGame } from '../../actions/games';
+import { startAddPlayer } from '../../actions/games';
 
-export class GameDeletePage extends React.Component {
+export class GamePlayerAddPage extends React.Component {
     componentWillMount() {
-        this.props.startRemoveGame({ id: this.props.game.id });
+        this.props.startAddPlayer({ gid: this.props.game.id, pid: this.props.player.uid });
         this.props.history.push('/games');
     }
     render() {
@@ -13,7 +13,7 @@ export class GameDeletePage extends React.Component {
             <div>
                 <div className="page-header">
                     <div className="content-container">
-                        <h1 className="page-header__title">Deleting Game</h1>
+                        <h1 className="page-header__title">Adding Player to Game</h1>
                     </div>
                 </div>
             </div>
@@ -24,12 +24,13 @@ export class GameDeletePage extends React.Component {
 const mapStateToProps = (state, props) => {
     // console.log("GameEditPage mapStateToProps state.game = " + JSON.stringify(state.game, null, 4));
     return {
-        game: state.games.find((game) => game.id === props.match.params.id)
+        game: state.games.find((game) => game.id === props.match.params.gid),
+        player: state.players.find((player) => player.uid === props.match.params.pid)
     };
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    startRemoveGame: (data) => dispatch(startRemoveGame(data))
+    startAddPlayer: (data) => dispatch(startAddPlayer(data))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameDeletePage);
+export default connect(mapStateToProps, mapDispatchToProps)(GamePlayerAddPage);

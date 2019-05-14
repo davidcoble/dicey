@@ -13,8 +13,8 @@ export const startSetPlayers = () => {
     return (dispatch, getState) => {
         let auth = getState().auth;
         let uid = auth.uid;
-        let usersRef = database.ref('users');
-        usersRef.once('value').then((snapshot) => {
+        let playersRef = database.ref('players');
+        playersRef.once('value').then((snapshot) => {
             //console.log("users snapshot = " + JSON.stringify(snapshot));
             const players = [];
             snapshot.forEach((child) => {
@@ -33,7 +33,7 @@ export const startSetPlayers = () => {
             dispatch(setPlayers(players, auth));
         });
 
-        usersRef.on('value', (snapshot) => {
+        playersRef.on('value', (snapshot) => {
             const players = [];
             snapshot.forEach((child) => {
                 players.push({
@@ -56,6 +56,21 @@ export const startSetPlayers = () => {
     };
 };
 
+export const addGame = (playerId, gameId) => ({
+    type: 'ADD_GAME_TO_PLAYER',
+    playerId,
+    gameId
+});
+
+export const startAddGame = (playerId, gameId) => {
+    return (dispatch, getState) => {
+        return database.ref(`players/${playerId}/games`).push(gameId).then( () => {
+           dispatch(addGame(playerId, gameId));
+        });
+    }
+};
+
+
 export const makePlayerAdmin = (uid, isAdmin) => ({
     type: 'EDIT_PLAYER',
     uid,
@@ -64,7 +79,7 @@ export const makePlayerAdmin = (uid, isAdmin) => ({
 
 export const startMakePlayerAdmin = (uid, isAdmin) => {
     return (dispatch, getState) => {
-        return database.ref(`users/${uid}/isAdmin`).set(isAdmin).then(() => {
+        return database.ref(`players/${uid}/isAdmin`).set(isAdmin).then(() => {
             dispatch(makePlayerAdmin(uid, isAdmin));
         });
     };

@@ -1,8 +1,8 @@
 // Games Reducer
 
-const gamesReducerDefaultState = [];
+const gameReducerDefaultState = [];
 
-export default (state = gamesReducerDefaultState, action) => {
+export const gameReducer = (state = gameReducerDefaultState, action) => {
     //console.log("reducer action = " + JSON.stringify(action));
     switch (action.type) {
         case 'ADD_GAME':
@@ -29,3 +29,20 @@ export default (state = gamesReducerDefaultState, action) => {
             return state;
     }
 };
+
+const gameFilterDefaultState = {
+    name: ''
+};
+
+export const gameFilter = (state = gameFilterDefaultState, action) => {
+    switch (action.type) {
+        case 'SET_PLATER':
+            return {
+                ...state,
+                player: action.player
+            }
+        default:
+            return state;
+    }
+
+}

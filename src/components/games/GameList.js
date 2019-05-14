@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 
 const GameList = (props) => {
     //console.log("GameList props = " + JSON.stringify(props));
+    const uid = props.uid;
     return (
         <div>
             <Link className="button-round" to="/game/create">+</Link>
@@ -17,7 +18,16 @@ const GameList = (props) => {
                     ) : (
                         props.games.map((game) => {
                             return (
-                                <GameDetail key={game.id} {...game} />
+                                <GameDetail key={game.id}
+                                            props={{
+                                                id: game.id,
+                                                name: game.name,
+                                                description: game.description,
+                                                createdBy: game.createdBy,
+                                                players: game.players,
+                                                uid: uid
+                                            }}
+                                />
                             );
                         })
                     )
@@ -27,9 +37,10 @@ const GameList = (props) => {
     );
 }
 const mapStateToProps = (state) => {
-    //console.log("mapStateToProps state = " + JSON.stringify(state));
+    //console.log("mapStateToProps state = " + JSON.stringify(state, null, 2));
     return {
-        games: selectGames(state.games, state.filters)
+        games: selectGames(state.games, state.gameFilter),
+        uid: state.auth.uid
     };
 };
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 export default class PlayerForm extends React.Component {
     constructor(props) {
@@ -58,6 +57,7 @@ export default class PlayerForm extends React.Component {
                                 type='checkbox'
                                 checked={this.state.isAdmin}
                                 onChange={this.onAdminChange}
+                                value={this.state.isAdmin}
                             /></div>
                         </td>
                     </tr>
@@ -70,4 +70,5 @@ export default class PlayerForm extends React.Component {
         )
     }
 }
+
 

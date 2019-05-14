@@ -10,18 +10,17 @@ export const addGame = (game) => ({
 export const startAddGame = (gameData = {}) => {
     return (dispatch, getState) => {
         const userName = getState().auth.name;
+        gameData.createdBy = userName;
         const {
             description = '',
             name = '',
             createdAt = 0,
             createdBy = userName
         } = gameData;
-        const game = { description, name, createdAt, createdBy  };
+        const game = { description, name, createdAt, createdBy };
+        console.log("about to store game: " + JSON.stringify(game, null, 2));
         return database.ref(`games`).push(game).then((ref) => {
-            dispatch(addGame({
-                id: ref.key,
-                ...game
-            }));
+            console.log("added game");
         });
     };
 };
@@ -40,6 +39,37 @@ export const startRemoveGame = ({ id } = {}) => {
         });
     };
 };
+
+export const addPlayerToGame = (gameId, playerId) => ({
+    type: 'ADD_PLAYER_TO_GAME',
+    gameId,
+    playerId
+});
+
+export const startAddPlayer = ({gid, pid} = {}) => {
+    console.log("startAddPlayer; gameId = " + gid);
+    return (dispatch, getState) => {
+        return database.ref(`games/${gid}/players/${pid}`).set(true).then(() => {
+            dispatch(addPlayerToGame(gid, pid));
+        });
+    }
+};
+
+export const removePlayerFromGame = (gameId, playerId) => ({
+    type: 'REMOVE_PLAYER_FROM_GAME',
+    gameId,
+    playerId
+});
+
+export const startRemovePlayer = ({gid, pid} = {}) => {
+    console.log("startRemovePlayer; gameId = " + gid);
+    return (dispatch, getState) => {
+        return database.ref(`games/${gid}/players/${pid}`).set(false).then(() => {
+            dispatch(removePlayerFromGame(gid, pid));
+        });
+    }
+};
+
 
 // EDIT_GAME
 export const editGame = (id, updates) => ({

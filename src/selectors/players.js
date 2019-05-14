@@ -2,10 +2,17 @@ import moment from 'moment';
 
 // Get visible games
 // this should be called selectGamesf
-export default (games, { name, sortBy, startDate, endDate }) => {
-    //console.log("games = " + JSON.stringify(games));
-    return games.filter((game) => {
-        return true;
+export const selectGamePlayers = (players, gamers) => {
+    //console.log("selectGamePlayers players = " + JSON.stringify(players));
+    //console.log("selectGamePlayers gamers = " + JSON.stringify(gamers));
+    if(gamers === undefined)
+        return [];
+    return players.filter((player) => {
+        const pid = player.uid;
+        if (gamers[pid]) {
+            return true;
+        }
+        return false;
     }).sort((a, b) => {
         //console.log("comparing a to b " + JSON.stringify(a) + " " + JSON.stringify(b));
         return a.name < b.name ? -1 : 1;
@@ -17,3 +24,5 @@ export default (games, { name, sortBy, startDate, endDate }) => {
         // }
     });
 };
+
+{}

@@ -44,7 +44,7 @@ export const startSaveUserPage = (path) => {
         const uid = getState().auth.uid;
         //console.log("uid="+uid);
         if(uid) {
-            return database.ref(`users/${uid}/path`).set(path);
+            return database.ref(`players/${uid}/path`).set(path);
         }
     }
 }
@@ -57,14 +57,14 @@ export const startSetLoggedIn = () => {
         const email = auth.email;
         const photoURL = auth.photoURL;
         auth.isAdmin = false;
-        return database.ref(`users/${uid}/name`).set(name).then(() => {
-            database.ref(`users/${uid}/loggedIn`).set(true);
+        return database.ref(`players/${uid}/name`).set(name).then(() => {
+            database.ref(`players/${uid}/loggedIn`).set(true);
         }).then(() => {
-            database.ref(`users/${uid}/email`).set(email);
+            database.ref(`players/${uid}/email`).set(email);
         }).then(() => {
-            database.ref(`users/${uid}/photoURL`).set(photoURL);
+            database.ref(`players/${uid}/photoURL`).set(photoURL);
         }).then(() => {
-            database.ref(`users/${uid}/isAdmin`).on('value', (snap) => {
+            database.ref(`players/${uid}/isAdmin`).on('value', (snap) => {
                 auth.isAdmin = JSON.stringify(snap);
 
             });
@@ -82,7 +82,7 @@ export const startLogout = () => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         return firebase.auth().signOut().then(() => {
-            database.ref(`users/${uid}/loggedIn`).set(false);
+            database.ref(`players/${uid}/loggedIn`).set(false);
         });
     };
 };
