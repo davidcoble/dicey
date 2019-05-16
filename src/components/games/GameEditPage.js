@@ -5,6 +5,7 @@ import { startEditGame, startRemoveGame } from '../../actions/games';
 
 export class GameEditPage extends React.Component {
     onSubmit = (game) => {
+        console.log("game = " + JSON.stringify(game));
         this.props.startEditGame(this.props.game.id, game);
         this.props.history.push('/games');
     };
@@ -33,7 +34,7 @@ export class GameEditPage extends React.Component {
 };
 
 const mapStateToProps = (state, props) => {
-    console.log("GameEditPage state.games = " + JSON.stringify(state.games, null, 4));
+    //console.log("GameEditPage state.games = " + JSON.stringify(state.games, null, 4));
     return {
         game: state.games.find((game) => game.id === props.match.params.id)
     };

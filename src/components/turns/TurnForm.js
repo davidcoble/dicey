@@ -1,14 +1,15 @@
 import React from 'react';
 import moment from 'moment';
 
-export default class ChatForm extends React.Component {
+export default class TurnForm extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            name: props.chat ? props.chat.name : '',
-            description: props.chat ? props.chat.description : '',
-            createdAt: props.chat ? moment(props.chat.createdAt) : moment(),
+            name: props.turn ? props.turn.name : '',
+            description: props.turn ? props.turn.description : '',
+            createdAt: props.turn ? moment(props.turn.createdAt) : moment(),
+            createdBy: '',
             error: ''
         };
     }
@@ -29,6 +30,7 @@ export default class ChatForm extends React.Component {
             name: this.state.name,
             description: this.state.description,
             createdAt: this.state.createdAt.valueOf(),
+            createdBy: this.state.createdBy.valueOf()
         });
     };
     render() {
@@ -51,7 +53,7 @@ export default class ChatForm extends React.Component {
                     onChange={this.onDescriptionChange}
                 />
                 <div>
-                    <button className="button">Save Chat</button>
+                    <button className="button">Save Turn</button>
                 </div>
             </form>
         )

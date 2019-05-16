@@ -52,6 +52,7 @@ export default class GameForm extends React.Component {
                     value={this.state.description}
                     onChange={this.onDescriptionChange}
                 />
+                <select>
                 <div>
                     <button className="button">Save Game</button>
                 </div>

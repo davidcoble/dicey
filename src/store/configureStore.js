@@ -1,8 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from '../reducers/auth';
-import { channelReducer, channelFilter } from '../reducers/channel';
-import { chatReducer, chatFilter } from '../reducers/chat';
+import { boxReducer } from '../reducers/boxes';
 import expensesReducer from '../reducers/expenses';
 // import filtersReducer from '../reducers/filters';
 import { gameReducer, gameFilter } from '../reducers/games';
@@ -14,10 +13,7 @@ export default () => {
     const store = createStore(
         combineReducers({
             auth: authReducer,
-            channels: channelReducer,
-            channelFilter: channelFilter,
-            chats: chatReducer,
-            chatFilter: chatFilter,
+            boxes: boxReducer,
             gameFilter: gameFilter,
             expenses: expensesReducer,
             games: gameReducer,

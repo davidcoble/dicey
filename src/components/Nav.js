@@ -9,6 +9,8 @@ export const Nav = (props) => (
             <Link className='nav__link' to='/games'>games</Link>
             { props.auth.isAdmin === 'true' ?
                 (<Link className='nav__link' to='/boxes'>boxes</Link>):(<b></b>)}
+            { props.auth.isAdmin === 'true' ?
+                (<Link className='nav__link' to='/turns'>turns</Link>):(<b></b>)}
             { props.auth.isAdmin === 'true' ? (
                 <Link className='nav__link' to='/'>admin {props.auth.name}</Link>
             ): (

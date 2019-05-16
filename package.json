@@ -1,9 +1,9 @@
 {
-  "name": "expensify",
-  "version": "1.0.0",
+  "name": "dicey",
+  "version": "0.0.1",
   "main": "index.js",
-  "author": "Andrew Mead",
-  "license": "MIT",
+  "author": "Dave Coble",
+  "license": "Bleeph",
   "scripts": {
     "build:dev": "webpack --watch",
     "build:prod": "webpack -p --env production",

@@ -9,7 +9,7 @@ const BoxList = (props) => {
     const uid = props.uid;
     return (
         <div>
-            <Link className="button-round" to="/box/create">+</Link>
+            <Link className="button-round" to="/boxes/create">+</Link>
             <b>Boxes</b>
             <div>
                 {

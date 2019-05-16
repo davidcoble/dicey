@@ -1,5 +1,6 @@
 import uuid from 'uuid';
 import database from '../firebase/firebase';
+import {setGames} from "./games";
 
 // ADD_BOX
 export const addBox = (box) => ({
@@ -11,18 +12,20 @@ export const startAddBox = (boxData = {}) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         const {
+            name = '',
             description = '',
             note = '',
             amount = 0,
             createdAt = 0
         } = boxData;
-        const box = { description, note, amount, createdAt };
-        return database.ref(`users/${uid}/boxes`).push(box).then((ref) => {
-            dispatch(addBox({
-                id: ref.key,
-                ...box
-            }));
+        const box = { name, description, note, amount, createdAt };
+        return database.ref(`boxes`).push(box).then((ref) => {
+            console.log("box added");
         });
+            // dispatch(addBox({
+            //     id: ref.key,
+            //     ...box
+            // }));
     };
 };
 
@@ -34,8 +37,7 @@ export const removeBox = ({ id } = {}) => ({
 
 export const startRemoveBox = ({ id } = {}) => {
     return (dispatch, getState) => {
-        const uid = getState().auth.uid;
-        return database.ref(`users/${uid}/boxes/${id}`).remove().then(() => {
+        return database.ref(`boxes/${id}`).remove().then(() => {
             dispatch(removeBox({ id }));
         });
     };
@@ -49,9 +51,8 @@ export const editBox = (id, updates) => ({
 });
 
 export const startEditBox = (id, updates) => {
-    return (dispatch, getState) => {
-        const uid = getState().auth.uid;
-        return database.ref(`users/${uid}/boxes/${id}`).update(updates).then(() => {
+    return (dispatch) => {
+        return database.ref(`boxes/${id}`).update(updates).then(() => {
             dispatch(editBox(id, updates));
         });
     };
@@ -66,16 +67,25 @@ export const setBoxes = (boxes) => ({
 export const startSetBoxes = () => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        return database.ref(`users/${uid}/boxes`).once('value').then((snapshot) => {
+        let boxesRef = database.ref('boxes');
+        boxesRef.once('value', (snapshot) => {
             const boxes = [];
-
             snapshot.forEach((childSnapshot) => {
                 boxes.push({
                     id: childSnapshot.key,
                     ...childSnapshot.val()
                 });
             });
-
+            dispatch(setBoxes(boxes));
+        });
+        boxesRef.on('value', (snapshot) => {
+            const boxes = [];
+            snapshot.forEach((childSnapshot) => {
+                boxes.push({
+                    id: childSnapshot.key,
+                    ...childSnapshot.val()
+                });
+            });
             dispatch(setBoxes(boxes));
         });
     };

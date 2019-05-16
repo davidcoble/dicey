@@ -1,11 +1,10 @@
 import React from 'react';
-import BoxList from './BoxList';
-import BoxForm from './BoxForm';
-import TurnList from '../turns/TurnList';
+import BoxList from './TurnList';
+import TurnForm from './TurnForm';
 import {startAddBox, startEditBox, startRemoveBox} from "../../actions/boxes";
 import {connect} from "react-redux";
 
-export class BoxManagementPage extends React.Component {
+export class TurnManagementPage extends React.Component {
 
     onSubmitAddBox = (box) => {
         this.props.startAddBox(box);
@@ -13,6 +12,8 @@ export class BoxManagementPage extends React.Component {
     };
 
     onSubmitEditBox = (box) => {
+        console.log("onSubmitEditBox box = " + JSON.stringify(box));
+        console.log("onSubmitEditBox this.props.box = " + JSON.stringify(this.props.box));
         this.props.startEditBox(this.props.box.id, box);
         this.props.history.push('/boxes');
     };
@@ -21,14 +22,13 @@ export class BoxManagementPage extends React.Component {
         this.props.history.push("/boxes");
     };
     componentWillMount() {
-        if (this.props.match.path.startsWith('/boxes/delete')) {
+        if (this.props.match.path.startsWith('/box/delete')) {
             this.onRemoveBox();
         }
     };
 
     render() {
-        // console.log("render with props = " + JSON.stringify(this.props, null, 2));
-        if (this.props.location.pathname.startsWith('/boxes/create')) {
+        if (this.props.match.path === '/box/create') {
             return (
                 <div>
                     <div className="page-header">
@@ -37,13 +37,13 @@ export class BoxManagementPage extends React.Component {
                         </div>
                     </div>
                     <div className="content-container">
-                        <BoxForm onSubmit={this.onSubmitAddBox} />
+                        <TurnForm onSubmit={this.onSubmitAddBox} />
                     </div>
                 </div>
             );
         }
-        else if (this.props.match.path.startsWith('/boxes/edit')) {
-            // console.log("props = " + JSON.stringify(this.props, null,2));
+        else if (this.props.match.path.startsWith('/box/edit')) {
+            //console.log("props = " + JSON.stringify(this.props, null,2));
             return (
                 <div>
                     <div className="page-header">
@@ -51,8 +51,8 @@ export class BoxManagementPage extends React.Component {
                             <h1 className="page-header__title">Editing box {this.props.match.params.id}</h1>
                         </div>
                     </div>
-                    <div className="box-content-container">
-                        <BoxForm box={this.props.box} onSubmit={this.onSubmitEditBox} />
+                    <div className="content-container">
+                        <TurnForm box={this.props.box} onSubmit={this.onSubmitEditBox} />
                     </div>
                 </div>
             );
@@ -80,4 +80,4 @@ const mapDispatchToProps = (dispatch) => ({
     startRemoveBox: (id) => dispatch(startRemoveBox(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(BoxManagementPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TurnManagementPage);
