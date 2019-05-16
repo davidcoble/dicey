@@ -1,11 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import GameForm from './GameForm';
-import { startAddPlayer } from '../../actions/games';
+import { startAddPlayerToGame } from '../../actions/games';
+import { startAddGameToPlayer } from '../../actions/players';
 
 export class GamePlayerAddPage extends React.Component {
     componentWillMount() {
-        this.props.startAddPlayer({ gid: this.props.game.id, pid: this.props.player.uid });
+        this.props.startAddGameToPlayer({ gid: this.props.game.id, pid: this.props.player.uid });
+        this.props.startAddPlayerToGame({ gid: this.props.game.id, pid: this.props.player.uid });
         this.props.history.push('/games');
     }
     render() {
@@ -30,7 +32,8 @@ const mapStateToProps = (state, props) => {
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    startAddPlayer: (data) => dispatch(startAddPlayer(data))
+    startAddPlayerToGame: (data) => dispatch(startAddPlayerToGame(data)),
+    startAddGameToPlayer: (data) => dispatch(startAddGameToPlayer(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GamePlayerAddPage);

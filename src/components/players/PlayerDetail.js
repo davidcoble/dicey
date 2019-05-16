@@ -1,12 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PlayerGameList from './PlayerGameList';
 
-const PlayerDetail = ({uid, name, loggedIn, isAdmin, path}) => (
-    <Link to={`/editPlayer/${uid}`}>
-        <div>
-            <p>name: {name} loggedIn: {loggedIn ? 'yes' : 'no'} isAdmin: {isAdmin ? 'yes':'no'} path: {path} uid: {uid}</p>
-        </div>
-    </Link>
+const PlayerDetail = (player) => (
+    <div>
+        <Link to={`/editPlayer/${player.uid}`}>{player.name}</Link>
+        <b> loggedIn: {player.loggedIn ? 'yes' : 'no'}
+            isAdmin: {player.isAdmin ? 'yes':'no'}
+            path: {player.path} uid: {player.uid}
+        </b>
+        <PlayerGameList key={player.uid} {...player}/>
+    </div>
 );
 
 export default PlayerDetail;

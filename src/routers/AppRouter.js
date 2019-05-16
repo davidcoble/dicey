@@ -3,6 +3,7 @@ import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import ExpenseDashboardPage from '../components/ExpenseDashboardPage';
 import AddExpensePage from '../components/AddExpensePage';
+import BoxManagementPage from '../components/boxes/BoxManagementPage';
 import EditExpensePage from '../components/EditExpensePage';
 import ChannelAddPage from '../components/channel/ChannelAddPage';
 import ChannelEditPage from '../components/channel/ChannelEditPage';
@@ -40,6 +41,10 @@ const AppRouter = ({startSaveUserPage}) => {
             <div>
                 <Switch>
                     <PublicRoute path="/" component={LoginPage} exact={true}/>
+                    <PrivateRoute path="/boxes" component={BoxManagementPage}/>
+                    <PrivateRoute path="/box/create" component={BoxManagementPage}/>
+                    <PrivateRoute path="/box/delete/:id" component={BoxManagementPage}/>
+                    <PrivateRoute path="/box/edit/:id" component={BoxManagementPage}/>
                     <PrivateRoute path="/players" component={PlayerManagementPage}/>
                     <PrivateRoute path="/channels" component={ChannelManagementPage}/>
                     <PrivateRoute path="/channel/create" component={ChannelAddPage}/>

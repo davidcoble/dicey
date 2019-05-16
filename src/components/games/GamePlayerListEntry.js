@@ -2,14 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 export const GamePlayerListEntry = ({player}) => {
-    //console.log("GamePlayerListEntry: player = " + JSON.stringify(player, null, 4));
+    //console.log("PlayerGameListEntry: player = " + JSON.stringify(player, null, 4));
     return (
         <b>{player.name} </b>
     );
 };
 
 const mapStateToProps = (state, props) => {
-    //console.log("GamePlayerListEntry props = " + JSON.stringify(props, 0, 2))
+    //console.log("PlayerGameListEntry props = " + JSON.stringify(props, 0, 2))
     return {
         player: { name: props.name }
     }

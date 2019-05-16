@@ -46,8 +46,8 @@ export const addPlayerToGame = (gameId, playerId) => ({
     playerId
 });
 
-export const startAddPlayer = ({gid, pid} = {}) => {
-    console.log("startAddPlayer; gameId = " + gid);
+export const startAddPlayerToGame = ({gid, pid} = {}) => {
+    console.log("startAddPlayerToGame; gameId = " + gid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/players/${pid}`).set(true).then(() => {
             dispatch(addPlayerToGame(gid, pid));
@@ -61,8 +61,8 @@ export const removePlayerFromGame = (gameId, playerId) => ({
     playerId
 });
 
-export const startRemovePlayer = ({gid, pid} = {}) => {
-    console.log("startRemovePlayer; gameId = " + gid);
+export const startRemovePlayerFromGame = ({gid, pid} = {}) => {
+    console.log("startRemovePlayerFromGame; gameId = " + gid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/players/${pid}`).set(false).then(() => {
             dispatch(removePlayerFromGame(gid, pid));

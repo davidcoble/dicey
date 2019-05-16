@@ -56,16 +56,32 @@ export const startSetPlayers = () => {
     };
 };
 
-export const addGame = (playerId, gameId) => ({
+export const addGameToPlayer = (playerId, gameId) => ({
     type: 'ADD_GAME_TO_PLAYER',
     playerId,
     gameId
 });
 
-export const startAddGame = (playerId, gameId) => {
+export const startAddGameToPlayer = ({gid, pid} = {}) => {
+    console.log(" startAddGameToPlayer; playerId = " + pid);
     return (dispatch, getState) => {
-        return database.ref(`players/${playerId}/games`).push(gameId).then( () => {
-           dispatch(addGame(playerId, gameId));
+        return database.ref(`players/${pid}/games/${gid}`).set(true).then(() => {
+            dispatch(addGameToPlayer(pid, gid));
+        });
+    }
+};
+
+export const removeGameFromPlayer = (playerId, gameId) => ({
+    type: 'REMOVE_GAME_FROM_PLAYER',
+    playerId,
+    gameId
+});
+
+export const startRemoveGameFromPlayer = ({gid, pid} = {}) => {
+    console.log("startRemoveGameFromPlayer; playerId = " + gid);
+    return (dispatch, getState) => {
+        return database.ref(`players/${pid}/games/${gid}`).set(false).then(() => {
+            dispatch(removeGameFromPlayer(pid, gid));
         });
     }
 };

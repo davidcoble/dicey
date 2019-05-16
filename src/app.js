@@ -6,6 +6,7 @@ import configureStore from './store/configureStore';
 import { startSetPlayers} from "./actions/players";
 import { startSetLoggedIn } from "./actions/auth";
 import { startMakePlayerAdmin } from "./actions/players";
+import { startSetBoxes } from "./actions/boxes";
 import { startSetExpenses } from "./actions/expenses";
 import { startSetChannel } from "./actions/channel";
 import { startSetChat } from "./actions/chat";
@@ -52,6 +53,7 @@ firebase.auth().onAuthStateChanged((user) => {
             })
             .then(store.dispatch(startSetPlayers()))
             .then(store.dispatch(startSetLoggedIn()))
+            .then(store.dispatch(startSetBoxes()))
             .then(store.dispatch(startSetExpenses()))
             .then(store.dispatch(startSetGames()))
             .then(store.dispatch(startSetChannel()))

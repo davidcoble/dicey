@@ -17,9 +17,7 @@ export class GameAddPage extends React.Component {
           </div>
         </div>
         <div className="content-container">
-          <GameForm
-            onSubmit={this.onSubmit}
-          />
+          <GameForm onSubmit={this.onSubmit} />
         </div>
       </div>
     );
