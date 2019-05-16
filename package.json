@@ -5,7 +5,7 @@
   "author": "Dave Coble",
   "license": "Bleeph",
   "engines": {
-    "node": "6.16.0",
+    "node": "8.16.0",
     "npm": "3.3.0",
     "yarn": "1.16.0"
   },
@@ -33,6 +33,7 @@
     "history": "4.7.2",
     "moment": "2.19.3",
     "namor": "^1.1.1",
+    "node": "^6.16.0",
     "node-sass": "4.5.3",
     "normalize.css": "7.0.0",
     "numeral": "2.0.6",
