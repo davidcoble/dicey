@@ -23,6 +23,7 @@ export class GameEditPage extends React.Component {
                 </div>
                 <div className="content-container">
                     <GameForm
+                        boxes={this.props.boxes}
                         game={this.props.game}
                         onSubmit={this.onSubmit}
                     />
@@ -34,9 +35,10 @@ export class GameEditPage extends React.Component {
 };
 
 const mapStateToProps = (state, props) => {
-    //console.log("GameEditPage state.games = " + JSON.stringify(state.games, null, 4));
+    console.log("GameEditPage state.boxes = " + JSON.stringify(state.boxes, null, 4));
     return {
-        game: state.games.find((game) => game.id === props.match.params.id)
+        game: state.games.find((game) => game.id === props.match.params.id),
+        boxes: state.boxes
     };
 };
 
