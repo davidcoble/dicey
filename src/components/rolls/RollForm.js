@@ -19,7 +19,8 @@ export class RollForm extends React.Component {
             createdAt: props.roll ? moment(props.roll.createdAt) : moment(),
             createdBy: '',
             error: '',
-            uid: props.uid
+            uid: props.uid,
+            selectedGame: props.rollingGame
         };
     }
 
@@ -59,8 +60,11 @@ export class RollForm extends React.Component {
         this.props.games.map((game) => {
             gameNames.push({value: game.id, label: game.name});
         });
-        let turnNames = this.props.turns;
-
+        const selectedGame = {
+            value: this.props.gameValue,
+            label: this.props.gameLabel
+        };
+        console.log("render seletectedGame = " + JSON.stringify(selectedGame));
         return (
             <form onSubmit={this.onSubmit}>
                 {this.state.error && <p className="form__error">{this.state.error}</p> || <p>&nbsp;</p>}
@@ -71,6 +75,7 @@ export class RollForm extends React.Component {
                             <Select
                                 className='game-select'
                                 options={gameNames}
+                                defaultValue={selectedGame}
                                 onChange={this.onGameChange}
                             />
                         </div>
@@ -78,7 +83,7 @@ export class RollForm extends React.Component {
                             <p>Select Turn</p>
                             <Select
                                 className='turn-select'
-                                options={turnNames}
+                                options={this.props.turns}
                             />
                         </div>
                     </div>
@@ -126,11 +131,11 @@ export class RollForm extends React.Component {
 
 const mapStateToProps = (state) => {
     let player = state.players.find((p) => { return p.uid === state.auth.uid});
-    console.log("player = " + JSON.stringify(player, null, 2));
     let turnList = [];
     let game = state.games.find((g) => {
         return g.id === player.rollingGame
     });
+    console.log("game = " + JSON.stringify(game, null, 2));
     let box = state.boxes.find((b) => {
         return b.id === game.box.value;
     });
@@ -139,7 +144,9 @@ const mapStateToProps = (state) => {
     });
     return {
         games: selectPlayerGames(state.games, player.games),
-        turns: turnList
+        turns: turnList,
+        gameValue: game.id,
+        gameLabel: game.name
     };
 };
 
