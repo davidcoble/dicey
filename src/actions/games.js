@@ -14,10 +14,11 @@ export const startAddGame = (gameData = {}) => {
         const {
             description = '',
             name = '',
+            box = '',
             createdAt = 0,
             createdBy = userName
         } = gameData;
-        const game = { description, name, createdAt, createdBy };
+        const game = { description, name, box, createdAt, createdBy };
         console.log("about to store game: " + JSON.stringify(game, null, 2));
         return database.ref(`games`).push(game).then((ref) => {
             console.log("added game");

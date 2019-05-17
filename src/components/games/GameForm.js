@@ -36,6 +36,7 @@ export default class GameForm extends React.Component {
         this.props.onSubmit({
             name: this.state.name,
             description: this.state.description,
+            box: this.state.box,
             createdAt: this.state.createdAt.valueOf(),
             createdBy: this.state.createdBy.valueOf()
         });

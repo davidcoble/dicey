@@ -7,15 +7,14 @@ export const Nav = (props) => (
         <nav className='navNav'>
             <Link className='nav__link' to='/players'>players</Link>
             <Link className='nav__link' to='/games'>games</Link>
-            { props.auth.isAdmin === 'true' ?
-                (<Link className='nav__link' to='/boxes'>boxes</Link>):(<b></b>)}
-            { props.auth.isAdmin === 'true' ?
-                (<Link className='nav__link' to='/turns'>turns</Link>):(<b></b>)}
-            { props.auth.isAdmin === 'true' ? (
-                <Link className='nav__link' to='/'>admin {props.auth.name}</Link>
-            ): (
-                <Link className='nav__link' to='/'>{props.auth.name}</Link>
-            )}
+            <Link className='nav__link' to='/rolls'>rolls</Link>
+            { props.auth.isAdmin === 'true' &&
+            (<Link className='nav__link' to='/boxes'>boxes</Link>) }
+            {/*{ props.auth.isAdmin === 'true' ? (*/}
+            {/*    <Link className='nav__link' to='/'>admin {props.auth.name}</Link>*/}
+            {/*): (*/}
+            {/*    <Link className='nav__link' to='/'>{props.auth.name}</Link>*/}
+            {/*)}*/}
 
         </nav>
     </div>

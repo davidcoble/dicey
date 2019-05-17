@@ -1,7 +1,6 @@
 import React from 'react';
 import BoxList from './BoxList';
 import BoxForm from './BoxForm';
-import TurnList from '../turns/TurnList';
 import {startAddBox, startEditBox, startRemoveBox} from "../../actions/boxes";
 import {connect} from "react-redux";
 

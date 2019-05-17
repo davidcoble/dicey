@@ -67,7 +67,7 @@ export default class BoxForm extends React.Component {
                     </div>
                     <div className="colForm" >
                         <p>Enter one turn name per line</p>
-                        <textarea onChange={this.onTurnListChange} value={this.state.turnList} className="turnListArea"></textarea>
+                        <textarea onChange={this.onTurnListChange} value={this.state.turnList} className="turnListArea" />
                     </div>
                 </div>
             </form>

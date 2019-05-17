@@ -56,6 +56,21 @@ export const startSetPlayers = () => {
     };
 };
 
+
+export const setPlayerRollingGame = (uid, gid) => ({
+   type: "EDIT_PLAYER",
+   rollingGame: {gid}
+});
+
+export const startSetPlayerRollingGame = ({uid, gid} = {}) => {
+    console.log("uid = " + uid + " gid  = " + gid);
+    return (dispatch, getState) => {
+        return database.ref(`players/${uid}/rollingGame`).set(gid).then(() => {
+           dispatch(setPlayerRollingGame(uid, gid));
+        });
+    };
+};
+
 export const addGameToPlayer = (playerId, gameId) => ({
     type: 'ADD_GAME_TO_PLAYER',
     playerId,
@@ -64,11 +79,11 @@ export const addGameToPlayer = (playerId, gameId) => ({
 
 export const startAddGameToPlayer = ({gid, pid} = {}) => {
     console.log(" startAddGameToPlayer; playerId = " + pid);
-    return (dispatch, getState) => {
-        return database.ref(`players/${pid}/games/${gid}`).set(true).then(() => {
-            dispatch(addGameToPlayer(pid, gid));
+    return (dispatch) => {
+        return database.ref(`players/${pid}/games/${gid}/in`).set(true).then(() => {
+           dispatch(addGameToPlayer(pid, gid));
         });
-    }
+    };
 };
 
 export const removeGameFromPlayer = (playerId, gameId) => ({
@@ -80,7 +95,7 @@ export const removeGameFromPlayer = (playerId, gameId) => ({
 export const startRemoveGameFromPlayer = ({gid, pid} = {}) => {
     console.log("startRemoveGameFromPlayer; playerId = " + gid);
     return (dispatch, getState) => {
-        return database.ref(`players/${pid}/games/${gid}`).set(false).then(() => {
+        return database.ref(`players/${pid}/games/${gid}/in`).set(false).then(() => {
             dispatch(removeGameFromPlayer(pid, gid));
         });
     }

@@ -20,7 +20,7 @@ export default (games, { name, sortBy, startDate, endDate }) => {
 
 
 // Get visible games
-// this should be called selectGamesf
+// this should be called selectGames
 export const selectPlayerGames = (games, playergames) => {
     //console.log("selectPlayerGames games = " + JSON.stringify(games));
     //console.log("selectPlayerGames playergames = " + JSON.stringify(playergames));
@@ -28,7 +28,7 @@ export const selectPlayerGames = (games, playergames) => {
         return [];
     return games.filter((game) => {
         const gid = game.id;
-        if (playergames[gid]) {
+        if (playergames[gid] && playergames[gid].in) {
             return true;
         }
         return false;
@@ -44,4 +44,3 @@ export const selectPlayerGames = (games, playergames) => {
     });
 };
 
-{}

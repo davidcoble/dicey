@@ -56,7 +56,7 @@ firebase.auth().onAuthStateChanged((user) => {
             .then(() => {
                 renderApp();
                 if (history.location.pathname === '/') {
-                    history.push('/dashboard');
+                    history.push('/players');
                 }
             });
     } else {

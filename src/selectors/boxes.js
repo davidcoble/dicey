@@ -12,6 +12,24 @@ export const selectBoxes = (boxes) => {
     });
 };
 
+export const selectTurns = (boxes, box) => {
+    let turnList = [];
+    //console.log("selectTurns boxes = " + JSON.stringify(boxes, null, 2));
+    //console.log("selectTurns box = " + JSON.stringify(box, null, 2));
+    if (boxes !== undefined) {
+        boxes.filter((b1) => {
+            return b1.id === box.id
+        }).map((b) => {
+            if (b.turnList !== undefined) {
+                b.turnList.split("\n").map((turn) => {
+                    turnList.push({value: turn, label: turn});
+                });
+            }
+        });
+    }
+    return turnList;
+};
+
 
 // Get visible boxes
 // this should be called selectBoxesf

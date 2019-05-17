@@ -17,17 +17,9 @@ const GameList = (props) => {
                         <div>No Games</div>
                     ) : (
                         props.games.map((game) => {
+                            game.uid = uid;
                             return (
-                                <GameDetail key={game.id}
-                                            props={{
-                                                id: game.id,
-                                                name: game.name,
-                                                description: game.description,
-                                                createdBy: game.createdBy,
-                                                players: game.players,
-                                                uid: uid
-                                            }}
-                                />
+                                <GameDetail key={game.id} {...game} />
                             );
                         })
                     )
