@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "author": "Dave Coble",
-  "license": "Bleeph",
+  "license": "UNLICENSED",
   "scripts": {
     "build:dev": "webpack --watch",
     "build:prod": "webpack -p --env production",
