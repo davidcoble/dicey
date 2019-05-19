@@ -26,10 +26,6 @@ export class RollEpilogueForm extends React.Component {
     };
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onSubmit({
-            rid: this.state.rid,
-            epilogue: this.state.epilogue
-        });
     };
 
     render() {
