@@ -80,8 +80,8 @@ export const editGame = (id, updates) => ({
 });
 
 export const startEditGame = (id, updates) => {
-    console.log("id = " + JSON.stringify(id));
-    console.log("updates = " + JSON.stringify(updates));
+    // console.log("id = " + JSON.stringify(id));
+    // console.log("updates = " + JSON.stringify(updates));
     return (dispatch, getState) => {
         const userName = getState().auth.name;
         updates.createdBy = userName;

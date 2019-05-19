@@ -13,15 +13,20 @@ export const startAddRoll = (rollData = {}) => {
         rollData.createdBy = userName;
         const {
             description = '',
-            name = '',
-            box = '',
+            dice = '',
+            sides = '',
+            mods = '',
+            gid = '',
+            turn = '',
+            result = '',
+            epilogue = '',
             createdAt = 0,
             createdBy = userName
         } = rollData;
-        const roll = { description, name, box, createdAt, createdBy };
-        console.log("about to store roll: " + JSON.stringify(roll, null, 2));
+        const roll = { description, dice, sides, mods, gid, turn, result, epilogue, createdAt, createdBy };
+        // console.log("about to store roll: " + JSON.stringify(roll, null, 2));
         return database.ref(`rolls`).push(roll).then((ref) => {
-            console.log("added roll");
+            // console.log("added roll");
         });
     };
 };
@@ -48,14 +53,14 @@ export const editRoll = (id, updates) => ({
     updates
 });
 
-export const startEditRoll = (id, updates) => {
-    console.log("id = " + JSON.stringify(id));
-    console.log("updates = " + JSON.stringify(updates));
+export const startEditRoll = ({id, updates} = {}) => {
+    // console.log("id = " + JSON.stringify(id));
+    // console.log("updates = " + JSON.stringify(updates));
     return (dispatch, getState) => {
         const userName = getState().auth.name;
         updates.createdBy = userName;
         return database.ref(`rolls/${id}`).update(updates).then(() => {
-            dispatch(editRoll(id, updates));
+            // dispatch(editRoll(id, updates));
         });
     };
 };

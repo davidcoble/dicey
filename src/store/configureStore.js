@@ -2,6 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from '../reducers/auth';
 import { boxReducer } from '../reducers/boxes';
+import { rollReducer } from '../reducers/rolls';
 import expensesReducer from '../reducers/expenses';
 // import filtersReducer from '../reducers/filters';
 import { gameReducer, gameFilter } from '../reducers/games';
@@ -17,6 +18,7 @@ export default () => {
             gameFilter: gameFilter,
             expenses: expensesReducer,
             games: gameReducer,
+            rolls: rollReducer,
             players: playersReducer
         }),
         composeEnhancers(applyMiddleware(thunk))

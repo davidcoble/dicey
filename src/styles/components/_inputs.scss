@@ -25,6 +25,10 @@
   padding: $s-size;
 }
 
+.roll-text-input-descr {
+  @extend .roll-text-input;
+}
+
 .game-select {
   width: 200px;
 }

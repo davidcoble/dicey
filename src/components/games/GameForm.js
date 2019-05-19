@@ -43,9 +43,9 @@ export default class GameForm extends React.Component {
     };
     render() {
         let boxNames = [];
-        console.log("this.state = " + JSON.stringify(this.state, null, 2));
+        // console.log("this.state = " + JSON.stringify(this.state, null, 2));
         this.state.boxes.map((box) => {
-            console.log("box = " + JSON.stringify(box));
+            // console.log("box = " + JSON.stringify(box));
             boxNames.push({value: box.id, label: box.name});
         });
         return (

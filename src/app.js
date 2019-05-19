@@ -7,6 +7,7 @@ import { startSetPlayers} from "./actions/players";
 import { startSetLoggedIn } from "./actions/auth";
 import { startMakePlayerAdmin } from "./actions/players";
 import { startSetBoxes } from "./actions/boxes";
+import { startSetRolls } from "./actions/rolls";
 import { startSetExpenses } from "./actions/expenses";
 import { startSetGames } from "./actions/games";
 import { login, logout } from './actions/auth';
@@ -51,6 +52,7 @@ firebase.auth().onAuthStateChanged((user) => {
             .then(store.dispatch(startSetPlayers()))
             .then(store.dispatch(startSetLoggedIn()))
             .then(store.dispatch(startSetBoxes()))
+            .then(store.dispatch(startSetRolls()))
             .then(store.dispatch(startSetExpenses()))
             .then(store.dispatch(startSetGames()))
             .then(() => {

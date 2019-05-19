@@ -19,6 +19,25 @@
 .colForm {
   display: flex;
   flex-direction: column;
+  font-size: small;
+}
+
+.colForm-descr {
+  @extend .colForm;
+  width: 20%;
+}
+
+.colForm-other {
+  @extend .colForm;
+  width: 5%;
+}
+.colForm-med {
+  @extend .colForm;
+  width: 10%;
+}
+.colForm-tiny {
+  @extend .colForm;
+  width: 3%;
 }
 
 .turnListArea {

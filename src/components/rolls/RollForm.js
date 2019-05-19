@@ -14,10 +14,10 @@ export class RollForm extends React.Component {
             description: '',
             dice: '',
             sides: '',
+            mods: '',
             game: props.game ? props.game.name : '',
             turn: props.turn ? props.turn.label : '',
             createdAt: props.roll ? moment(props.roll.createdAt) : moment(),
-            createdBy: '',
             error: '',
             uid: props.uid,
             selectedGame: props.rollingGame
@@ -28,30 +28,52 @@ export class RollForm extends React.Component {
         const description = e.target.value;
         this.setState(() => ({ description }));
     };
-
-    onTurnListChange = (e) => {
-        const turnList = e.target.value;
-        console.log("new Turn List = " + turnList);
-        this.setState(() => ({ turnList}));
+    onDiceChange = (e) => {
+        const dice = e.target.value;
+        if(dice.match(/^\d*$/) && dice < 100) {
+            this.setState(() => ({dice}));
+        }
+    };
+    onSidesChange = (e) => {
+        const sides = e.target.value;
+        if(sides.match(/^\d*$/)) {
+            this.setState(() => ({sides}));
+        }
+    };
+    onModsChange = (e) => {
+        const mods = e.target.value;
+        if(mods.match(/^-?\d*$/)) {
+            this.setState(() => ({mods}));
+        }
     };
 
     onGameChange = (e) => {
-        console.log("game change! e = " + JSON.stringify(e, null, 2));
-        //const name = e.target.value;
-        this.setState(() => ({ e }));
+        // console.log("game change! e = " + JSON.stringify(e, null, 2));
+        // const name = e.target.value;
+        this.state.gid = e.value;
         this.props.onSelectRollingGame({gid: e.value});
+    };
+
+    onTurnChange = (e) => {
+        // console.log("turn change! e = " + JSON.stringify(e, null, 2));
+        // const name = e.target.value;
+        this.props.onSelectRollingGameTurn({gid: this.props.gameValue, tid: e.value});
     };
 
     onSubmit = (e) => {
         e.preventDefault();
-
+        const createdAt = moment.now();
+        // console.log("onSubmit createdAt = " + createdAt);
         this.setState(() => ({ error: '' }));
         this.props.onSubmit({
-            name: this.state.name,
             description: this.state.description,
-            turnList: this.state.turnList,
-            createdAt: this.state.createdAt.valueOf(),
-            createdBy: this.state.createdBy.valueOf()
+            dice: this.state.dice ? this.state.dice : 1,
+            sides: this.state.sides ? this.state.sides : 1,
+            mods: this.state.mods ? this.state.mods : 0,
+            gid: this.props.gameValue,
+            turn: this.props.turn,
+            createdAt: createdAt,
+            createdBy: this.props.player.name
         });
     };
 
@@ -64,7 +86,12 @@ export class RollForm extends React.Component {
             value: this.props.gameValue,
             label: this.props.gameLabel
         };
-        console.log("render seletectedGame = " + JSON.stringify(selectedGame));
+        const selectedTurn = {
+            value: this.props.turn,
+            label: this.props.turn
+        }
+        //console.log("selectedTurn = " + JSON.stringify(selectedTurn));
+        //console.log("selectedTurn = " + JSON.stringify(this.state.createdAt, null, 2));
         return (
             <form onSubmit={this.onSubmit}>
                 {this.state.error && <p className="form__error">{this.state.error}</p> || <p>&nbsp;</p>}
@@ -75,7 +102,7 @@ export class RollForm extends React.Component {
                             <Select
                                 className='game-select'
                                 options={gameNames}
-                                defaultValue={selectedGame}
+                                value={selectedGame}
                                 onChange={this.onGameChange}
                             />
                         </div>
@@ -84,22 +111,24 @@ export class RollForm extends React.Component {
                             <Select
                                 className='turn-select'
                                 options={this.props.turns}
+                                value={selectedTurn}
+                                onChange={this.onTurnChange}
                             />
                         </div>
                     </div>
                     <div className="rowForm" >
-                        <div className="colForm" >
+                        <div className="colForm-descr" >
                             <p>Description</p>
                             <input
                                 type="text"
                                 placeholder="Description"
                                 autoFocus
-                                className="roll-text-input"
+                                className="roll-text-input-descr"
                                 value={this.state.description}
                                 onChange={this.onDescriptionChange}
                             />
                         </div>
-                        <div className="colForm" >
+                        <div className="colForm-other" >
                             <p>Dice</p>
                             <input
                                 type="text"
@@ -109,7 +138,7 @@ export class RollForm extends React.Component {
                                 onChange={this.onDiceChange}
                             />
                         </div>
-                        <div className="colForm" >
+                        <div className="colForm-other" >
                             <p>Sides</p>
                             <input
                                 type="text"
@@ -117,6 +146,16 @@ export class RollForm extends React.Component {
                                 className="roll-text-input"
                                 value={this.state.sides}
                                 onChange={this.onSidesChange}
+                            />
+                        </div>
+                        <div className="colForm-other" >
+                            <p>Mods</p>
+                            <input
+                                type="text"
+                                placeholder="Mods"
+                                className="roll-text-input"
+                                value={this.state.mods}
+                                onChange={this.onModsChange}
                             />
                         </div>
                         <div>
@@ -131,22 +170,35 @@ export class RollForm extends React.Component {
 
 const mapStateToProps = (state) => {
     let player = state.players.find((p) => { return p.uid === state.auth.uid});
+    //console.log("player " + JSON.stringify(player, null, 2));
     let turnList = [];
     let game = state.games.find((g) => {
         return g.id === player.rollingGame
     });
-    console.log("game = " + JSON.stringify(game, null, 2));
+    if (game === undefined) {
+        game = {
+            box: {
+                turnList: ''
+            }
+        };
+    }
+    let turn = player.games[game.id] ? player.games[game.id].turn : '';
     let box = state.boxes.find((b) => {
         return b.id === game.box.value;
     });
+    if (box === undefined) {
+        box = { turnList: '' };
+    }
     box.turnList.split("\n").map((t) => {
         turnList.push({value: t, label: t});
     });
     return {
         games: selectPlayerGames(state.games, player.games),
         turns: turnList,
+        player: player,
         gameValue: game.id,
-        gameLabel: game.name
+        gameLabel: game.name,
+        turn: turn
     };
 };
 

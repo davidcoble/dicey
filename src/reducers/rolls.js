@@ -29,20 +29,3 @@ export const rollReducer = (state = rollReducerDefaultState, action) => {
             return state;
     }
 };
-
-const rollFilterDefaultState = {
-    name: ''
-};
-
-export const rollFilter = (state = rollFilterDefaultState, action) => {
-    switch (action.type) {
-        case 'SET_PLATER':
-            return {
-                ...state,
-                player: action.player
-            }
-        default:
-            return state;
-    }
-
-}

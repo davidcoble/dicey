@@ -1,4 +1,3 @@
-import { firebase, googleAuthProvider } from '../firebase/firebase';
 import database from '../firebase/firebase';
 import { login } from './auth';
 
@@ -15,7 +14,7 @@ export const startSetPlayers = () => {
         let uid = auth.uid;
         let playersRef = database.ref('players');
         playersRef.once('value').then((snapshot) => {
-            //console.log("users snapshot = " + JSON.stringify(snapshot));
+            // console.log("users snapshot = " + JSON.stringify(snapshot));
             const players = [];
             snapshot.forEach((child) => {
                 //let val = local_obj[key];
@@ -58,15 +57,29 @@ export const startSetPlayers = () => {
 
 
 export const setPlayerRollingGame = (uid, gid) => ({
-   type: "EDIT_PLAYER",
-   rollingGame: {gid}
+    type: "EDIT_PLAYER",
+    rollingGame: {gid}
 });
 
 export const startSetPlayerRollingGame = ({uid, gid} = {}) => {
-    console.log("uid = " + uid + " gid  = " + gid);
+    // console.log("uid = " + uid + " gid  = " + gid);
     return (dispatch, getState) => {
         return database.ref(`players/${uid}/rollingGame`).set(gid).then(() => {
-           dispatch(setPlayerRollingGame(uid, gid));
+            dispatch(setPlayerRollingGame(uid, gid));
+        });
+    };
+};
+
+export const setPlayerRollingGameTurn = (uid, gid, tid) => ({
+    type: "EDIT_PLAYER",
+    rollingGame: {gid}
+});
+
+export const startSetPlayerRollingGameTurn = ({uid, gid, tid} = {}) => {
+    // console.log("uid = " + uid + " gid  = " + gid + " tid  = " + tid);
+    return (dispatch, getState) => {
+        return database.ref(`players/${uid}/games/${gid}/turn`).set(tid).then(() => {
+            dispatch(setPlayerRollingGameTurn(uid, gid, tid));
         });
     };
 };
@@ -78,7 +91,7 @@ export const addGameToPlayer = (playerId, gameId) => ({
 });
 
 export const startAddGameToPlayer = ({gid, pid} = {}) => {
-    console.log(" startAddGameToPlayer; playerId = " + pid);
+    // console.log(" startAddGameToPlayer; playerId = " + pid);
     return (dispatch) => {
         return database.ref(`players/${pid}/games/${gid}/in`).set(true).then(() => {
            dispatch(addGameToPlayer(pid, gid));
@@ -93,7 +106,7 @@ export const removeGameFromPlayer = (playerId, gameId) => ({
 });
 
 export const startRemoveGameFromPlayer = ({gid, pid} = {}) => {
-    console.log("startRemoveGameFromPlayer; playerId = " + gid);
+    // console.log("startRemoveGameFromPlayer; playerId = " + gid);
     return (dispatch, getState) => {
         return database.ref(`players/${pid}/games/${gid}/in`).set(false).then(() => {
             dispatch(removeGameFromPlayer(pid, gid));
