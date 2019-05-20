@@ -9,7 +9,7 @@ export const PlayerGameListEntry = ({game}) => {
 };
 
 const mapStateToProps = (state, props) => {
-    console.log("PlayerGameListEntry props = " + JSON.stringify(props, 0, 2))
+    // console.log("PlayerGameListEntry props = " + JSON.stringify(props, 0, 2))
     return {
         game: { name: props.name, description: props.description }
     }

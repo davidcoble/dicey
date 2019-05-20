@@ -8,6 +8,10 @@ import { startAddRoll } from '../../actions/rolls';
 import RollDetail from "./RollDetail";
 
 export class RollList extends React.Component {
+    constructor(props) {
+        super(props);
+
+    }
     onSelectRollingGame = ({gid} = {}) => {
         // console.log("gid = " + gid);
         this.props.startSetPlayerRollingGame(this.props.uid, gid);
@@ -66,9 +70,10 @@ export class RollList extends React.Component {
     }
 }
 const mapStateToProps = (state) => {
-    // console.log("mapStateToProps state = " + JSON.stringify(state, null, 2));
+    console.log("mapStateToProps state = " + JSON.stringify(state, null, 2));
+    let gid = state.players.find((p) => { return p.uid == state.auth.uid}).rollingGame;
     return {
-        rolls: state.rolls.sort((a,b) => { return a.createdAt < b.createdAt ? 1 : -1 }), //.filter((roll) => { return roll.gid === state})),
+        rolls: selectRolls(state.rolls, gid),
         uid: state.auth.uid,
         games: state.games,
 

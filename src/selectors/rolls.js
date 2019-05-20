@@ -2,11 +2,17 @@ import moment from 'moment';
 
 // Get visible rolls
 // this should be called selectRollsf
-export const selectRolls = (rolls) => {
-    if (rolls === undefined) {
+export const selectRolls = (rolls, gid) => {
+    if (rolls === undefined || gid === undefined) {
         return [];
     }
-    //console.log("rolls = " + JSON.stringify(rolls));
+    return rolls.filter( (roll) => {
+        return roll.gid === gid;
+    })
+        .sort((a,b) => {
+            return a.createdAt < b.createdAt ? 1 : -1
+        });
+    // console.log("rolls = " + JSON.stringify(rolls));
     return rolls.filter((roll) => {
         return true;
     });
