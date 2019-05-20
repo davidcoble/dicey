@@ -57,14 +57,14 @@ export default class GameForm extends React.Component {
                         type="text"
                         placeholder="Name"
                         autoFocus
-                        className="text-input"
+                        className="roll-text-input"
                         value={this.state.name}
                         onChange={this.onNameChange}
                     />
                     <input
                         type="text"
                         placeholder="Description"
-                        className="text-input"
+                        className="roll-text-input"
                         value={this.state.description}
                         onChange={this.onDescriptionChange}
                     />

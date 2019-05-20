@@ -10,6 +10,7 @@ export const Nav = (props) => (
             <Link className='nav__link' to='/rolls'>rolls</Link>
             { props.auth.isAdmin === 'true' &&
             (<Link className='nav__link' to='/boxes'>boxes</Link>) }
+            <a className='nav__link' href='https://github.com/davidcoble/dicey/issues'>suggestions</a>
             {/*{ props.auth.isAdmin === 'true' ? (*/}
             {/*    <Link className='nav__link' to='/'>admin {props.auth.name}</Link>*/}
             {/*): (*/}

@@ -25,6 +25,15 @@
   padding: $s-size;
 }
 
+.box-text-input {
+  border: 1px solid #cacccd;
+  height: 20px;
+  width: 20em;
+  font-size: $font-size-small;
+  font-weight: 300;
+  padding: $s-size;
+}
+
 .roll-text-input-descr {
   @extend .roll-text-input;
 }
@@ -35,3 +44,96 @@
 .turn-select {
   width: 200px;
 }
+/*
+Winter II 1937
+Spring I 1937
+Spring II 1937
+Summer I 1937
+Summer II 1937
+Summer III 1937
+Autumn I 1937
+Autumn II 1937
+Winter I 1937
+Winter II 1938
+Spring I 1938
+Spring II 1938
+Summer I 1938
+Summer II 1938
+Summer III 1938
+Autumn I 1938
+Autumn II 1938
+Winter I 1938
+Winter II 1939
+Spring I 1939
+Spring II 1939
+Summer I 1939
+Summer II 1939
+Summer III 1939
+Autumn I 1939
+Autumn II 1939
+Winter I 1939
+Winter II 1940
+Spring I 1940
+Spring II 1940
+Summer I 1940
+Summer II 1940
+Summer III 1940
+Autumn I 1940
+Autumn II 1940
+Winter I 1940
+Winter II 1941
+Spring I 1941
+Spring II 1941
+Summer I 1941
+Summer II 1941
+Summer III 1941
+Autumn I 1941
+Autumn II 1941
+Winter I 1941
+Winter II 1942
+Spring I 1942
+Spring II 1942
+Summer I 1942
+Summer II 1942
+Summer III 1942
+Autumn I 1942
+Autumn II 1942
+Winter I 1942
+Winter II 1943
+Spring I 1943
+Spring II 1943
+Summer I 1943
+Summer II 1943
+Summer III 1943
+Autumn I 1943
+Autumn II 1943
+Winter I 1943
+Winter II 1944
+Spring I 1944
+Spring II 1944
+Summer I 1944
+Summer II 1944
+Summer III 1944
+Autumn I 1944
+Autumn II 1944
+Winter I 1944
+Winter II 1945
+Spring I 1945
+Spring II 1945
+Summer I 1945
+Summer II 1945
+Summer III 1945
+Autumn I 1945
+Autumn II 1945
+Winter I 1945
+Winter II 1946
+Spring I 1946
+Spring II 1946
+Summer I 1946
+Summer II 1946
+Summer III 1946
+Autumn I 1946
+Autumn II 1946
+Winter I 1946
+
+ */
