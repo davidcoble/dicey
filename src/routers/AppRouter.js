@@ -2,6 +2,7 @@ import React from 'react';
 import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import BoxManagementPage from '../components/boxes/BoxManagementPage';
+import ContactForm from '../components/ContactForm';
 import GameAddPage from '../components/games/GameAddPage';
 import GameEditPage from '../components/games/GameEditPage';
 import GameDeletePage from '../components/games/GameDeletePage';
@@ -39,6 +40,7 @@ const AppRouter = ({startSaveUserPage}) => {
                     <PrivateRoute path="/game/:gid/player/:pid/remove" component={GamePlayerRemovePage}/>
                     <PrivateRoute path="/players" component={PlayerManagementPage}/>
                     <PrivateRoute path="/rolls" component={RollManagementPage}/>
+                    <PrivateRoute path="/email" component={ContactForm}/>
                     <Route component={NotFoundPage}/>
                 </Switch>
             </div>
