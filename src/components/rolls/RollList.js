@@ -2,15 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import RollForm from './RollForm';
 import moment from 'moment';
-import { selectRolls } from '../../selectors/rolls';
+import { selectRolls, selectGamePlayersForCC } from '../../selectors/rolls';
 import { startSetPlayerRollingGame, startSetPlayerRollingGameTurn } from '../../actions/players';
 import { startAddRoll } from '../../actions/rolls';
 import RollDetail from "./RollDetail";
+import EmailClient from "../EmailClient";
 
 export class RollList extends React.Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            ...props
+        }
     }
     onSelectRollingGame = ({gid} = {}) => {
         // console.log("gid = " + gid);
@@ -32,8 +35,37 @@ export class RollList extends React.Component {
         rollRequest.result = "(" + rolls.join(', ') + ") " +
             (rollRequest.mods ? "+ (" + rollRequest.mods + ")" : "")
             + " = " + rollSum + "";
-        // console.log(rollRequest.result);
+        // console.log("rollRequest = " + JSON.stringify(rollRequest, null, 2));
+        // console.log("this.props = " + JSON.stringify(this.props, null, 2));
         this.props.startAddRoll(rollRequest);
+        let emailVars = {
+            to_email: this.state.to_email,
+            cc_list: this.state.cc_email,
+            roll_time: moment(rollRequest.createdAt).format('MMMM Do, YYYY HH:MM:ss'),
+            roll_player: rollRequest.createdBy,
+            roll_game: this.state.roll_game.name,
+            roll_turn: this.state.roll_turn,
+            roll_description: rollRequest.description,
+            roll_dice: rollRequest.dice,
+            roll_sides: rollRequest.sides,
+            roll_mod: rollRequest.mods,
+            roll_result: rollRequest.result
+        };
+/*
+    {{to_email}}
+    {{cc_list}}
+        Time of Roll: {{roll_time}}
+        Player Requesting: {{roll_player}}
+        Game: {{roll_game}}
+        Turn: {{roll_turn}}
+        Description: {{roll_description}}
+        Number of Dice: {{roll_dice}}
+        Number of Sides: {{roll_sides}}
+        Modifier: {{roll_mod}}
+*/
+
+        let emailClient = new EmailClient(emailVars);
+        emailClient.sendEmail();
     };
     render() {
         return (
@@ -69,14 +101,21 @@ export class RollList extends React.Component {
         );
     }
 }
-const mapStateToProps = (state) => {
-    console.log("mapStateToProps state = " + JSON.stringify(state, null, 2));
-    let gid = state.players.find((p) => { return p.uid == state.auth.uid}).rollingGame;
+const mapStateToProps = (state, props) => {
+    // console.log("mapStateToProps props = " + JSON.stringify(props, null, 2));
+    let player = state.players.find((p) => { return p.uid === state.auth.uid });
+    // console.log("player = " + JSON.stringify(player));
+    let gid = player.rollingGame;
+    let game = state.games.filter((g) => g.id == gid)[0];
+
     return {
         rolls: selectRolls(state.rolls, gid),
         uid: state.auth.uid,
         games: state.games,
-
+        to_email: player.email,
+        cc_email: selectGamePlayersForCC(state.players, game, player.uid),
+        roll_game: game,
+        roll_turn: player.games[gid].turn
     };
 };
 const mapDispatchToProps = (dispatch, props) => ({

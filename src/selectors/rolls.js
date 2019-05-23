@@ -28,6 +28,17 @@ export const selectRolls = (rolls, gid) => {
     // });
 };
 
+export const selectGamePlayersForCC = (players, game, uid) => {
+    let cc_list = [];
+    players.filter((p) => {
+        return p.games && p.games[game.id] && p.games[game.id].in && game.subscribers[p.uid];
+    }).map((p) => {
+        if (uid !== p.uid) {
+            cc_list.push(p.email);
+        }
+    });
+    return cc_list;
+};
 
 // Get visible rolls
 // this should be called selectRolls
@@ -54,4 +65,3 @@ export const selectPlayerRolls = (rolls, playerrolls) => {
     });
 };
 
-{}
