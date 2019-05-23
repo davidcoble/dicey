@@ -2,12 +2,14 @@ import React from 'react';
 import { Router, Route, Switch, Link, NavLink } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import BoxManagementPage from '../components/boxes/BoxManagementPage';
-import ContactForm from '../components/ContactForm';
+import ContactForm from '../components/EmailClient';
 import GameAddPage from '../components/games/GameAddPage';
 import GameEditPage from '../components/games/GameEditPage';
 import GameDeletePage from '../components/games/GameDeletePage';
 import GamePlayerAddPage from '../components/games/GamePlayerAddPage';
 import GamePlayerRemovePage from '../components/games/GamePlayerRemovePage';
+import GameSubscriberAddPage from '../components/games/GameSubscriberAddPage';
+import GameSubscriberRemovePage from '../components/games/GameSubscriberRemovePage';
 import GamesManagementPage from '../components/games/GamesManagementPage';
 import PlayerManagementPage from '../components/players/PlayerManagementPage';
 import RollManagementPage from '../components/rolls/RollManagementPage';
@@ -38,6 +40,8 @@ const AppRouter = ({startSaveUserPage}) => {
                     <PrivateRoute path="/game/delete/:id" component={GameDeletePage}/>
                     <PrivateRoute path="/game/:gid/player/:pid/add" component={GamePlayerAddPage}/>
                     <PrivateRoute path="/game/:gid/player/:pid/remove" component={GamePlayerRemovePage}/>
+                    <PrivateRoute path="/game/:gid/subscriber/:pid/subscribe" component={GameSubscriberAddPage}/>
+                    <PrivateRoute path="/game/:gid/subscriber/:pid/unsubscribe" component={GameSubscriberRemovePage}/>
                     <PrivateRoute path="/players" component={PlayerManagementPage}/>
                     <PrivateRoute path="/rolls" component={RollManagementPage}/>
                     <PrivateRoute path="/email" component={ContactForm}/>

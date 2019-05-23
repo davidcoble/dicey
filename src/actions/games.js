@@ -71,6 +71,36 @@ export const startRemovePlayerFromGame = ({gid, pid} = {}) => {
     }
 };
 
+export const addSubscriberToGame = (gameId, subscriberId) => ({
+    type: 'ADD_SUBSCRIBER_TO_GAME',
+    gameId,
+    subscriberId
+});
+
+export const startAddSubscriberToGame = ({gid, pid} = {}) => {
+    console.log("startAddSubscriberToGame; gameId = " + gid);
+    return (dispatch, getState) => {
+        return database.ref(`games/${gid}/subscribers/${pid}`).set(true).then(() => {
+            dispatch(addSubscriberToGame(gid, pid));
+        });
+    }
+};
+
+export const removeSubscriberFromGame = (gameId, subscriberId) => ({
+    type: 'REMOVE_SUBSCRIBER_FROM_GAME',
+    gameId,
+    subscriberId
+});
+
+export const startRemoveSubscriberFromGame = ({gid, pid} = {}) => {
+    console.log("startRemoveSubscriberFromGame; gameId = " + gid);
+    return (dispatch, getState) => {
+        return database.ref(`games/${gid}/subscribers/${pid}`).set(false).then(() => {
+            dispatch(removeSubscriberFromGame(gid, pid));
+        });
+    }
+};
+
 
 // EDIT_GAME
 export const editGame = (id, updates) => ({
