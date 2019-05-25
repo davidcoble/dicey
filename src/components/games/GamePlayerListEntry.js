@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 export const GamePlayerListEntry = ({player}) => {
     //console.log("PlayerGameListEntry: player = " + JSON.stringify(player, null, 4));
     return (
-        <b>{player.name} </b>
+        <i>{player.name} </i>
     );
 };
 

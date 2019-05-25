@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 export default class EmailClient extends React.Component {
     constructor(props) {
         super(props);
-        console.log("EmailClient constructor props = " + JSON.stringify(props, null, 2));
+        // console.log("EmailClient constructor props = " + JSON.stringify(props, null, 2));
         this.state = {
             "reply_to": "dicey.coble@gmail.com",
             "to_name": "Dave",
@@ -28,9 +28,10 @@ export default class EmailClient extends React.Component {
             'user_uvQW58wZPoC8HU2KL7KLJ'
         )
             .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
+                // console.log('SUCCESS!', response.status, response.text);
             }, function(err) {
-                console.log('it FAILED...', err);
+                // TODO: display an error message
+                // console.log('it FAILED...', err);
             });
 
     };

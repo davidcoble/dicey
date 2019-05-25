@@ -25,4 +25,17 @@ export const selectGamePlayers = (players, gamers) => {
     });
 };
 
+export const selectGameSubscribers = (players, subscribers) => {
+    if (subscribers === undefined) {
+        return [];
+    }
+    return players.filter((p) => {
+        const pid = p.uid;
+        if (subscribers[pid]) {
+            return true;
+        }
+        return false;
+    });
+}
+
 {}
