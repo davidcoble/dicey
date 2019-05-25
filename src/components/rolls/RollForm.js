@@ -3,13 +3,15 @@ import moment from 'moment';
 import Select from 'react-select';
 import { selectTurns } from '../../selectors/boxes';
 import { selectPlayerGames } from '../../selectors/games';
+import { selectGamePlayersForCC } from '../../selectors/rolls';
 import {connect} from "react-redux";
 import {RollList} from "./RollList";
+import GameSubscriberList from "../games/GameSubscriberList";
 
 export class RollForm extends React.Component {
     constructor(props) {
         super(props);
-        // console.log("RollForm props = " + JSON.stringify(props, null, 2));
+        // console.log("RollForm props.turn = " + JSON.stringify(props.turn, null, 2));
         this.state = {
             description: '',
             dice: '',
@@ -23,6 +25,7 @@ export class RollForm extends React.Component {
             selectedGame: props.rollingGame,
             ...props
         };
+        // console.log("RollForm this.state.turn = " + JSON.stringify(this.state.turn, null, 2));
     }
 
     onDescriptionChange = (e) => {
@@ -68,14 +71,16 @@ export class RollForm extends React.Component {
         const createdAt = moment.now();
         // console.log("onSubmit createdAt = " + createdAt);
         // console.log("RollForm.onSubmit state = " + JSON.stringify(this.state, null, 2));
+        // console.log("RollForm.onSubmit this.state.turn = " + this.state.turn);
+        // console.log("RollForm.onSubmit this.props.turn = " + this.props.turn);
         this.setState(() => ({ error: '' }));
         this.props.onSubmit({
             description: this.state.description,
             dice: this.state.dice ? this.state.dice : 1,
             sides: this.state.sides ? this.state.sides : 1,
             mods: this.state.mods ? this.state.mods : 0,
-            gid: this.state.gameValue,
-            turn: this.state.turn,
+            gid: this.props.gameValue,
+            turn: this.props.turn,
             createdAt: createdAt,
             createdBy: this.props.player.name,
                 // ...this.state
@@ -119,6 +124,12 @@ export class RollForm extends React.Component {
                                 value={selectedTurn}
                                 onChange={this.onTurnChange}
                             />
+                        </div>
+                        <div className="colForm" >
+                            <b>Players</b>
+
+                            <b>Subscribers</b>
+                            <GameSubscriberList {...this.props.game}/>
                         </div>
                     </div>
                     <div className="rowForm" >
@@ -175,7 +186,8 @@ export class RollForm extends React.Component {
 
 const mapStateToProps = (state) => {
     let player = state.players.find((p) => { return p.uid === state.auth.uid});
-    //console.log("player " + JSON.stringify(player, null, 2));
+    let rollingGame = player.rollingGame;
+    // console.log("player.rollingGame " + JSON.stringify(player.rollingGame, null, 2));
     let turnList = [];
     let game = state.games.find((g) => {
         return g.id === player.rollingGame
@@ -187,7 +199,7 @@ const mapStateToProps = (state) => {
             }
         };
     }
-    let turn = player.games[game.id] ? player.games[game.id].turn : '';
+    let turn = player.games[rollingGame] ? player.games[rollingGame].turn : '';
     let box = state.boxes.find((b) => {
         return b.id === game.box.value;
     });
@@ -198,6 +210,7 @@ const mapStateToProps = (state) => {
         turnList.push({value: t, label: t});
     });
     return {
+        game: game,
         games: selectPlayerGames(state.games, player.games),
         turns: turnList,
         player: player,
