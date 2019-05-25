@@ -20,7 +20,8 @@ export class RollForm extends React.Component {
             createdAt: props.roll ? moment(props.roll.createdAt) : moment(),
             error: '',
             uid: props.uid,
-            selectedGame: props.rollingGame
+            selectedGame: props.rollingGame,
+            ...props
         };
     }
 
@@ -66,6 +67,7 @@ export class RollForm extends React.Component {
         e.preventDefault();
         const createdAt = moment.now();
         // console.log("onSubmit createdAt = " + createdAt);
+        // console.log("RollForm.onSubmit state = " + JSON.stringify(this.state, null, 2));
         this.setState(() => ({ error: '' }));
         this.props.onSubmit({
             description: this.state.description,
@@ -75,7 +77,8 @@ export class RollForm extends React.Component {
             gid: this.state.gameValue,
             turn: this.state.turn,
             createdAt: createdAt,
-            createdBy: this.props.player.name
+            createdBy: this.props.player.name,
+                // ...this.state
         });
     };
 
