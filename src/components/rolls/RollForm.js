@@ -9,14 +9,14 @@ import {RollList} from "./RollList";
 export class RollForm extends React.Component {
     constructor(props) {
         super(props);
-
+        // console.log("RollForm props = " + JSON.stringify(props, null, 2));
         this.state = {
             description: '',
             dice: '',
             sides: '',
             mods: '',
             game: props.game ? props.game.name : '',
-            turn: props.turn ? props.turn.label : '',
+            turn: props.turn ? props.turn : '',
             createdAt: props.roll ? moment(props.roll.createdAt) : moment(),
             error: '',
             uid: props.uid,
@@ -51,12 +51,14 @@ export class RollForm extends React.Component {
         // console.log("game change! e = " + JSON.stringify(e, null, 2));
         // const name = e.target.value;
         this.state.gid = e.value;
+        this.state.gameValue = e.value;
         this.props.onSelectRollingGame({gid: e.value});
     };
 
     onTurnChange = (e) => {
         // console.log("turn change! e = " + JSON.stringify(e, null, 2));
         // const name = e.target.value;
+        this.state.turn = e.label;
         this.props.onSelectRollingGameTurn({gid: this.props.gameValue, tid: e.value});
     };
 
@@ -70,8 +72,8 @@ export class RollForm extends React.Component {
             dice: this.state.dice ? this.state.dice : 1,
             sides: this.state.sides ? this.state.sides : 1,
             mods: this.state.mods ? this.state.mods : 0,
-            gid: this.props.gameValue,
-            turn: this.props.turn,
+            gid: this.state.gameValue,
+            turn: this.state.turn,
             createdAt: createdAt,
             createdBy: this.props.player.name
         });

@@ -20,7 +20,7 @@ export const startAddBox = (boxData = {}) => {
         } = boxData;
         const box = { name, description, note, amount, createdAt };
         return database.ref(`boxes`).push(box).then((ref) => {
-            console.log("box added");
+            // console.log("box added");
         });
             // dispatch(addBox({
             //     id: ref.key,

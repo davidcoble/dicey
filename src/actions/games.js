@@ -19,9 +19,9 @@ export const startAddGame = (gameData = {}) => {
             createdBy = userName
         } = gameData;
         const game = { description, name, box, createdAt, createdBy };
-        console.log("about to store game: " + JSON.stringify(game, null, 2));
+        // console.log("about to store game: " + JSON.stringify(game, null, 2));
         return database.ref(`games`).push(game).then((ref) => {
-            console.log("added game");
+            // console.log("added game");
         });
     };
 };
@@ -48,7 +48,7 @@ export const addPlayerToGame = (gameId, playerId) => ({
 });
 
 export const startAddPlayerToGame = ({gid, pid} = {}) => {
-    console.log("startAddPlayerToGame; gameId = " + gid);
+    // console.log("startAddPlayerToGame; gameId = " + gid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/players/${pid}`).set(true).then(() => {
             dispatch(addPlayerToGame(gid, pid));
@@ -63,7 +63,7 @@ export const removePlayerFromGame = (gameId, playerId) => ({
 });
 
 export const startRemovePlayerFromGame = ({gid, pid} = {}) => {
-    console.log("startRemovePlayerFromGame; gameId = " + gid);
+    // console.log("startRemovePlayerFromGame; gameId = " + gid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/players/${pid}`).set(false).then(() => {
             dispatch(removePlayerFromGame(gid, pid));
@@ -78,7 +78,7 @@ export const addSubscriberToGame = (gameId, subscriberId) => ({
 });
 
 export const startAddSubscriberToGame = ({gid, pid} = {}) => {
-    console.log("startAddSubscriberToGame; gameId = " + gid);
+    // console.log("startAddSubscriberToGame; gameId = " + gid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/subscribers/${pid}`).set(true).then(() => {
             dispatch(addSubscriberToGame(gid, pid));
@@ -93,7 +93,7 @@ export const removeSubscriberFromGame = (gameId, subscriberId) => ({
 });
 
 export const startRemoveSubscriberFromGame = ({gid, pid} = {}) => {
-    console.log("startRemoveSubscriberFromGame; gameId = " + gid);
+    // console.log("startRemoveSubscriberFromGame; gameId = " + gid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/subscribers/${pid}`).set(false).then(() => {
             dispatch(removeSubscriberFromGame(gid, pid));

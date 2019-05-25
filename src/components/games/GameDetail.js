@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import GamePlayerList from './GamePlayerList';
+import GameSubscriberList from './GameSubscriberList';
 import GamePlayerListEntry from './GamePlayerListEntry';
 const GameDetail = (ref) => {
-    //console.log("GameDetail: ref = " + JSON.stringify(ref, null, 4));
+    // console.log("GameDetail: ref = " + JSON.stringify(ref, null, 4));
     return (
         <div>
             <Link className="button-round" to={`/game/delete/${ref.id}`}>-</Link>
@@ -26,7 +27,10 @@ const GameDetail = (ref) => {
             <Link to={`/game/edit/${ref.id}`}>
                 <b>{ref.name} ({ref.description}) using {ref.box.label} rules </b>
             </Link>
-            <GamePlayerList key={ref.id} {...ref}/>
+            <b>Players</b>
+            <GamePlayerList {...ref}/>
+            <b>Subscribers</b>
+            <GameSubscriberList {...ref}/>
         </div>
     );
 };

@@ -27,7 +27,7 @@ export class GameAddPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-    console.log("GameEditPage state.boxes = " + JSON.stringify(state.boxes, null, 4));
+    // console.log("GameEditPage state.boxes = " + JSON.stringify(state.boxes, null, 4));
     return {
         game: state.games.find((game) => game.id === props.match.params.id),
         boxes: state.boxes

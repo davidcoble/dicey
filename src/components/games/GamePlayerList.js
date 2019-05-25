@@ -15,10 +15,8 @@ const GamePlayerList = (props) => {
                         <div>No Players</div>
                     ) : (
                         props.players.map((player) => {
-                            return (
-                                <GamePlayerListEntry key={player.uid} {...player} />
-                            );
-                        })
+                            return `${player.name}`
+                        }).join(", ")
                     )
                 }
             </div>

@@ -31,11 +31,10 @@ export const selectRolls = (rolls, gid) => {
 export const selectGamePlayersForCC = (players, game, uid) => {
     let cc_list = [];
     players.filter((p) => {
-        return p.games && p.games[game.id] && p.games[game.id].in && game.subscribers[p.uid];
+        return p.games && p.games[game.id] && p.games[game.id].in
+            && game.subscribers && game.subscribers[p.uid];
     }).map((p) => {
-        if (uid !== p.uid) {
-            cc_list.push(p.email);
-        }
+        cc_list.push(p.email);
     });
     return cc_list;
 };
@@ -56,12 +55,6 @@ export const selectPlayerRolls = (rolls, playerrolls) => {
     }).sort((a, b) => {
         //console.log("comparing a to b " + JSON.stringify(a) + " " + JSON.stringify(b));
         return a.name < b.name ? -1 : 1;
-        // if (sortBy === 'name') {
-        //     console.log("comparing a to b " + JSON.stringify(a) + " " + JSON.stringify(b));
-        //     return b.name < a.name ? -1 : 1;
-        // } else if (sortBy === 'amount') {
-        //     return a.amount < b.amount ? 1 : -1;
-        // }
     });
 };
 

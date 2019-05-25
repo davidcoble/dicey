@@ -20,7 +20,7 @@ export default class BoxForm extends React.Component {
     };
     onTurnListChange = (e) => {
         const turnList = e.target.value;
-        console.log("new Turn List = " + turnList);
+        // console.log("new Turn List = " + turnList);
         this.setState(() => ({ turnList}));
     };
     onNameChange = (e) => {
