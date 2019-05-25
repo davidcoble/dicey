@@ -25,7 +25,7 @@ export class RollManagementPage extends React.Component {
         this.props.startSetPlayerRollingGameTurn(this.props.uid, gid, tid);
     };
     onSubmit = (rollRequest) => {
-        console.log("[RollManagementPage.onSubmit] rollRequest = " + JSON.stringify(rollRequest, null, 2));
+        // console.log("[RollManagementPage.onSubmit] rollRequest = " + JSON.stringify(rollRequest, null, 2));
         let rolls = [];
         let rollSum = 0;
         rollSum += parseInt(rollRequest.mods);
@@ -52,12 +52,12 @@ export class RollManagementPage extends React.Component {
             roll_mod: rollRequest.mods,
             roll_result: rollRequest.result
         };
-        console.log("emailVars.to_email = >" + JSON.stringify(emailVars.to_email, null, 2 ) + "<");
+        // console.log("emailVars.to_email = >" + JSON.stringify(emailVars.to_email, null, 2 ) + "<");
         if (emailVars.to_email === undefined || emailVars.to_email.length < 1) {
-            console.log("skipping email");
+            // console.log("skipping email");
             return;
         }
-        console.log("sending email");
+        // console.log("sending email");
         let emailClient = new EmailClient(emailVars);
         emailClient.sendEmail();
     };
