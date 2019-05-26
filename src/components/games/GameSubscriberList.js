@@ -4,7 +4,7 @@ import { selectGameSubscribers } from '../../selectors/players';
 import {Link} from "react-router-dom";
 
 const GameSubscriberList = (props) => {
-    console.log("GameSubscriberList props = " + JSON.stringify(props, null, 2));
+    // console.log("GameSubscriberList props = " + JSON.stringify(props, null, 2));
     const uid = props.uid;
     return (
         <div>
