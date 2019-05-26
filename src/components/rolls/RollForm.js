@@ -7,6 +7,7 @@ import { selectGamePlayersForCC } from '../../selectors/rolls';
 import {connect} from "react-redux";
 import {RollList} from "./RollList";
 import GameSubscriberList from "../games/GameSubscriberList";
+import GamePlayerList from "../games/GamePlayerList";
 
 export class RollForm extends React.Component {
     constructor(props) {
@@ -25,7 +26,7 @@ export class RollForm extends React.Component {
             selectedGame: props.rollingGame,
             ...props
         };
-        // console.log("RollForm this.state.turn = " + JSON.stringify(this.state.turn, null, 2));
+        console.log("RollForm this.state.sides = " + JSON.stringify(this.state.sides, null, 2));
     }
 
     onDescriptionChange = (e) => {
@@ -127,8 +128,8 @@ export class RollForm extends React.Component {
                         </div>
                         <div className="colForm" >
                             <b>Players</b>
-
-                            <b>Subscribers</b>
+                            <GamePlayerList {...this.props.game}/>
+                            <b>Subscribers (email recipients)</b>
                             <GameSubscriberList {...this.props.game}/>
                         </div>
                     </div>
@@ -209,6 +210,7 @@ const mapStateToProps = (state) => {
     box.turnList.split("\n").map((t) => {
         turnList.push({value: t, label: t});
     });
+
     return {
         game: game,
         games: selectPlayerGames(state.games, player.games),
@@ -216,7 +218,8 @@ const mapStateToProps = (state) => {
         player: player,
         gameValue: game.id,
         gameLabel: game.name,
-        turn: turn
+        turn: turn,
+        // sides: box.sides ? box.sides : '',
     };
 };
 

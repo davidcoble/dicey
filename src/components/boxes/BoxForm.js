@@ -18,6 +18,10 @@ export default class BoxForm extends React.Component {
         const description = e.target.value;
         this.setState(() => ({ description }));
     };
+    onSidesChange = (e) => {
+        const sides = e.target.value;
+        this.setState(() => ({ sides }));
+    };
     onTurnListChange = (e) => {
         const turnList = e.target.value;
         // console.log("new Turn List = " + turnList);
@@ -35,6 +39,7 @@ export default class BoxForm extends React.Component {
         this.props.onSubmit({
             name: this.state.name,
             description: this.state.description,
+            sides: this.state.sides,
             turnList: this.state.turnList,
             createdAt: this.state.createdAt.valueOf(),
             createdBy: this.state.createdBy.valueOf()
@@ -46,6 +51,7 @@ export default class BoxForm extends React.Component {
                 <div className="rowForm" >
                     <div className="colForm" >
                         {this.state.error && <p className="form__error">{this.state.error}</p> || <p>&nbsp;</p>}
+                        <b>Name</b>
                         <input
                             type="text"
                             placeholder="Name"
@@ -54,6 +60,7 @@ export default class BoxForm extends React.Component {
                             value={this.state.name}
                             onChange={this.onNameChange}
                         />
+                        <b>Description</b>
                         <input
                             type="text"
                             placeholder="Description"
@@ -61,6 +68,14 @@ export default class BoxForm extends React.Component {
                             value={this.state.description}
                             onChange={this.onDescriptionChange}
                         />
+                        <b>Default Die (sides)</b>
+                        <input
+                            type="text"
+                            placeholder="sides of default die"
+                            className="box-text-input"
+                            value={this.state.sides}
+                            onChange={this.onSidesChange}
+                            />
                         <div>
                             <button className="button">Save Box</button>
                         </div>

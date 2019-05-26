@@ -14,11 +14,12 @@ export const startAddBox = (boxData = {}) => {
         const {
             name = '',
             description = '',
+            sides = '',
             note = '',
             amount = 0,
             createdAt = 0
         } = boxData;
-        const box = { name, description, note, amount, createdAt };
+        const box = { name, description, sides, note, amount, createdAt };
         return database.ref(`boxes`).push(box).then((ref) => {
             // console.log("box added");
         });
