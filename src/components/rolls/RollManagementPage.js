@@ -1,7 +1,9 @@
+import uuid from 'uuid';
 import React from 'react';
 import RollList from './RollList';
 import RollForm from './RollForm';
 import EmailClient from "../EmailClient";
+import { startAddMsg } from "../../actions/msgs";
 import { startSetPlayerRollingGame, startSetPlayerRollingGameTurn } from '../../actions/players';
 import { startAddRoll } from "../../actions/rolls";
 import { selectGamePlayersForCC } from '../../selectors/rolls';
@@ -15,6 +17,22 @@ export class RollManagementPage extends React.Component {
             ...props
         }
     }
+    componentWillMount() {
+        let u = uuid();
+        console.log("u = " + u);
+        // console.log("componentWillMount props" + JSON.stringify(this.props, null, 2));
+        if (this.props.games.length === 0) {
+            this.props.startAddMsg({msg: {
+                    id: u,
+                    type: 'error',
+                    page: '/games',
+                    text: 'please join a game before you roll'
+                }
+            });
+            this.props.history.push('/games');
+        }
+    }
+
     onSelectRollingGame = ({gid} = {}) => {
         // console.log("gid = " + gid);
         let uid = this.props.uid;
@@ -84,16 +102,18 @@ const mapStateToProps = (state, props) => {
     let game = state.games.find((g) => {
         return g.id === player.rollingGame;
     });
-/*
-    console.log("player.rollingGame = " + JSON.stringify(player.rollingGame));
-    console.log("state.games = " + JSON.stringify(state.games, null, 2));
-*/
+    /*
+        console.log("player.rollingGame = " + JSON.stringify(player.rollingGame));
+        console.log("state.games = " + JSON.stringify(state.games, null, 2));
+        console.log("player.games = " + JSON.stringify(player.games, null, 2));
+    */
     return {
         to_email: selectGamePlayersForCC(state.players, game),
         uid: state.auth.uid,
         roll: state.rolls ? state.rolls.find((roll) => roll.id === props.match.params.id) : [],
-        gameValue: game.id,
-        gameLabel: game.name,
+        gameValue: game === undefined ? '' : game.id,
+        gameLabel: game === undefined ? '' : game.name,
+        games: Object.keys(player.games).filter((k) => { return player.games[k].in }),
     };
 };
 
@@ -107,7 +127,8 @@ const mapDispatchToProps = (dispatch) => ({
     },
     startAddRoll: (roll) => {
         dispatch(startAddRoll(roll));
-    }
+    },
+    startAddMsg: (data) => dispatch(startAddMsg(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RollManagementPage);

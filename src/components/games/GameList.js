@@ -29,7 +29,7 @@ const GameList = (props) => {
     );
 }
 const mapStateToProps = (state) => {
-    //console.log("mapStateToProps state = " + JSON.stringify(state, null, 2));
+    console.log("mapStateToProps state.error = " + JSON.stringify(state.error, null, 2));
     return {
         games: selectGames(state.games, state.gameFilter),
         uid: state.auth.uid

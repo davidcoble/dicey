@@ -2,11 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import GameForm from './GameForm';
 import { startAddPlayerToGame } from '../../actions/games';
-import { startAddGameToPlayer } from '../../actions/players';
+import { startAddGameToPlayer, startSetPlayerRollingGame } from '../../actions/players';
 
 export class GamePlayerAddPage extends React.Component {
     componentWillMount() {
         this.props.startAddGameToPlayer({ gid: this.props.game.id, pid: this.props.player.uid });
+        this.props.startSetPlayerRollingGame({uid: this.props.player.uid, gid: this.props.game.id});
         this.props.startAddPlayerToGame({ gid: this.props.game.id, pid: this.props.player.uid });
         this.props.history.push('/games');
     }
@@ -33,7 +34,8 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch, props) => ({
     startAddPlayerToGame: (data) => dispatch(startAddPlayerToGame(data)),
-    startAddGameToPlayer: (data) => dispatch(startAddGameToPlayer(data))
+    startAddGameToPlayer: (data) => dispatch(startAddGameToPlayer(data)),
+    startSetPlayerRollingGame: (data) => dispatch(startSetPlayerRollingGame(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GamePlayerAddPage);

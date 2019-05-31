@@ -3,8 +3,7 @@ import thunk from 'redux-thunk';
 import authReducer from '../reducers/auth';
 import { boxReducer } from '../reducers/boxes';
 import { rollReducer } from '../reducers/rolls';
-import expensesReducer from '../reducers/expenses';
-// import filtersReducer from '../reducers/filters';
+import { msgReducer } from '../reducers/msgs';
 import { gameReducer, gameFilter } from '../reducers/games';
 import playersReducer from '../reducers/players';
 
@@ -16,8 +15,8 @@ export default () => {
             auth: authReducer,
             boxes: boxReducer,
             gameFilter: gameFilter,
-            expenses: expensesReducer,
             games: gameReducer,
+            msgs: msgReducer,
             rolls: rollReducer,
             players: playersReducer
         }),
