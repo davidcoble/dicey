@@ -36,7 +36,7 @@ const gameFilterDefaultState = {
 
 export const gameFilter = (state = gameFilterDefaultState, action) => {
     switch (action.type) {
-        case 'SET_PLATER':
+        case 'SET_PLAYER':
             return {
                 ...state,
                 player: action.player

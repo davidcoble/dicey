@@ -30,6 +30,9 @@ export const selectRolls = (rolls, gid) => {
 
 export const selectGamePlayersForCC = (players, game, uid) => {
     let cc_list = [];
+    if (game === undefined) {
+        return cc_list;
+    }
     players.filter((p) => {
         return p.games && p.games[game.id] && p.games[game.id].in
             && game.subscribers && game.subscribers[p.uid];

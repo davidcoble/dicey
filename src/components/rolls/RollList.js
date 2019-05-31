@@ -50,7 +50,7 @@ const mapStateToProps = (state, props) => {
         uid: state.auth.uid,
         games: state.games,
         roll_game: game,
-        roll_turn: player.games[gid].turn
+        roll_turn: player.games[gid] === undefined ? '' : player.games[gid].turn
     };
 };
 const mapDispatchToProps = (dispatch, props) => ({
