@@ -35,6 +35,17 @@ div.navDiv {
   justify-content: center;
 
 }
+.pageTitle {
+  font-size: $l-size;
+  margin: 0 0 0 350px;
+  width: 100%;
+}
+
+.pageSubtitle {
+  font-size: $m-size;
+  margin: 0 0 0 360px;
+  width: 100%;
+}
 
 @media (max-width: 45rem) {
   .nav {

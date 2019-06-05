@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { selectGameSubscribers } from '../../selectors/players';
 import {Link} from "react-router-dom";
+import GamePlayerDetail from "./GamePlayerDetail";
 
 const GameSubscriberList = (props) => {
     // console.log("GameSubscriberList props = " + JSON.stringify(props, null, 2));
@@ -14,8 +15,10 @@ const GameSubscriberList = (props) => {
                         <div>No subscribers</div>
                     ) : (
                         props.subscribers.map((subscriber) => {
-                            return `${subscriber.name}`
-                        }).join(", ")
+                            return (
+                                <GamePlayerDetail key={subscriber.uid} {...subscriber}/>
+                            );
+                        })
                     )
                 }
             </div>

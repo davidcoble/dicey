@@ -2,10 +2,15 @@ import moment from 'moment';
 
 // Get visible games
 // this should be called selectGamesf
-export default (games, { name, sortBy, startDate, endDate }) => {
+export const selectGames = (games, player) => {
     //console.log("games = " + JSON.stringify(games));
+    let hideNotPlaying = player.hideNotPlaying ? true : false;
     return games.filter((game) => {
-        return true;
+        if (hideNotPlaying) {
+            return player && player.games !== undefined && player.games[game.id].in;
+        } else {
+            return true;
+        }
     }).sort((a, b) => {
         //console.log("comparing a to b " + JSON.stringify(a) + " " + JSON.stringify(b));
         return a.name < b.name ? -1 : 1;

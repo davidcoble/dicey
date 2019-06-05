@@ -32,6 +32,7 @@ export class RollEpilogueForm extends React.Component {
         return (
             <form onSubmit={this.onSubmit}>
                 <input
+                    className='colForm-epilogue'
                     type='text'
                     placeholder='epilogue'
                     value={this.props.epilogue}

@@ -18,15 +18,18 @@ export class RollList extends React.Component {
                 <b>Rolls</b>
                 <div className='colForm'>
                     <div className='rowForm'>
-                        <div className='colForm-descr'>Timestamp</div>
-                        <div className='colForm-med'>Player</div>
-                        <div className='colForm-med'>Turn</div>
-                        <div className='colForm-descr'>Description</div>
-                        <div className='colForm-tiny'>Dice</div>
-                        <div className='colForm-tiny'>Sides</div>
-                        <div className='colForm-tiny'>Mod</div>
-                        <div className='colForm-med'>Result</div>
-                        <div className='colForm-descr'>Epilogue</div>
+                        <div className='colForm-time'>timestamp</div>
+                        <div className='colForm-name'>player</div>
+                        <div className='colForm-turn'>turn</div>
+                        <div className='colForm-descr'>description</div>
+                        <div className='colForm-dice'>dice</div>
+                        <div className='colForm-sides'>sides</div>
+                        <div className='colForm-mods'>mod</div>
+                        <div className='colForm-result'>result</div>
+                        <div className='colForm-epilogue'>epilogue</div>
+{/*
+                        <div className='colForm-delete'>delete</div>
+*/}
                     </div>
                     {
                         this.props.rolls.map((roll) => {

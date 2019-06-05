@@ -20,22 +20,28 @@ export class RollDetail extends React.Component {
     render() {
         return (
             <div className='rowForm'>
-                <div className='colForm-descr'>{
-                    moment(this.state.createdAt).format('MMMM Do, YYYY HH:MM:ss')
+                <div className='colForm-time'>{
+                    moment(this.state.createdAt).format('YYYY/mm/DD HH:MM:ss')
                 }</div>
-                <div className='colForm-med'>{this.state.createdBy}</div>
-                <div className='colForm-med'>{this.state.turn}</div>
+                <div className='colForm-name'>{this.state.createdBy}</div>
+                <div className='colForm-turn'>{this.state.turn}</div>
                 <div className='colForm-descr'>{this.state.description}</div>
-                <div className='colForm-tiny'>{this.state.dice}</div>
-                <div className='colForm-tiny'>{this.state.sides}</div>
-                <div className='colForm-tiny'>{this.state.mods}</div>
-                <div className='colForm-med'>{this.state.result}</div>
-                <div className='colForm-descr'>
+                <div className='colForm-dice'>{this.state.dice}</div>
+                <div className='colForm-sides'>{this.state.sides}</div>
+                <div className='colForm-mods'>{this.state.mods}</div>
+                <div className='colForm-result'>{this.state.result}</div>
+                <div className='colForm-epilogue'>
                     <RollEpilogueForm
                         rid={this.state.id}
                         epilogue={this.state.epilogue}
                         onSubmit={this.onSubmitEpilogue}/>
                 </div>
+{/*
+                <div className='rowForm'>
+                    <div className='colForm'><input type='checkbox'/></div>
+                    <div className='colForm'><input type='checkbox'/></div>
+                </div>
+*/}
             </div>
         );
     }

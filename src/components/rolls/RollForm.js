@@ -84,7 +84,7 @@ export class RollForm extends React.Component {
             turn: this.props.turn,
             createdAt: createdAt,
             createdBy: this.props.player.name,
-                // ...this.state
+            // ...this.state
         });
     };
 
@@ -104,83 +104,90 @@ export class RollForm extends React.Component {
         //console.log("selectedTurn = " + JSON.stringify(selectedTurn));
         //console.log("selectedTurn = " + JSON.stringify(this.state.createdAt, null, 2));
         return (
-            <form onSubmit={this.onSubmit}>
-                {this.state.error && <p className="form__error">{this.state.error}</p> || <p>&nbsp;</p>}
-                <div className="colForm" >
+            <div>
+                <form onSubmit={this.onSubmit}>
+                    {this.state.error && <p className="form__error">{this.state.error}</p> || <p>&nbsp;</p>}
                     <div className="rowForm" >
                         <div className="colForm" >
-                            <p>Select Game</p>
-                            <Select
-                                className='game-select'
-                                options={gameNames}
-                                value={selectedGame}
-                                onChange={this.onGameChange}
-                            />
+                            <div className="rowForm" >
+                                <div className="colForm" >
+                                    <p>Select Game</p>
+                                    <Select
+                                        className='game-select'
+                                        options={gameNames}
+                                        value={selectedGame}
+                                        onChange={this.onGameChange}
+                                    />
+                                </div>
+                                <div className="colForm" >
+                                    <p>Select Turn</p>
+                                    <Select
+                                        className='turn-select'
+                                        options={this.props.turns}
+                                        value={selectedTurn}
+                                        onChange={this.onTurnChange}
+                                    />
+                                </div>
+                            </div>
+                            <div className="rowForm" >
+                                <div className="colForm-descr" >
+                                    <p>Description</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Description"
+                                        autoFocus
+                                        className="roll-text-input-descr"
+                                        value={this.state.description}
+                                        onChange={this.onDescriptionChange}
+                                    />
+                                </div>
+                                <div className="colForm-other" >
+                                    <p>Dice</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Dice"
+                                        className="roll-text-input"
+                                        value={this.state.dice}
+                                        onChange={this.onDiceChange}
+                                    />
+                                </div>
+                                <div className="colForm-other" >
+                                    <p>Sides</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Sides"
+                                        className="roll-text-input"
+                                        value={this.state.sides}
+                                        onChange={this.onSidesChange}
+                                    />
+                                </div>
+                                <div className="colForm-other" >
+                                    <p>Mods</p>
+                                    <input
+                                        type="text"
+                                        placeholder="Mods"
+                                        className="roll-text-input"
+                                        value={this.state.mods}
+                                        onChange={this.onModsChange}
+                                    />
+                                </div>
+                                <div className="colForm-other" >
+                                    <p>&nbsp;</p>
+                                    <button>Roll</button>
+                                </div>
+                            </div>
                         </div>
-                        <div className="colForm" >
-                            <p>Select Turn</p>
-                            <Select
-                                className='turn-select'
-                                options={this.props.turns}
-                                value={selectedTurn}
-                                onChange={this.onTurnChange}
-                            />
-                        </div>
-                        <div className="colForm" >
+                        <div className="colForm-descr" >
                             <b>Players</b>
                             <GamePlayerList {...this.props.game}/>
+                        </div>
+                        <div className="colForm-descr" >
                             <b>Subscribers (email recipients)</b>
                             <GameSubscriberList {...this.props.game}/>
                         </div>
                     </div>
-                    <div className="rowForm" >
-                        <div className="colForm-descr" >
-                            <p>Description</p>
-                            <input
-                                type="text"
-                                placeholder="Description"
-                                autoFocus
-                                className="roll-text-input-descr"
-                                value={this.state.description}
-                                onChange={this.onDescriptionChange}
-                            />
-                        </div>
-                        <div className="colForm-other" >
-                            <p>Dice</p>
-                            <input
-                                type="text"
-                                placeholder="Dice"
-                                className="roll-text-input"
-                                value={this.state.dice}
-                                onChange={this.onDiceChange}
-                            />
-                        </div>
-                        <div className="colForm-other" >
-                            <p>Sides</p>
-                            <input
-                                type="text"
-                                placeholder="Sides"
-                                className="roll-text-input"
-                                value={this.state.sides}
-                                onChange={this.onSidesChange}
-                            />
-                        </div>
-                        <div className="colForm-other" >
-                            <p>Mods</p>
-                            <input
-                                type="text"
-                                placeholder="Mods"
-                                className="roll-text-input"
-                                value={this.state.mods}
-                                onChange={this.onModsChange}
-                            />
-                        </div>
-                        <div>
-                            <button className="button">Save Roll</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         )
     }
 }
@@ -205,7 +212,11 @@ const mapStateToProps = (state) => {
         return b.id === game.box.value;
     });
     if (box === undefined) {
-        box = { turnList: '' };
+        box = {};
+    }
+    if (box.turnList === undefined) {
+        box.turnList = "turns aren't named";
+        turn = "turns aren't named";
     }
     box.turnList.split("\n").map((t) => {
         turnList.push({value: t, label: t});

@@ -16,6 +16,11 @@
   flex-direction: row;
 }
 
+.rowForm-right {
+  display: inline;
+  margin: 0 0 0 auto;
+}
+
 .colForm {
   display: flex;
   flex-direction: column;
@@ -24,20 +29,50 @@
 
 .colForm-descr {
   @extend .colForm;
-  width: 20%;
+  width: 300px;
+}
+.colForm-time {
+  @extend .colForm;
+  width: 150px;
+}
+.colForm-name {
+  @extend .colForm;
+  width: 200px;
+}
+.colForm-turn {
+  @extend .colForm;
+  width: 120px;
 }
 
+.colForm-dice {
+  @extend .colForm;
+  width: 40px;
+}
+.colForm-sides {
+  @extend .colForm;
+  width: 40px;
+}
+.colForm-mods {
+  @extend .colForm;
+  width: 40px;
+}
 .colForm-other {
   @extend .colForm;
-  width: 5%;
+  width: 40px;
 }
-.colForm-med {
+.colForm-result {
   @extend .colForm;
-  width: 10%;
+  width: 120px;
 }
-.colForm-tiny {
+.colForm-epilogue {
   @extend .colForm;
-  width: 3%;
+  width: 400px;
+}
+.colForm-delete {
+  @extend .colForm;
+  text-align: center;
+  background: green;
+  width: 40px;
 }
 
 .turnListArea {
