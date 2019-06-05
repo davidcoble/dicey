@@ -1,10 +1,26 @@
 import React from 'react';
 import PlayerList from './PlayerList';
+import { startHideNotPlaying } from '../../actions/players';
+import {connect} from "react-redux";
 
-const PlayerManagementPage = () => (
-    <div>
-        <PlayerList />
-    </div>
-);
+export class PlayerManagementPage extends React.Component {
 
-export default PlayerManagementPage;
+
+    render() {
+        return (
+            <div>
+                <PlayerList/>
+            </div>
+
+        );
+    }
+}
+const mapStateToProps = (state, props) => {
+    return {
+
+    };
+};
+const mapDispatchToProps = (dispatch, props) => ({
+    startHideNotPlaying: (id, props) => dispatch(startHideNotPlaying(id, props.hideNotPlaying))
+});
+export default connect(mapStateToProps, mapDispatchToProps)(PlayerManagementPage);

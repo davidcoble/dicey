@@ -61,3 +61,41 @@
     padding-left: $s-size;
   }
 }
+
+.headerList {
+  font-size: 12pt;
+}
+
+.rowList {
+  display: flex;
+  flex-direction: row;
+}
+
+.colList {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+  margin: 10px 0px 0px 10px;
+}
+
+.colList-descr {
+  @extend .colList;
+  width: 350px;
+}
+
+.colList-other {
+  @extend .colList;
+  width: 88px;
+}
+.colList-name {
+  @extend .colList;
+  width: 140px;
+}
+.colList-med {
+  @extend .colList;
+  width: 175px;
+}
+.colList-tiny {
+  @extend .colList;
+  width: 53px;
+}

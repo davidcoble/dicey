@@ -1,22 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import GamePlayerListEntry from './GamePlayerListEntry';
+import GamePlayerDetail from './GamePlayerDetail';
 import { selectGamePlayers } from '../../selectors/players';
-import {Link} from "react-router-dom";
 
 const GamePlayerList = (props) => {
-    //console.log("GamePlayerList props = " + JSON.stringify(props));
+    //console.log("GamePlayerList props = " + JSON.stringify(props, null, 2));
     const uid = props.uid;
     return (
         <div>
-            <div>
+            <div className='colForm'>
                 {
                     props.players.length === 0 ? (
                         <div>No Players</div>
                     ) : (
                         props.players.map((player) => {
-                            return `${player.name}`
-                        }).join(", ")
+                            return (
+                                <GamePlayerDetail key={player.uid} {...player} />
+                            );
+                        })
                     )
                 }
             </div>
@@ -24,10 +25,10 @@ const GamePlayerList = (props) => {
     );
 }
 const mapStateToProps = (state, props) => {
-/*
-    console.log("GamePlayerList mapStateToProps state = " + JSON.stringify(state, null, 2));
-    console.log("GamePlayerList mapStateToProps props = " + JSON.stringify(props, null, 2));
-*/
+    /*
+        console.log("GamePlayerList mapStateToProps state = " + JSON.stringify(state, null, 2));
+        console.log("GamePlayerList mapStateToProps props = " + JSON.stringify(props, null, 2));
+    */
     return {
         players: selectGamePlayers(state.players, props.players)
     };
