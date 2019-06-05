@@ -60,6 +60,10 @@
   @extend .colForm;
   width: 40px;
 }
+.colForm-form-sides {
+  @extend .colForm;
+  width: 60px;
+}
 .colForm-result {
   @extend .colForm;
   width: 120px;
