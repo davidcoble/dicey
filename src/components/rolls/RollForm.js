@@ -151,7 +151,7 @@ export class RollForm extends React.Component {
                                         onChange={this.onDiceChange}
                                     />
                                 </div>
-                                <div className="colForm-other" >
+                                <div className="colForm-form-sides" >
                                     <p>Sides</p>
                                     <input
                                         type="text"
@@ -178,11 +178,14 @@ export class RollForm extends React.Component {
                             </div>
                         </div>
                         <div className="colForm-descr" >
-                            <b>Players</b>
+                            <b></b>
+                        </div>
+                        <div className="colForm-descr" >
+                            <b className='headerList'>players</b>
                             <GamePlayerList {...this.props.game}/>
                         </div>
                         <div className="colForm-descr" >
-                            <b>Subscribers (email recipients)</b>
+                            <b className='headerList'>email recipients</b>
                             <GameSubscriberList {...this.props.game}/>
                         </div>
                     </div>
