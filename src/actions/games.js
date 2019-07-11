@@ -121,6 +121,20 @@ export const startEditGame = (id, updates) => {
     };
 };
 
+export const setGameTurn = (gid, tid) => ({
+    type: "EDIT_GAME",
+    currentTurn: {tid}
+});
+
+export const startSetGameTurn = ({gid, tid} = {}) => {
+    // console.log("uid = " + uid + " gid  = " + gid + " tid  = " + tid);
+    return (dispatch, getState) => {
+        return database.ref(`games/${gid}/turn`).set(tid).then(() => {
+            dispatch(setGameTurn(gid, tid));
+        });
+    };
+};
+
 // SET_GAMES
 export const setGames = (games) => ({
     type: 'SET_GAMES',

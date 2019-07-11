@@ -7,6 +7,7 @@ export default class BoxForm extends React.Component {
 
         this.state = {
             name: props.box ? props.box.name : '',
+            sides: props.box ? props.box.sides : '',
             description: props.box ? props.box.description : '',
             turnList: props.box ? props.box.turnList : '',
             createdAt: props.box ? moment(props.box.createdAt) : moment(),

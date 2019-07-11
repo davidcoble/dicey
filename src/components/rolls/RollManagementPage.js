@@ -4,6 +4,7 @@ import RollList from './RollList';
 import RollForm from './RollForm';
 import EmailClient from "../EmailClient";
 import { startAddMsg } from "../../actions/msgs";
+import { startSetGameTurn } from '../../actions/games';
 import { startSetPlayerRollingGame, startSetPlayerRollingGameTurn } from '../../actions/players';
 import { startAddRoll } from "../../actions/rolls";
 import { selectGamePlayersForCC } from '../../selectors/rolls';
@@ -124,6 +125,7 @@ const mapDispatchToProps = (dispatch) => ({
     },
     startSetPlayerRollingGameTurn: (uid, gid, tid) => {
         dispatch(startSetPlayerRollingGameTurn({uid: uid, gid: gid, tid: tid}));
+        dispatch(startSetGameTurn({gid: gid, tid: tid}));
     },
     startAddRoll: (roll) => {
         dispatch(startAddRoll(roll));

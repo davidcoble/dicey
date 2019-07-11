@@ -16,7 +16,7 @@ export class RollForm extends React.Component {
         this.state = {
             description: '',
             dice: '',
-            sides: '',
+            sides: props.sides ? props.sides : '',
             mods: '',
             game: props.game ? props.game.name : '',
             turn: props.turn ? props.turn : '',
@@ -26,7 +26,7 @@ export class RollForm extends React.Component {
             selectedGame: props.rollingGame,
             ...props
         };
-        console.log("RollForm this.state.sides = " + JSON.stringify(this.state.sides, null, 2));
+        //console.log("RollForm this.state = " + JSON.stringify(this.state, null, 2));
     }
 
     onDescriptionChange = (e) => {
@@ -210,13 +210,14 @@ const mapStateToProps = (state) => {
             }
         };
     }
-    let turn = player.games[rollingGame] ? player.games[rollingGame].turn : '';
+    let turn = game.turn;
     let box = state.boxes.find((b) => {
         return b.id === game.box.value;
     });
     if (box === undefined) {
         box = {};
     }
+    let sides = box.sides;
     if (box.turnList === undefined) {
         box.turnList = "turns aren't named";
         turn = "turns aren't named";
@@ -229,6 +230,7 @@ const mapStateToProps = (state) => {
         game: game,
         games: selectPlayerGames(state.games, player.games),
         turns: turnList,
+        sides: sides,
         player: player,
         gameValue: game.id,
         gameLabel: game.name,
