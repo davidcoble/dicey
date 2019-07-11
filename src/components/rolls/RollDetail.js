@@ -21,7 +21,7 @@ export class RollDetail extends React.Component {
         return (
             <div className='rowForm'>
                 <div className='colForm-time'>{
-                    moment(this.state.createdAt).format('YYYY/mm/DD HH:MM:ss')
+                    moment(this.state.createdAt).format('YYYY/MM/DD HH:mm:ss')
                 }</div>
                 <div className='colForm-name'>{this.state.createdBy}</div>
                 <div className='colForm-turn'>{this.state.turn}</div>
