@@ -1,13 +1,13 @@
 import React from 'react';
 import moment from 'moment';
 import Select from 'react-select';
-import { selectTurns } from '../../selectors/boxes';
 import { selectPlayerGames } from '../../selectors/games';
-import { selectGamePlayersForCC } from '../../selectors/rolls';
 import {connect} from "react-redux";
-import {RollList} from "./RollList";
 import GameSubscriberList from "../games/GameSubscriberList";
 import GamePlayerList from "../games/GamePlayerList";
+import { selectTurns } from '../../selectors/boxes';
+import { selectGamePlayersForCC } from '../../selectors/rolls';
+import {RollList} from "./RollList";
 
 export class RollForm extends React.Component {
     constructor(props) {
@@ -67,6 +67,45 @@ export class RollForm extends React.Component {
         this.props.onSelectRollingGameTurn({gid: this.props.gameValue, tid: e.value});
     };
 
+    previousTurn = (event) => {
+        event.preventDefault();
+        console.log("event.value = " + event.value)
+        if(this.props.turn === '' || this.props.turn === undefined) {
+            return;
+        }
+        let newTurnIndex = this.props.turns.findIndex(
+            (e) => {
+                return e.value === this.props.turn;
+            });
+        if (--newTurnIndex > this.props.turns.length || newTurnIndex < 0) {
+            return;
+        }
+        let newTurn = this.props.turns[newTurnIndex].value;
+        console.log("1. previo usTurn called newTurn = " + JSON.stringify(newTurn, null, 2));
+        this.props.onSelectRollingGameTurn({gid: this.props.gameValue, tid: newTurn});
+    };
+
+    nextTurn = (event) => {
+        event.preventDefault();
+        if(this.props.turn === '' || this.props.turn === undefined) {
+            return;
+        }
+        let newTurnIndex = this.props.turns.findIndex(
+            (e) => {
+                return e.value === this.props.turn;
+            });
+
+        if (++newTurnIndex >= this.props.turns.length || newTurnIndex < 0) {
+            return;
+        }
+        let newTurn = this.props.turns[newTurnIndex].value;
+        this.props.onSelectRollingGameTurn({gid: this.props.gameValue, tid: newTurn});
+
+    };
+
+
+
+
     onSubmit = (e) => {
         e.preventDefault();
         const createdAt = moment.now();
@@ -93,6 +132,10 @@ export class RollForm extends React.Component {
         this.props.games.map((game) => {
             gameNames.push({value: game.id, label: game.name});
         });
+        let gameTurns = [];
+        this.props.turns.map((turn) => {
+            gameTurns.push({value: turn.value, label: turn.label});
+        })
         const selectedGame = {
             value: this.props.gameValue,
             label: this.props.gameLabel
@@ -103,6 +146,10 @@ export class RollForm extends React.Component {
         }
         //console.log("selectedTurn = " + JSON.stringify(selectedTurn));
         //console.log("selectedTurn = " + JSON.stringify(this.state.createdAt, null, 2));
+        console.log("gameNames = " + JSON.stringify(gameNames, null, 2));
+        console.log("gameTurns = " + JSON.stringify(gameTurns, null, 2));
+        console.log("selectedTurn = " + JSON.stringify(selectedTurn));
+        console.log("selectedGame = " + JSON.stringify(selectedGame));
         return (
             <div>
                 <form onSubmit={this.onSubmit}>
@@ -112,19 +159,27 @@ export class RollForm extends React.Component {
                             <div className="rowForm" >
                                 <div className="colForm" >
                                     <p>Select Game</p>
+
                                     <Select
                                         className='game-select'
                                         options={gameNames}
                                         value={selectedGame}
+                                        defaultValue={selectedGame}
                                         onChange={this.onGameChange}
                                     />
+
                                 </div>
                                 <div className="colForm" >
-                                    <p>Select Turn</p>
+                                    <p>
+                                        <button onClick={this.previousTurn}>-</button>
+                                        Select Turn
+                                        <button onClick={this.nextTurn}>+</button>
+                                    </p>
                                     <Select
                                         className='turn-select'
-                                        options={this.props.turns}
+                                        options={gameTurns}
                                         value={selectedTurn}
+                                        defaultValue={selectedTurn}
                                         onChange={this.onTurnChange}
                                     />
                                 </div>
