@@ -146,10 +146,10 @@ export class RollForm extends React.Component {
         }
         //console.log("selectedTurn = " + JSON.stringify(selectedTurn));
         //console.log("selectedTurn = " + JSON.stringify(this.state.createdAt, null, 2));
-        console.log("gameNames = " + JSON.stringify(gameNames, null, 2));
-        console.log("gameTurns = " + JSON.stringify(gameTurns, null, 2));
-        console.log("selectedTurn = " + JSON.stringify(selectedTurn));
-        console.log("selectedGame = " + JSON.stringify(selectedGame));
+        // console.log("gameNames = " + JSON.stringify(gameNames, null, 2));
+        // console.log("gameTurns = " + JSON.stringify(gameTurns, null, 2));
+        // console.log("selectedTurn = " + JSON.stringify(selectedTurn));
+        // console.log("selectedGame = " + JSON.stringify(selectedGame));
         return (
             <div>
                 <form onSubmit={this.onSubmit}>
@@ -241,7 +241,7 @@ export class RollForm extends React.Component {
                         </div>
                         <div className="colForm-descr" >
                             <b className='headerList'>email recipients</b>
-                            <GameSubscriberList {...this.props.game}/>
+                            <GameSubscriberList uid={this.props.player.uid} {...this.props.game}/>
                         </div>
                     </div>
                 </form>

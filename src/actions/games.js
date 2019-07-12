@@ -77,11 +77,11 @@ export const addSubscriberToGame = (gameId, subscriberId) => ({
     subscriberId
 });
 
-export const startAddSubscriberToGame = ({gid, pid} = {}) => {
+export const startAddSubscriberToGame = ({gid, uid} = {}) => {
     // console.log("startAddSubscriberToGame; gameId = " + gid);
     return (dispatch, getState) => {
-        return database.ref(`games/${gid}/subscribers/${pid}`).set(true).then(() => {
-            dispatch(addSubscriberToGame(gid, pid));
+        return database.ref(`games/${gid}/subscribers/${uid}`).set(true).then(() => {
+            dispatch(addSubscriberToGame(gid, uid));
         });
     }
 };
@@ -92,11 +92,12 @@ export const removeSubscriberFromGame = (gameId, subscriberId) => ({
     subscriberId
 });
 
-export const startRemoveSubscriberFromGame = ({gid, pid} = {}) => {
-    // console.log("startRemoveSubscriberFromGame; gameId = " + gid);
+export const startRemoveSubscriberFromGame = ({gid, uid} = {}) => {
+    console.log("startRemoveSubscriberFromGame; gameId = " + gid);
+    console.log("startRemoveSubscriberFromGame; userId = " + uid);
     return (dispatch, getState) => {
-        return database.ref(`games/${gid}/subscribers/${pid}`).set(false).then(() => {
-            dispatch(removeSubscriberFromGame(gid, pid));
+        return database.ref(`games/${gid}/subscribers/${uid}`).set(false).then(() => {
+            dispatch(removeSubscriberFromGame(gid, uid));
         });
     }
 };

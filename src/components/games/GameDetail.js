@@ -37,13 +37,6 @@ const GameDetail = (ref) => {
                     <div className='colList-name'>
                         <div className='headerList'>Subscribers</div>
                         <GameSubscriberList {...ref}/>
-                        {
-                            ref.subscribers !== undefined && ref.subscribers[ref.uid] ? (
-                                <Link to={`/game/${ref.id}/subscriber/${ref.uid}/unsubscribe`}>unsubscribe</Link>
-                            ) : (
-                                <Link to={`/game/${ref.id}/subscriber/${ref.uid}/subscribe`}>subscribe</Link>
-                            )
-                        }
                     </div>
                 </div>
             </div>
