@@ -30,22 +30,26 @@ export class RollForm extends React.Component {
     }
 
     onDescriptionChange = (e) => {
+        e.preventDefault();
         const description = e.target.value;
         this.setState(() => ({ description }));
     };
     onDiceChange = (e) => {
+        e.preventDefault();
         const dice = e.target.value;
         if(dice.match(/^\d*$/) && dice < 100) {
             this.setState(() => ({dice}));
         }
     };
     onSidesChange = (e) => {
+        e.preventDefault();
         const sides = e.target.value;
         if(sides.match(/^\d*$/)) {
             this.setState(() => ({sides}));
         }
     };
     onModsChange = (e) => {
+        e.preventDefault();
         const mods = e.target.value;
         if(mods.match(/^-?\d*$/)) {
             this.setState(() => ({mods}));
@@ -193,6 +197,7 @@ export class RollForm extends React.Component {
                                         autoFocus
                                         className="roll-text-input-descr"
                                         value={this.state.description}
+                                        onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                                         onChange={this.onDescriptionChange}
                                     />
                                 </div>
@@ -203,6 +208,7 @@ export class RollForm extends React.Component {
                                         placeholder="Dice"
                                         className="roll-text-input"
                                         value={this.state.dice}
+                                        onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                                         onChange={this.onDiceChange}
                                     />
                                 </div>
@@ -213,6 +219,7 @@ export class RollForm extends React.Component {
                                         placeholder="Sides"
                                         className="roll-text-input"
                                         value={this.state.sides}
+                                        onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                                         onChange={this.onSidesChange}
                                     />
                                 </div>
@@ -223,6 +230,7 @@ export class RollForm extends React.Component {
                                         placeholder="Mods"
                                         className="roll-text-input"
                                         value={this.state.mods}
+                                        onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                                         onChange={this.onModsChange}
                                     />
                                 </div>
