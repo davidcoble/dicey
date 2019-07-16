@@ -39,6 +39,11 @@
   @extend .colForm;
   width: 200px;
 }
+
+.line-grey {
+  background-color: #CCC;
+}
+
 .colForm-turn {
   @extend .colForm;
   width: 120px;

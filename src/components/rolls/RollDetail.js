@@ -18,19 +18,20 @@ export class RollDetail extends React.Component {
         this.props.startEditRoll(e);
     };
     render() {
+        console.log("RollDetails this.state = " + JSON.stringify(this.state, null, 2));
         return (
             <div className='rowForm'>
-                <div className='colForm-time'>{
+                <div className={`colForm-time ${this.state.deleters != undefined ? "line-grey" : ""}`}>{
                     moment(this.state.createdAt).format('YYYY/MM/DD HH:mm:ss')
                 }</div>
-                <div className='colForm-name'>{this.state.createdBy}</div>
-                <div className='colForm-turn'>{this.state.turn}</div>
-                <div className='colForm-descr'>{this.state.description}</div>
-                <div className='colForm-dice'>{this.state.dice}</div>
-                <div className='colForm-sides'>{this.state.sides}</div>
-                <div className='colForm-mods'>{this.state.mods}</div>
-                <div className='colForm-result'>{this.state.result}</div>
-                <div className='colForm-epilogue'>
+                <div className={`colForm-name ${this.state.deleters != undefined ? "line-grey" : ""}`}>{this.state.createdBy}</div>
+                <div className={`colForm-turn ${this.state.deleters != undefined ? "line-grey" : ""}`}>{this.state.turn}</div>
+                <div className={`colForm-descr ${this.state.deleters != undefined ? "line-grey" : ""}`}>{this.state.description}</div>
+                <div className={`colForm-dice ${this.state.deleters != undefined ? "line-grey" : ""}`}>{this.state.dice}</div>
+                <div className={`colForm-sides ${this.state.deleters != undefined ? "line-grey" : ""}`}>{this.state.sides}</div>
+                <div className={`colForm-mods ${this.state.deleters != undefined ? "line-grey" : ""}`}>{this.state.mods}</div>
+                <div className={`colForm-result ${this.state.deleters != undefined ? "line-grey" : ""}`}>{this.state.result}</div>
+                <div className={`colForm-epilogue ${this.state.deleters != undefined ? "line-grey" : ""}`}>
                     <RollEpilogueForm
                         rid={this.state.id}
                         epilogue={this.state.epilogue}
