@@ -20,7 +20,7 @@ export class RollManagementPage extends React.Component {
     }
     componentWillMount() {
         let u = uuid();
-        console.log("u = " + u);
+        // console.log("u = " + u);
         // console.log("componentWillMount props" + JSON.stringify(this.props, null, 2));
         if (this.props.games.length === 0) {
             this.props.startAddMsg({msg: {

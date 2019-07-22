@@ -67,6 +67,7 @@ export const undeleteRoll = ({ id } = {}) => ({
 });
 
 export const startUndeleteRoll = ({ id } = {}) => {
+    console.log("startUndeleteRoll id = " + id);
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         return database.ref(`rolls/${id}/deleters/${uid}`).set(false).then(() => {

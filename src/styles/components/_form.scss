@@ -44,9 +44,19 @@
   background-color: #CCC;
 }
 
+.line-blue {
+  background-color: #CCF;
+}
+
 .colForm-turn {
   @extend .colForm;
   width: 120px;
+}
+
+.colForm-delete {
+  @extend .colForm;
+  width: 40px;
+
 }
 
 .colForm-dice {
@@ -76,12 +86,6 @@
 .colForm-epilogue {
   @extend .colForm;
   width: 400px;
-}
-.colForm-delete {
-  @extend .colForm;
-  text-align: center;
-  background: green;
-  width: 40px;
 }
 
 .turnListArea {

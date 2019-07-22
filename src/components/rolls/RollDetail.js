@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import ReactTooltip from 'react-tooltip'
 import RollEpilogueForm from './RollEpilogueForm';
 import { startEditRoll, startDeleteRoll, startUndeleteRoll } from '../../actions/rolls';
 
@@ -8,6 +9,7 @@ import { startEditRoll, startDeleteRoll, startUndeleteRoll } from '../../actions
 export class RollDetail extends React.Component {
     constructor(props) {
         super(props);
+        // console.log("RollDetails props = " + JSON.stringify(props, null, 4));
         this.state = {
             ...props
         }
@@ -22,41 +24,129 @@ export class RollDetail extends React.Component {
         e.preventDefault();
         console.log("deleteRoll e = " + e);
         console.log("deleteRoll id = " + this.state.id);
-        this.props.startDeleteRoll(this.state.id);
+        this.props.startDeleteRoll({id: this.state.id});
     };
 
     undeleteRoll = (e) => {
         e.preventDefault();
         console.log("undeleteRoll e = " + e);
         console.log("undeleteRoll id = " + this.state.id);
-        this.props.startUndeleteRoll(this.state.id);
+        this.props.startUndeleteRoll({id: this.state.id});
     };
 
     render() {
-        console.log("RollDetails this.state = " + JSON.stringify(this.state, null, 2));
+        let uid = this.props.uid;
+        console.log("RollDetails uid = " + uid);
+        // console.log("RollDetails this.state = " + JSON.stringify(this.state, null, 4));
+        let deleteRequestedByMe, deleteRequestedByOther;
+        let deleteRequestedByList = "delete requested by: ";
+        let remainingPlayers = "remaining player(s): ";
+        if (this.props.deleters === undefined) {
+            deleteRequestedByMe = false;
+        } else {
+            deleteRequestedByMe = this.props.deleters[uid];
+            console.log("deleters = " + JSON.stringify(this.props.deleters, null, 4));
+            Object.keys(this.props.deleters).forEach((key, index) => {
+                console.log("key = " + key);
+                console.log("index = " + index);
+                let name = this.props.players.find((p) => {return p.uid === key}).name;
+                console.log("name = " + name);
+                if (this.props.deleters[key]) {
+                    deleteRequestedByOther = true;
+                    deleteRequestedByList += " " + name + ",";
+                } else {
+                    remainingPlayers += " " + name + ",";
+                }
+            })
+        }
+        deleteRequestedByList += "\n";
         return (
-            <div className='rowForm'>
-                <div className={`colForm-time ${this.state.deleters !== undefined ? "line-grey" : ""}`}>{
-                    moment(this.state.createdAt).format('YYYY/MM/DD HH:mm:ss')
-                }</div>
-                <div className={`colForm-name ${this.state.deleters !== undefined ? "line-grey" : ""}`}>{this.state.createdBy}</div>
-                <div className={`colForm-turn ${this.state.deleters !== undefined ? "line-grey" : ""}`}>{this.state.turn}</div>
-                <div className={`colForm-descr ${this.state.deleters !== undefined ? "line-grey" : ""}`}>{this.state.description}</div>
-                <div className={`colForm-dice ${this.state.deleters !== undefined ? "line-grey" : ""}`}>{this.state.dice}</div>
-                <div className={`colForm-sides ${this.state.deleters !== undefined ? "line-grey" : ""}`}>{this.state.sides}</div>
-                <div className={`colForm-mods ${this.state.deleters !== undefined ? "line-grey" : ""}`}>{this.state.mods}</div>
-                <div className={`colForm-result ${this.state.deleters !== undefined ? "line-grey" : ""}`}>{this.state.result}</div>
-                <div className={`colForm-epilogue ${this.state.deleters !== undefined ? "line-grey" : ""}`}>
+            <div className='rowForm' >
+                <ReactTooltip id={`roll${this.props.id}`}>
+                    <span>
+                        {deleteRequestedByOther || deleteRequestedByMe ? `${deleteRequestedByList}` : "no delete requests"}
+                        <br/>
+                        {deleteRequestedByOther || deleteRequestedByMe ? `${remainingPlayers}` : ""}
+                    </span>
+                </ReactTooltip>
+                <div className={`colForm-time 
+                ${deleteRequestedByMe ? "line-grey" : ""} 
+                ${deleteRequestedByOther && !deleteRequestedByMe ? "line-blue" : ""}`}
+                >
+                    <a data-tip data-for={`roll${this.props.id}`}>
+                        {
+                            moment(this.state.createdAt).format('YYYY/MM/DD HH:mm:ss')
+                        }
+                    </a>
+                </div>
+                <div className={`colForm-time 
+                ${deleteRequestedByMe ? "line-grey" : ""} 
+                ${deleteRequestedByOther && !deleteRequestedByMe ? "line-blue" : ""}`}
+                >
+                    <a data-tip data-for={`roll${this.props.id}`}>
+                        {this.props.createdBy}
+                    </a>
+                </div>
+                <div className={`colForm-time 
+                ${deleteRequestedByMe ? "line-grey" : ""} 
+                ${deleteRequestedByOther && !deleteRequestedByMe ? "line-blue" : ""}`}
+                >
+                    <a data-tip data-for={`roll${this.props.id}`}>
+                        {this.props.turn}
+                    </a>
+                </div>
+                <div className={`colForm-time 
+                ${deleteRequestedByMe ? "line-grey" : ""} 
+                ${deleteRequestedByOther && !deleteRequestedByMe ? "line-blue" : ""}`}
+                >
+                    <a data-tip data-for={`roll${this.props.id}`}>
+                        {this.props.description}
+                    </a>
+                </div>
+                <div className={`colForm-time 
+                ${deleteRequestedByMe ? "line-grey" : ""} 
+                ${deleteRequestedByOther && !deleteRequestedByMe ? "line-blue" : ""}`}
+                >
+                    <a data-tip data-for={`roll${this.props.id}`}>
+                        {this.props.dice}
+                    </a>
+                </div>
+                <div className={`colForm-time 
+                ${deleteRequestedByMe ? "line-grey" : ""} 
+                ${deleteRequestedByOther && !deleteRequestedByMe ? "line-blue" : ""}`}
+                >
+                    <a data-tip data-for={`roll${this.props.id}`}>
+                        {this.props.sides}
+                    </a>
+                </div>
+                <div className={`colForm-time 
+                ${deleteRequestedByMe ? "line-grey" : ""} 
+                ${deleteRequestedByOther && !deleteRequestedByMe ? "line-blue" : ""}`}
+                >
+                    <a data-tip data-for={`roll${this.props.id}`}>
+                        {this.props.mods}
+                    </a>
+                </div>
+                <div className={`colForm-time 
+                ${deleteRequestedByMe ? "line-grey" : ""} 
+                ${deleteRequestedByOther && !deleteRequestedByMe ? "line-blue" : ""}`}
+                >
+                    <a data-tip data-for={`roll${this.props.id}`}>
+                        {this.props.result}
+                    </a>
+                </div>
+                <div className='colForm-epilogue'>
                     <RollEpilogueForm
+                        deleters={this.state.deleters}
                         rid={this.state.id}
                         epilogue={this.state.epilogue}
                         onSubmit={this.onSubmitEpilogue}/>
                 </div>
-                <div className='colForm-turn'>
+                <div className='colForm-delete'>
                     {
-                        this.state.deleters !== undefined ?
-                            <button onClick={this.undeleteRoll}>undelete</button> :
-                            <button onClick={this.deleteRoll}>delete</button>
+                        deleteRequestedByMe ?
+                            <button className='button-small' onClick={this.undeleteRoll}>retain</button> :
+                            <button className='button-small' onClick={this.deleteRoll}>delete</button>
                     }
                 </div>
                 {/*
@@ -70,7 +160,10 @@ export class RollDetail extends React.Component {
     }
 }
 const mapStateToProps = (state, props) => {
+    // console.log("RollDetail mapStateToProps state = " + JSON.stringify(state, null, 2));
     return {
+        players: state.players,
+        uid: state.auth.uid,
         roll: state.rolls.find((r) => {return r.id === props.id})
     }
 };

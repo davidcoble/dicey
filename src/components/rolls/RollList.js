@@ -1,9 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import RollForm from './RollForm';
 import { selectRolls } from '../../selectors/rolls';
-import { startAddRoll } from '../../actions/rolls';
 import RollDetail from "./RollDetail";
+import ReactTooltip from 'react-tooltip'
 
 export class RollList extends React.Component {
     constructor(props) {
@@ -18,18 +17,51 @@ export class RollList extends React.Component {
                 <b>Rolls</b>
                 <div className='colForm'>
                     <div className='rowForm'>
-                        <div className='colForm-time'>timestamp</div>
-                        <div className='colForm-name'>player</div>
-                        <div className='colForm-turn'>turn</div>
-                        <div className='colForm-descr'>description</div>
-                        <div className='colForm-dice'>dice</div>
-                        <div className='colForm-sides'>sides</div>
-                        <div className='colForm-mods'>mod</div>
-                        <div className='colForm-result'>result</div>
-                        <div className='colForm-epilogue'>epilogue</div>
-{/*
-                        <div className='colForm-delete'>delete</div>
-*/}
+                        <ReactTooltip id='timestamp'>
+                            <span>The time the die/dice was/were rolled.</span>
+                        </ReactTooltip>
+                        <div className='colForm-time'><a data-tip data-for='timestamp'>timestamp</a></div>
+                        <ReactTooltip id='player'>
+                            <span>The player who requested the roll.</span>
+                        </ReactTooltip>
+                        <div className='colForm-name'><a data-tip data-for='player'>player</a></div>
+                        <ReactTooltip id='turn'>
+                            <span>The turn in the game for which it/they was/were requested.</span>
+                        </ReactTooltip>
+                        <div className='colForm-turn'><a data-tip data-for='turn'>turn</a></div>
+                        <ReactTooltip id='description'>
+                            <span>A brief description of the event that required the roll.</span>
+                        </ReactTooltip>
+                        <div className='colForm-descr'><a data-tip data-for='description'>description</a></div>
+                        <ReactTooltip id='dice'>
+                            <span>The number of dice to roll (default = 1).</span>
+                        </ReactTooltip>
+                        <div className='colForm-dice'><a data-tip data-for='dice'>dice</a></div>
+                        <ReactTooltip id='sides'>
+                            <span>The number of sides each die should have (default defined in game box).</span>
+                        </ReactTooltip>
+                        <div className='colForm-sides'><a data-tip data-for='sides'>sides</a></div>
+                        <ReactTooltip id='mod'>
+                            <span>A modifier to be applied to the sum of the dice rolled.</span>
+                        </ReactTooltip>
+                        <div className='colForm-mods'><a data-tip data-for='mod'>mod</a></div>
+                        <ReactTooltip id='result'>
+                            <span>The result of the roll, with modifier explicitly applied.</span>
+                        </ReactTooltip>
+                        <div className='colForm-result'><a data-tip data-for='result'>result</a></div>
+                        <ReactTooltip id='epilogue'>
+                            <span>A text box to explain the meaning of the result.</span>
+                        </ReactTooltip>
+                        <div className='colForm-epilogue'><a data-tip data-for='epilogue'>epilogue</a></div>
+                        <ReactTooltip id='delete'>
+                            <span>
+                                Click "delete" button to request deletion.  All players must request deletion.<br/>
+                                Warning!  If you are the last player to request deletion, it will take effect immediately.<br/>
+                                You have been warned.<br/>
+                                Click "retain" to rescind your request to delete.
+                            </span>
+                        </ReactTooltip>
+                        <div className='colForm-delete'><a data-tip data-for='delete'>delete</a></div>
                     </div>
                     {
                         this.props.rolls.map((roll) => {
