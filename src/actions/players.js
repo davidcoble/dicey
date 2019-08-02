@@ -84,6 +84,20 @@ export const startSetPlayerRollingGameTurn = ({uid, gid, tid} = {}) => {
     };
 };
 
+export const setShowDeleted = (uid, showDeleted) => ({
+    type: "EDIT_PLAYER",
+    showDeleted: {showDeleted}
+});
+
+export const startSetShowDeleted = ({uid, showDeleted} = {}) => {
+    // console.log("uid = " + uid + " gid  = " + gid + " tid  = " + tid);
+    return (dispatch, getState) => {
+        return database.ref(`players/${uid}/showDeleted`).set(showDeleted).then(() => {
+            dispatch(setShowDeleted(uid, showDeleted));
+        });
+    };
+};
+
 export const addGameToPlayer = (playerId, gameId) => ({
     type: 'ADD_GAME_TO_PLAYER',
     playerId,

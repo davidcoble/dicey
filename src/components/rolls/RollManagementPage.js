@@ -5,7 +5,7 @@ import RollForm from './RollForm';
 import EmailClient from "../EmailClient";
 import { startAddMsg } from "../../actions/msgs";
 import { startSetGameTurn } from '../../actions/games';
-import { startSetPlayerRollingGame, startSetPlayerRollingGameTurn } from '../../actions/players';
+import { startSetPlayerRollingGame, startSetPlayerRollingGameTurn, startSetShowDeleted } from '../../actions/players';
 import { startAddRoll } from "../../actions/rolls";
 import { selectGamePlayersForCC } from '../../selectors/rolls';
 import {connect} from "react-redux";
@@ -42,6 +42,10 @@ export class RollManagementPage extends React.Component {
     };
     onSelectRollingGameTurn = ({gid, tid} = {}) => {
         this.props.startSetPlayerRollingGameTurn(this.props.uid, gid, tid);
+    };
+    onShowDeleted = ({showDeleted} = {}) => {
+        console.log("RollManagementPage onShowDeleted = " + showDeleted);
+        this.props.startSetShowDeleted(this.props.uid, showDeleted);
     };
     onSubmit = (rollRequest) => {
         // console.log("[RollManagementPage.onSubmit] rollRequest = " + JSON.stringify(rollRequest, null, 2));
@@ -88,11 +92,12 @@ export class RollManagementPage extends React.Component {
                     <RollForm
                         onSelectRollingGame={this.onSelectRollingGame}
                         onSelectRollingGameTurn={this.onSelectRollingGameTurn}
+                        onShowDeleted={this.onShowDeleted}
                         onSubmit={this.onSubmit}
                         games={this.props.games}
                     />
                 </div>
-                <RollList />
+                <RollList showDeleted={this.props.showDeleted} />
             </div>
         );
     };
@@ -103,6 +108,8 @@ const mapStateToProps = (state, props) => {
     let game = state.games.find((g) => {
         return g.id === player.rollingGame;
     });
+    let showDeleted = player.showDeleted == undefined ? false : player.showDeleted;
+    console.log("showDeleted " + showDeleted);
     /*
         console.log("player.rollingGame = " + JSON.stringify(player.rollingGame));
         console.log("state.games = " + JSON.stringify(state.games, null, 2));
@@ -115,6 +122,7 @@ const mapStateToProps = (state, props) => {
         gameValue: game === undefined ? '' : game.id,
         gameLabel: game === undefined ? '' : game.name,
         games: Object.keys(player.games).filter((k) => { return player.games[k].in }),
+        showDeleted: showDeleted
     };
 };
 
@@ -126,6 +134,9 @@ const mapDispatchToProps = (dispatch) => ({
     startSetPlayerRollingGameTurn: (uid, gid, tid) => {
         dispatch(startSetPlayerRollingGameTurn({uid: uid, gid: gid, tid: tid}));
         dispatch(startSetGameTurn({gid: gid, tid: tid}));
+    },
+    startSetShowDeleted: (uid, showDeleted) => {
+        dispatch(startSetShowDeleted({uid: uid, showDeleted: showDeleted}));
     },
     startAddRoll: (roll) => {
         dispatch(startAddRoll(roll));

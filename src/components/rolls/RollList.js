@@ -6,12 +6,14 @@ import ReactTooltip from 'react-tooltip'
 
 export class RollList extends React.Component {
     constructor(props) {
+        console.log("RollList props.showDeleted = " + JSON.stringify(props.showDeleted, null, 2));
         super(props);
         this.state = {
             ...props
         }
     }
     render() {
+        console.log("RollList ShowDeleted= " + this.props.showDeleted)
         return (
             <div>
                 <b>Rolls</b>
@@ -65,7 +67,8 @@ export class RollList extends React.Component {
                     </div>
                     {
                         this.props.rolls.map((roll) => {
-                            return <RollDetail key={roll.id} {...roll}/>
+                            console.log("RollList about to render roll.  showDeleted = " + this.props.showDeleted);
+                            return <RollDetail showDeleted={this.props.showDeleted} key={roll.id} {...roll}/>
                         })
                     }
                 </div>
@@ -85,7 +88,8 @@ const mapStateToProps = (state, props) => {
         uid: state.auth.uid,
         games: state.games,
         roll_game: game,
-        roll_turn: player.games[gid] === undefined ? '' : player.games[gid].turn
+        roll_turn: player.games[gid] === undefined ? '' : player.games[gid].turn,
+        showDeleted: props.showDeleted,
     };
 };
 const mapDispatchToProps = (dispatch, props) => ({

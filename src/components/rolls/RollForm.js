@@ -5,14 +5,11 @@ import { selectPlayerGames } from '../../selectors/games';
 import {connect} from "react-redux";
 import GameSubscriberList from "../games/GameSubscriberList";
 import GamePlayerList from "../games/GamePlayerList";
-import { selectTurns } from '../../selectors/boxes';
-import { selectGamePlayersForCC } from '../../selectors/rolls';
-import {RollList} from "./RollList";
 
 export class RollForm extends React.Component {
     constructor(props) {
         super(props);
-        // console.log("RollForm props.turn = " + JSON.stringify(props.turn, null, 2));
+        // console.log("RollForm props = " + JSON.stringify(props, null, 2));
         this.state = {
             description: '',
             dice: '',
@@ -63,13 +60,20 @@ export class RollForm extends React.Component {
         this.state.gameValue = e.value;
         this.props.onSelectRollingGame({gid: e.value});
     };
-
     onTurnChange = (e) => {
         // console.log("turn change! e = " + JSON.stringify(e, null, 2));
         // const name = e.target.value;
+        e.preventDefault();
         this.state.turn = e.label;
         this.props.onSelectRollingGameTurn({gid: this.props.gameValue, tid: e.value});
     };
+
+    onShowDeleted = (e) => {
+        // e.preventDefault();
+        console.log("onShowDeleted e.target.checked = " + e.target.checked);
+        this.state.showDeleted = e.target.checked;
+        this.props.onShowDeleted({showDeleted: this.state.showDeleted});
+    }
 
     previousTurn = (event) => {
         event.preventDefault();
@@ -106,9 +110,6 @@ export class RollForm extends React.Component {
         this.props.onSelectRollingGameTurn({gid: this.props.gameValue, tid: newTurn});
 
     };
-
-
-
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -178,6 +179,8 @@ export class RollForm extends React.Component {
                                         <button onClick={this.previousTurn}>-</button>
                                         Select Turn
                                         <button onClick={this.nextTurn}>+</button>
+                                        Show Deleted
+                                        <input type='checkbox' onChange={this.onShowDeleted}/>
                                     </p>
                                     <Select
                                         className='turn-select'
