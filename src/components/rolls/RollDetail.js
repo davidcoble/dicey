@@ -36,7 +36,7 @@ export class RollDetail extends React.Component {
 
     render() {
         let uid = this.props.uid;
-        console.log("RollDetail.render() showDeleted = " + this.props.showDeleted);
+        // console.log("RollDetail.render() showDeleted = " + this.props.showDeleted);
         // console.log("RollDetails uid = " + uid);
         // console.log("RollDetails this.state = " + JSON.stringify(this.state, null, 4));
         let deleteRequestedByMe, deleteRequestedByOther;

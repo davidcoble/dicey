@@ -109,8 +109,8 @@ const mapStateToProps = (state, props) => {
         return g.id === player.rollingGame;
     });
     let showDeleted = player.showDeleted == undefined ? false : player.showDeleted;
-    console.log("showDeleted " + showDeleted);
     /*
+        console.log("showDeleted " + showDeleted);
         console.log("player.rollingGame = " + JSON.stringify(player.rollingGame));
         console.log("state.games = " + JSON.stringify(state.games, null, 2));
         console.log("player.games = " + JSON.stringify(player.games, null, 2));

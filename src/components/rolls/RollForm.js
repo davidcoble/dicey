@@ -291,6 +291,10 @@ const mapStateToProps = (state) => {
     box.turnList.split("\n").map((t) => {
         turnList.push({value: t, label: t});
     });
+    if (turn === undefined) {
+        turn = turnList[0].value;
+        game.turn = turn;
+    }
 
     return {
         game: game,

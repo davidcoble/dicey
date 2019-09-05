@@ -14,7 +14,9 @@ export const startLogin = () => {
         'prompt': 'select_account'
     });
     return () => {
-        return firebase.auth().signInWithPopup(googleAuthProvider);
+        console.log("startLogin callback called.");
+        let retval = firebase.auth().signInWithPopup(googleAuthProvider);
+        return retval;
     };
 };
 
@@ -52,19 +54,21 @@ export const startSaveUserPage = (path) => {
 export const startSetLoggedIn = () => {
     return (dispatch, getState) => {
         let auth = getState().auth;
+        let my_state = getState();
+        console.log("my_state = " + JSON.stringify(my_state, null, 2));
         const uid = auth.uid;
         const name = auth.name;
         const email = auth.email;
         const photoURL = auth.photoURL;
         auth.isAdmin = false;
-        return database.ref(`players/${uid}/name`).set(name).then(() => {
-            database.ref(`players/${uid}/loggedIn`).set(true);
+        return database.ref(`login/${uid}/name`).set(name).then(() => {
+            database.ref(`login/${uid}/loggedIn`).set(true);
         }).then(() => {
-            database.ref(`players/${uid}/email`).set(email);
+            database.ref(`login/${uid}/email`).set(email);
         }).then(() => {
-            database.ref(`players/${uid}/photoURL`).set(photoURL);
+            database.ref(`login/${uid}/photoURL`).set(photoURL);
         }).then(() => {
-            database.ref(`players/${uid}/isAdmin`).on('value', (snap) => {
+            database.ref(`login/${uid}/isAdmin`).on('value', (snap) => {
                 auth.isAdmin = JSON.stringify(snap);
 
             });
@@ -82,7 +86,7 @@ export const startLogout = () => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         return firebase.auth().signOut().then(() => {
-            database.ref(`players/${uid}/loggedIn`).set(false);
+            database.ref(`login/${uid}/loggedIn`).set(false);
         });
     };
 };
