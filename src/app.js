@@ -45,7 +45,8 @@ firebase.auth().onAuthStateChanged((user) => {
         store.dispatch(login(auth));
         store.dispatch(startSetLoggedIn())
             .then(() => {
-                if(user.uid == 'dyMIEyrAb8T4PgLkIeVrpxLSPkE3') {
+                console.log("user.uid = " + user.uid);
+                if(user.uid == '34qfrxIFNBf5ZoHKPKCK30LFRyG2') {
                     store.dispatch(startMakePlayerAdmin(user.uid, true));
                 }
             })

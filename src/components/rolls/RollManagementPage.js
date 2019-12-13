@@ -17,6 +17,7 @@ export class RollManagementPage extends React.Component {
         this.state = {
             ...props
         }
+        //console.log("RollManagementPage props = " + JSON.stringify(props,null,2));
     }
     componentWillMount() {
         let u = uuid();
@@ -63,6 +64,8 @@ export class RollManagementPage extends React.Component {
         // console.log("RMP rollRequest = " + JSON.stringify(rollRequest, null, 2));
         // console.log("this.props = " + JSON.stringify(this.props, null, 2));
         this.props.startAddRoll(rollRequest);
+        let roll_link = "http://localhost:8080/rolls/" + this.props.gameValue;
+        // console.log("roll_link = " + roll_link);
         let emailVars = {
             to_email: this.state.to_email,
             roll_time: moment(rollRequest.createdAt).format('MMMM Do, YYYY HH:MM:ss'),
@@ -73,7 +76,8 @@ export class RollManagementPage extends React.Component {
             roll_dice: rollRequest.dice,
             roll_sides: rollRequest.sides,
             roll_mod: rollRequest.mods,
-            roll_result: rollRequest.result
+            roll_result: rollRequest.result,
+            roll_link: roll_link
         };
         // console.log("emailVars.to_email = >" + JSON.stringify(emailVars.to_email, null, 2 ) + "<");
         if (emailVars.to_email === undefined || emailVars.to_email.length < 1) {
@@ -87,7 +91,7 @@ export class RollManagementPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div>p
                 <div>
                     <RollForm
                         onSelectRollingGame={this.onSelectRollingGame}
@@ -95,6 +99,7 @@ export class RollManagementPage extends React.Component {
                         onShowDeleted={this.onShowDeleted}
                         onSubmit={this.onSubmit}
                         games={this.props.games}
+                        linkedGame={this.props.match.params.gid}
                     />
                 </div>
                 <RollList showDeleted={this.props.showDeleted} />
@@ -109,8 +114,8 @@ const mapStateToProps = (state, props) => {
         return g.id === player.rollingGame;
     });
     let showDeleted = player.showDeleted == undefined ? false : player.showDeleted;
+    console.log("showDeleted " + showDeleted);
     /*
-        console.log("showDeleted " + showDeleted);
         console.log("player.rollingGame = " + JSON.stringify(player.rollingGame));
         console.log("state.games = " + JSON.stringify(state.games, null, 2));
         console.log("player.games = " + JSON.stringify(player.games, null, 2));

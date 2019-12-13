@@ -9,18 +9,18 @@ import GamePlayerList from "../games/GamePlayerList";
 export class RollForm extends React.Component {
     constructor(props) {
         super(props);
-        // console.log("RollForm props = " + JSON.stringify(props, null, 2));
+        console.log("RollForm props.linkedGame = " + props.linkedGame);
+
         this.state = {
             description: '',
             dice: '',
             sides: props.sides ? props.sides : '',
             mods: '',
-            game: props.game ? props.game.name : '',
+            game: props.linkedGame ? props.linkedGame : ( props.game ? props.game.name : '' ),
             turn: props.turn ? props.turn : '',
             createdAt: props.roll ? moment(props.roll.createdAt) : moment(),
             error: '',
             uid: props.uid,
-            selectedGame: props.rollingGame,
             ...props
         };
         //console.log("RollForm this.state = " + JSON.stringify(this.state, null, 2));
@@ -73,7 +73,7 @@ export class RollForm extends React.Component {
         console.log("onShowDeleted e.target.checked = " + e.target.checked);
         this.state.showDeleted = e.target.checked;
         this.props.onShowDeleted({showDeleted: this.state.showDeleted});
-    }
+    };
 
     previousTurn = (event) => {
         event.preventDefault();
@@ -164,7 +164,6 @@ export class RollForm extends React.Component {
                             <div className="rowForm" >
                                 <div className="colForm" >
                                     <p>Select Game</p>
-
                                     <Select
                                         className='game-select'
                                         options={gameNames}
@@ -291,10 +290,6 @@ const mapStateToProps = (state) => {
     box.turnList.split("\n").map((t) => {
         turnList.push({value: t, label: t});
     });
-    if (turn === undefined) {
-        turn = turnList[0].value;
-        game.turn = turn;
-    }
 
     return {
         game: game,

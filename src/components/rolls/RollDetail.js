@@ -36,7 +36,7 @@ export class RollDetail extends React.Component {
 
     render() {
         let uid = this.props.uid;
-        // console.log("RollDetail.render() showDeleted = " + this.props.showDeleted);
+        console.log("RollDetail.render() showDeleted = " + this.props.showDeleted);
         // console.log("RollDetails uid = " + uid);
         // console.log("RollDetails this.state = " + JSON.stringify(this.state, null, 4));
         let deleteRequestedByMe, deleteRequestedByOther;
@@ -159,8 +159,8 @@ export class RollDetail extends React.Component {
                     <div className='colForm-delete'>
                         {
                             deleteRequestedByMe ?
-                                <button className='button-small' onClick={this.undeleteRoll}>retain</button> :
-                                <button className='button-small' onClick={this.deleteRoll}>delete</button>
+                                <button className='button-extra-small' onClick={this.undeleteRoll}>retain</button> :
+                                <button className='button-extra-small' onClick={this.deleteRoll}>delete</button>
                         }
                     </div>
                     {/*

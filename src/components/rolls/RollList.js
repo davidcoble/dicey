@@ -6,17 +6,17 @@ import ReactTooltip from 'react-tooltip'
 
 export class RollList extends React.Component {
     constructor(props) {
-        // console.log("RollList props.showDeleted = " + JSON.stringify(props.showDeleted, null, 2));
+        console.log("RollList props.showDeleted = " + JSON.stringify(props.showDeleted, null, 2));
         super(props);
         this.state = {
             ...props
         }
     }
     render() {
-        // console.log("RollList ShowDeleted= " + this.props.showDeleted)
+        console.log("RollList ShowDeleted= " + this.props.showDeleted)
         return (
             <div>
-                <b>Rolls</b>
+                <p><br/><b>Rolls</b></p>
                 <div className='colForm'>
                     <div className='rowForm'>
                         <ReactTooltip id='timestamp'>
@@ -67,7 +67,7 @@ export class RollList extends React.Component {
                     </div>
                     {
                         this.props.rolls.map((roll) => {
-                            // console.log("RollList about to render roll.  showDeleted = " + this.props.showDeleted);
+                            console.log("RollList about to render roll.  showDeleted = " + this.props.showDeleted);
                             return <RollDetail showDeleted={this.props.showDeleted} key={roll.id} {...roll}/>
                         })
                     }

@@ -21,25 +21,6 @@
   margin: 0 0 0 auto;
 }
 
-.colForm {
-  display: flex;
-  flex-direction: column;
-  font-size: small;
-}
-
-.colForm-descr {
-  @extend .colForm;
-  width: 300px;
-}
-.colForm-time {
-  @extend .colForm;
-  width: 150px;
-}
-.colForm-name {
-  @extend .colForm;
-  width: 200px;
-}
-
 .line-grey {
   background-color: #CCC;
 }
@@ -48,44 +29,83 @@
   background-color: #CCF;
 }
 
-.colForm-turn {
+.colForm {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+}
+
+.rollListRow {
   @extend .colForm;
+  height: 30px;
+  padding-top: 5px;
+}
+
+.colForm-descr {
+  @extend .rollListRow;
+  width: 300px;
+}
+.colForm-time {
+  @extend .rollListRow;
+  width: 150px;
+}
+.colForm-name {
+  @extend .rollListRow;
+  width: 200px;
+}
+
+.colForm-turn {
+  @extend .rollListRow;
   width: 120px;
 }
 
 .colForm-delete {
-  @extend .colForm;
+  @extend .rollListRow;
   width: 40px;
 
 }
 
 .colForm-dice {
-  @extend .colForm;
+  @extend .rollListRow;
   width: 40px;
 }
 .colForm-sides {
-  @extend .colForm;
+  @extend .rollListRow;
   width: 40px;
 }
 .colForm-mods {
-  @extend .colForm;
+  @extend .rollListRow;
   width: 40px;
 }
 .colForm-other {
-  @extend .colForm;
+  @extend .rollListRow;
   width: 40px;
 }
 .colForm-form-sides {
-  @extend .colForm;
+  @extend .rollListRow;
   width: 60px;
 }
 .colForm-result {
-  @extend .colForm;
+  @extend .rollListRow;
   width: 120px;
 }
 .colForm-epilogue {
-  @extend .colForm;
+  @extend .rollListRow;
   width: 400px;
+  padding-bottom: 0px;
+  padding-top: 0px;
+}
+.colForm-epilogueForm {
+  @extend .rollListRow;
+  width: 400px;
+  border: 1px solid grey;
+  padding: 3px;
+  //padding: 0px;
+  //padding-bottom: 0px;
+  //padding-top: 0px;
+  //margin-bottom: 0px;
+  //margin-top: 0px;
+  //height: 20px;
 }
 
 .turnListArea {
