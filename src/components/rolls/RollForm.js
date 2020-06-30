@@ -85,7 +85,7 @@ export class RollForm extends React.Component {
             return;
         }
         let newTurn = this.props.turns[newTurnIndex].value;
-        console.log("1. previo usTurn called newTurn = " + JSON.stringify(newTurn, null, 2));
+        console.log("1. previous Turn called newTurn = " + JSON.stringify(newTurn, null, 2));
         this.props.onSelectRollingGameTurn({gid: this.props.gameValue, tid: newTurn});
     };
 
@@ -273,6 +273,7 @@ const mapStateToProps = (state) => {
             }
         };
     }
+    console.log("game = " + JSON.stringify(game, null, 2));
     let turn = game.turn;
     let box = state.boxes.find((b) => {
         return b.id === game.box.value;
@@ -288,6 +289,10 @@ const mapStateToProps = (state) => {
     box.turnList.split("\n").map((t) => {
         turnList.push({value: t, label: t});
     });
+    console.log("turnList = " + JSON.stringify(turnList, null, 2));
+    if (turn == "") {
+        turn = turnList[0].value;
+    }
 
     return {
         game: game,

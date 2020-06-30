@@ -1,6 +1,6 @@
 import React from 'react';
 import GameList from './GameList';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import { startDeleteMsg } from "../../actions/msgs";
 
 export class GamesManagementPage extends React.Component {
@@ -11,7 +11,10 @@ export class GamesManagementPage extends React.Component {
         }
     }
     componentDidMount() {
-        this.props.startDeleteMsg({page: '/games'});
+        this.props.startDeleteMsg({ page: '/games' });
+    }
+    goToCreateGame = () => {
+        this.props.history.push('/game/create');
     }
     render() {
         return (
@@ -23,6 +26,9 @@ export class GamesManagementPage extends React.Component {
                         );
                     })
                 }
+                <div className='pageTitle'>Games</div>
+                <button type='button' onClick={this.goToCreateGame}>create game</button>
+                <button type='button' onClick={this.hideNotPlaying}>hide not playing</button>
                 <GameList />
             </div>
         );
