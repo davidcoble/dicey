@@ -38,7 +38,7 @@ export const startLogin = () => {
 // };
 
 export const startSaveUserPage = (path) => {
-    //console.log("startSaveUserPage called with path = " + path);
+    // console.log("startSaveUserPage called with path = " + path);
     return (dispatch, getState) => {
         //console.log("state = " + JSON.stringify(getState()));
         const uid = getState().auth.uid;
