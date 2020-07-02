@@ -114,21 +114,6 @@ export const startRemoveGameFromPlayer = ({gid, pid} = {}) => {
     }
 };
 
-
-export const hideNotPlaying = (uid, isAdmin) => ({
-    type: 'EDIT_PLAYER',
-    uid,
-    isAdmin
-});
-
-export const startHideNotPlaying = (uid, isAdmin) => {
-    return (dispatch, getState) => {
-        return database.ref(`players/${uid}/hideNotPlaying`).set(isAdmin).then(() => {
-            dispatch(hideNotPlaying(uid, isAdmin));
-        });
-    };
-};
-
 export const makePlayerAdmin = (uid, isAdmin) => ({
     type: 'EDIT_PLAYER',
     uid,
@@ -139,6 +124,20 @@ export const startMakePlayerAdmin = (uid, isAdmin) => {
     return (dispatch, getState) => {
         return database.ref(`players/${uid}/isAdmin`).set(isAdmin).then(() => {
             dispatch(makePlayerAdmin(uid, isAdmin));
+        });
+    };
+};
+
+export const setHideNotPlaying = (uid, hideNotPlaying) => ({
+    type: 'EDIT_PLAYER',
+    uid,
+    hideNotPlaying
+});
+
+export const startSetHideNotPlaying = (uid, hideNotPlaying) => {
+    return (dispatch, getState) => {
+        return database.ref(`players/${uid}/hideNotPlaying`).set(hideNotPlaying).then(() => {
+            dispatch(setPlayerHideNotPlaying(uid, hideNotPlaying));
         });
     };
 };
