@@ -47,9 +47,11 @@ const mapStateToProps = (state, props) => {
     // console.log("player = " + JSON.stringify(player));
     let gid = player.rollingGame;
     let game = state.games.filter((g) => g.id == gid)[0];
+    let sortCol = player.sortCol;
+    let sortDir = player.sortDir;
 
     return {
-        rolls: selectRolls(state.rolls, gid),
+        rolls: selectRolls(state.rolls, gid, sortCol, sortDir),
         uid: state.auth.uid,
         games: state.games,
         roll_game: game,

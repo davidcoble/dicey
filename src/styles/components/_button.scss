@@ -22,6 +22,19 @@
   text-decoration: none;
 }
 
+.tightButton {
+  background: $off-white;
+  border: none;
+}
+
+.button--tight {
+  background: $off-white;
+  border: none;
+}
+.button--bold {
+  font-weight: 700;
+}
+
 .button--link {
   background: none;
 }
@@ -44,4 +57,9 @@
   font-weight: 300;
   line-height: 1;
   text-decoration: none;
+}
+
+.img--sort {
+  width: $s-size;
+  height: $s-size;
 }

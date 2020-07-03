@@ -71,6 +71,8 @@
 .colForm-epilogue {
   @extend .colForm;
   width: 400px;
+  padding: 0;
+  font-size: $s-size;
 }
 .colForm-delete {
   @extend .colForm;

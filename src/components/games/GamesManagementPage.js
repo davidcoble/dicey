@@ -2,6 +2,8 @@ import React from 'react';
 import GameList from './GameList';
 import { connect } from "react-redux";
 import { startDeleteMsg } from "../../actions/msgs";
+import { startSetHideNotPlaying } from '../../actions/players';
+
 
 export class GamesManagementPage extends React.Component {
     constructor(props) {
@@ -16,6 +18,10 @@ export class GamesManagementPage extends React.Component {
     goToCreateGame = () => {
         this.props.history.push('/game/create');
     }
+    hideNotPlaying = () => {
+        startSetHideNotPlaying({ uid: this.state.uid, hideNotPlaying: true})
+    }
+
     render() {
         return (
             <div>
@@ -36,12 +42,13 @@ export class GamesManagementPage extends React.Component {
 
 }
 const mapStateToProps = (state) => {
-    console.log("GamesManagementPage state.msgs = " + JSON.stringify(state.msgs, null, 2));
+//    console.log("GamesManagementPage state = " + JSON.stringify(state, null, 2));
     return {
         msgs: state.msgs
     };
 };
 const mapDispatchToProps = (dispatch) => ({
-    startDeleteMsg: (data) => dispatch(startDeleteMsg(data))
+    startDeleteMsg: (data) => dispatch(startDeleteMsg(data)),
+    startSetHideNotPlaying: (data) => dispatch(startSetHideNotPlaying(data))
 });
 export default connect(mapStateToProps, mapDispatchToProps)(GamesManagementPage);

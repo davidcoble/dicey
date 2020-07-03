@@ -1,6 +1,6 @@
 import uuid from 'uuid';
 import React from 'react';
-import RollList from './RollList';
+import RollTable from './RollTable';
 import RollForm from './RollForm';
 import EmailClient from "../EmailClient";
 import { startAddMsg } from "../../actions/msgs";
@@ -92,7 +92,7 @@ export class RollManagementPage extends React.Component {
                         games={this.props.games}
                     />
                 </div>
-                <RollList />
+                <RollTable />
             </div>
         );
     };

@@ -19,7 +19,7 @@ export const startSetPlayers = () => {
             snapshot.forEach((child) => {
                 //let val = local_obj[key];
                 let key = child.key;
-                if(auth.uid == child.key) {
+                if (auth.uid == child.key) {
                     // auth = child.val();
                     // auth.uid = uid;
                     dispatch(login(auth));
@@ -39,8 +39,8 @@ export const startSetPlayers = () => {
                     uid: child.key,
                     ...child.val()
                 });
-                if(auth.uid === child.key) {
-                    if(child.val().isAdmin === 'true') {
+                if (auth.uid === child.key) {
+                    if (child.val().isAdmin === 'true') {
                         auth.isAdmin = 'true';
                     }
                     let newAuth = {
@@ -58,10 +58,10 @@ export const startSetPlayers = () => {
 
 export const setPlayerRollingGame = (uid, gid) => ({
     type: "EDIT_PLAYER",
-    rollingGame: {gid}
+    rollingGame: { gid }
 });
 
-export const startSetPlayerRollingGame = ({uid, gid} = {}) => {
+export const startSetPlayerRollingGame = ({ uid, gid } = {}) => {
     // console.log("uid = " + uid + " gid  = " + gid);
     return (dispatch, getState) => {
         return database.ref(`players/${uid}/rollingGame`).set(gid).then(() => {
@@ -72,10 +72,10 @@ export const startSetPlayerRollingGame = ({uid, gid} = {}) => {
 
 export const setPlayerRollingGameTurn = (uid, gid, tid) => ({
     type: "EDIT_PLAYER",
-    rollingGame: {gid}
+    rollingGame: { gid }
 });
 
-export const startSetPlayerRollingGameTurn = ({uid, gid, tid} = {}) => {
+export const startSetPlayerRollingGameTurn = ({ uid, gid, tid } = {}) => {
     // console.log("uid = " + uid + " gid  = " + gid + " tid  = " + tid);
     return (dispatch, getState) => {
         return database.ref(`players/${uid}/games/${gid}/turn`).set(tid).then(() => {
@@ -90,11 +90,11 @@ export const addGameToPlayer = (playerId, gameId) => ({
     gameId
 });
 
-export const startAddGameToPlayer = ({gid, pid} = {}) => {
+export const startAddGameToPlayer = ({ gid, pid } = {}) => {
     // console.log(" startAddGameToPlayer; playerId = " + pid);
     return (dispatch) => {
         return database.ref(`players/${pid}/games/${gid}/in`).set(true).then(() => {
-           dispatch(addGameToPlayer(pid, gid));
+            dispatch(addGameToPlayer(pid, gid));
         });
     };
 };
@@ -105,7 +105,7 @@ export const removeGameFromPlayer = (playerId, gameId) => ({
     gameId
 });
 
-export const startRemoveGameFromPlayer = ({gid, pid} = {}) => {
+export const startRemoveGameFromPlayer = ({ gid, pid } = {}) => {
     // console.log("startRemoveGameFromPlayer; playerId = " + gid);
     return (dispatch, getState) => {
         return database.ref(`players/${pid}/games/${gid}/in`).set(false).then(() => {
@@ -141,3 +141,64 @@ export const startSetHideNotPlaying = (uid, hideNotPlaying) => {
         });
     };
 };
+
+export const setSortCol = (uid, sortCol) => ({
+    type: 'EDIT_PLAYER',
+    uid,
+    sortCol
+});
+
+export const startSetSortCol = (uid, sortCol) => {
+    // console.log("startSetSortCol uid = " + uid + " sortCol = " + sortCol);
+    return (dispatch, getState) => {
+        return database.ref(`players/${uid}/sortCol`).set(sortCol).then(() => {
+            dispatch(setSortCol(uid, sortCol));
+        });
+    };
+};
+
+export const setSortDir = (uid, sortDir) => ({
+    type: 'EDIT_PLAYER',
+    uid,
+    sortDir
+});
+
+export const startSetSortDir = (uid, sortDir) => {
+    // console.log("startSetSortDir");
+    return (dispatch, getState) => {
+        return database.ref(`players/${uid}/sortDir`).set(sortDir).then(() => {
+            dispatch(setSortDir(uid, sortDir));
+        });
+    };
+};
+
+export const setPrevSortCol = (uid, prevSortCol) => ({
+    type: 'EDIT_PLAYER',
+    uid,
+    prevSortCol
+});
+
+export const startSetPrevSortCol = (uid, prevSortCol) => {
+    // console.log("startSetPrevSortCol -- " + prevSortCol);
+    return (dispatch, getState) => {
+        return database.ref(`players/${uid}/prevSortCol`).set(prevSortCol).then(() => {
+            dispatch(setPrevSortCol(uid, prevSortCol));
+        });
+    };
+};
+
+export const setPrevSortDir = (uid, prevSortDir) => ({
+    type: 'EDIT_PLAYER',
+    uid,
+    prevSortDir
+});
+
+export const startSetPrevSortDir = (uid, prevSortDir) => {
+    // console.log("startSetPrevSortDir");
+    return (dispatch, getState) => {
+        return database.ref(`players/${uid}/prevSortDir`).set(prevSortDir).then(() => {
+            dispatch(setPrevSortDir(uid, prevSortDir));
+        });
+    };
+};
+

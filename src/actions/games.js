@@ -93,8 +93,8 @@ export const removeSubscriberFromGame = (gameId, subscriberId) => ({
 });
 
 export const startRemoveSubscriberFromGame = ({gid, uid} = {}) => {
-    console.log("startRemoveSubscriberFromGame; gameId = " + gid);
-    console.log("startRemoveSubscriberFromGame; userId = " + uid);
+    // console.log("startRemoveSubscriberFromGame; gameId = " + gid);
+    // console.log("startRemoveSubscriberFromGame; userId = " + uid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/subscribers/${uid}`).set(false).then(() => {
             dispatch(removeSubscriberFromGame(gid, uid));
