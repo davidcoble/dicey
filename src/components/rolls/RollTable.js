@@ -30,17 +30,21 @@ export class RollTable extends React.Component {
     setSortBy = (colName) => {
         // console.log("colName = " + colName);
         let newDir;
-        if (this.props.sortDir !== "") {
+        // console.log("this.props.sortDir = " + this.props.sortDir);
+        if (this.props.sortDir !== undefined && this.props.sortDir !== "") {
             newDir = this.props.sortDir * -1;
         } else {
             newDir = 1;
         }
+        // console.log("newDir = " + newDir);
         if (colName === this.props.sortCol) {
             this.props.startSetSortCol(this.props.uid, colName);
             this.props.startSetSortDir(this.props.uid, newDir);
         } else {
-            this.props.startSetPrevSortCol(this.props.uid, this.props.sortCol);
-            this.props.startSetPrevSortDir(this.props.uid, this.props.sortDir);
+            this.props.startSetPrevSortCol(this.props.uid,
+                this.props.sortCol === undefined ? 'createdAt' : this.props.sortCol);
+            this.props.startSetPrevSortDir(this.props.uid,
+                this.props.sortDir === undefined ? 1 : this.props.sortDir);
             this.props.startSetSortCol(this.props.uid, colName);
             this.props.startSetSortDir(this.props.uid, newDir);
         }

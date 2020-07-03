@@ -97,6 +97,7 @@ export const selectRolls = (rolls, gid, sortCol, sortDir, prevSortCol, prevSortD
                 }
                 return xvala < xvalb ? (xdir) : (-1 * xdir)
             }
+            // console.log('vala = ' + vala + ', valb = ' + valb);
             return vala < valb ? (dir) : (-1 * dir)
         });
     // console.log("rolls = " + JSON.stringify(rolls));
