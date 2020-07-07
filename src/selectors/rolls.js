@@ -2,7 +2,15 @@ import moment from 'moment';
 
 // Get visible rolls
 // this should be called selectRollsf
-export const selectRolls = (rolls, gid, sortCol, sortDir, prevSortCol, prevSortDir) => {
+export const selectRolls = (rolls, gid, player) => {
+    let sortCol = player.games[gid].sortCol;
+    let sortDir = player.games[gid].sortDir;
+    let prevSortCol = player.games[gid].prevSortCol;
+    let prevSortDir = player.games[gid].prevSortDir;
+    let lines = player.games[gid].linesPerPage;
+    // let pageNum = player.games[gid].pageNum;
+    // console.log("in selectRolls, lines  = " + lines);
+    // console.log("in selectRolls, gid  = " + gid);
     let col, dir, prevCol, prevDir;
     if (rolls === undefined || gid === undefined) {
         return [];
@@ -32,7 +40,7 @@ export const selectRolls = (rolls, gid, sortCol, sortDir, prevSortCol, prevSortD
     })
         .sort((a, b) => {
             let vala, valb;
-            if (col === "timestamp") {
+            if (col === "createdAt") {
                 vala = a.createdAt;
                 valb = b.createdAt;
             } else if (col === "player") {
@@ -99,11 +107,8 @@ export const selectRolls = (rolls, gid, sortCol, sortDir, prevSortCol, prevSortD
             }
             // console.log('vala = ' + vala + ', valb = ' + valb);
             return vala < valb ? (dir) : (-1 * dir)
-        });
+        }).slice(0,lines);
     // console.log("rolls = " + JSON.stringify(rolls));
-    return rolls.filter((roll) => {
-        return true;
-    });
 };
 
 export const selectGamePlayersForCC = (players, game, uid) => {

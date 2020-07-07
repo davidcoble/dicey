@@ -18,7 +18,7 @@ export class RollManagementPage extends React.Component {
             ...props
         }
     }
-    componentWillMount() {
+    componentDidMount() {
         let u = uuid();
         // console.log("u = " + u);
         // console.log("componentWillMount props" + JSON.stringify(this.props, null, 2));

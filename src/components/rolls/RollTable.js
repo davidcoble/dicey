@@ -1,10 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import RollForm from './RollForm';
 import {selectRolls} from '../../selectors/rolls';
-import {startAddRoll} from '../../actions/rolls';
 import RollRow from "./RollRow";
 import {startSetSortCol, startSetSortDir, startSetPrevSortDir, startSetPrevSortCol} from '../../actions/players';
+import RollTablePager from "./RollTablePager";
 
 export class RollTable extends React.Component {
     constructor(props) {
@@ -28,7 +27,7 @@ export class RollTable extends React.Component {
         }
     }
     setSortBy = (colName) => {
-        // console.log("colName = " + colName);
+        console.log("colName = " + colName);
         let newDir;
         // console.log("this.props.sortDir = " + this.props.sortDir);
         if (this.props.sortDir !== undefined && this.props.sortDir !== "") {
@@ -38,31 +37,40 @@ export class RollTable extends React.Component {
         }
         // console.log("newDir = " + newDir);
         if (colName === this.props.sortCol) {
-            this.props.startSetSortCol(this.props.uid, colName);
-            this.props.startSetSortDir(this.props.uid, newDir);
+            console.log("colName1 = " + colName);
+            this.props.startSetSortCol(this.props.uid, this.props.gid, colName);
+            this.props.startSetSortDir(this.props.uid, this.props.gid, newDir);
         } else {
-            this.props.startSetPrevSortCol(this.props.uid,
+            console.log("colName2 = " + colName);
+            this.props.startSetPrevSortCol(this.props.uid, this.props.gid,
                 this.props.sortCol === undefined ? 'createdAt' : this.props.sortCol);
-            this.props.startSetPrevSortDir(this.props.uid,
+            this.props.startSetPrevSortDir(this.props.uid, this.props.gid,
                 this.props.sortDir === undefined ? 1 : this.props.sortDir);
-            this.props.startSetSortCol(this.props.uid, colName);
-            this.props.startSetSortDir(this.props.uid, newDir);
+            this.props.startSetSortCol(this.props.uid, this.props.gid, colName);
+            this.props.startSetSortDir(this.props.uid, this.props.gid, newDir);
         }
     }
 
     render() {
         return (
             <div>
-                <div className='banner'>Rolls</div>
+                <div>
+                    <div className='banner banner--lefthalf'>
+                        Rolls
+                    </div>
+                    <div className='banner banner--righthalf'>
+                        <RollTablePager/>
+                    </div>
+                </div>
                 <table className="rollTable">
                     <thead>
                     <tr>
                         <th className="rollTable__th__left">
-                            <img className="img--sort" src={this.sortImgForColumn('timestamp')}/>
+                            <img className="img--sort" src={this.sortImgForColumn('createdAt')}/>
                             <button className="button--tight button--bold"
-                                    onClick={() => this.setSortBy('timestamp')}>timestamp
+                                    onClick={() => this.setSortBy('createdAt')}>timestamp
                             </button>
-                            <img className="img--sort" src={this.sortImgForColumn('timestamp')}/>
+                            <img className="img--sort" src={this.sortImgForColumn('createdAt')}/>
                         </th>
                         <th className="rollTable__th__left">
                             <img className="img--sort" src={this.sortImgForColumn('player')}/>
@@ -152,22 +160,23 @@ const mapStateToProps = (state, props) => {
     let game = state.games.filter((g) => g.id === gid)[0];
     // console.log("RollTable.mapStateToProps state = " + JSON.stringify(state, null, 2));
     return {
-        rolls: selectRolls(state.rolls, gid, player.sortCol, player.sortDir, player.prevSortCol, player.prevSortDir),
+        rolls: selectRolls(state.rolls, gid, player), //player.sortCol, player.sortDir, player.prevSortCol, player.prevSortDir),
+        gid: gid,
         uid: state.auth.uid,
         games: state.games,
         roll_game: game,
         roll_turn: player.games[gid] === undefined ? '' : player.games[gid].turn,
-        sortCol: player.sortCol,
-        sortDir: player.sortDir,
-        prevSortCol: player.prevSortCol,
-        prevSortDir: player.prevSortDir,
-    };
+        sortCol: player.games[gid].sortCol,
+        sortDir: player.games[gid].sortDir,
+        prevSortCol: player.games[gid].prevSortCol,
+        prevSortDir: player.games[gid].prevSortDir,
+    }
 };
 const mapDispatchToProps = (dispatch, props) => ({
-    startSetSortCol: (uid, sortCol) => dispatch(startSetSortCol(uid, sortCol)),
-    startSetSortDir: (uid, sortDir) => dispatch(startSetSortDir(uid, sortDir)),
-    startSetPrevSortCol: (uid, prevSortCol) => dispatch(startSetPrevSortCol(uid, prevSortCol)),
-    startSetPrevSortDir: (uid, prevSortDir) => dispatch(startSetPrevSortDir(uid, prevSortDir))
+    startSetSortCol: (uid, gid, sortCol) => dispatch(startSetSortCol(uid, gid, sortCol)),
+    startSetSortDir: (uid, gid, sortDir) => dispatch(startSetSortDir(uid, gid, sortDir)),
+    startSetPrevSortCol: (uid, gid, prevSortCol) => dispatch(startSetPrevSortCol(uid, gid, prevSortCol)),
+    startSetPrevSortDir: (uid, gid, prevSortDir) => dispatch(startSetPrevSortDir(uid, gid, prevSortDir))
 
 });
 export default connect(mapStateToProps, mapDispatchToProps)(RollTable);

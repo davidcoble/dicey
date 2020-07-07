@@ -148,57 +148,77 @@ export const setSortCol = (uid, sortCol) => ({
     sortCol
 });
 
-export const startSetSortCol = (uid, sortCol) => {
-    // console.log("startSetSortCol uid = " + uid + " sortCol = " + sortCol);
+export const startSetSortCol = (uid, gid, sortCol) => {
+    console.log("startSetSortCol uid = " + uid + " sortCol = " + sortCol);
     return (dispatch, getState) => {
-        return database.ref(`players/${uid}/sortCol`).set(sortCol).then(() => {
+        return database.ref(`players/${uid}/games/${gid}/sortCol`).set(sortCol).then(() => {
             dispatch(setSortCol(uid, sortCol));
         });
     };
 };
 
-export const setSortDir = (uid, sortDir) => ({
+export const setSortDir = (uid, gid, sortDir) => ({
     type: 'EDIT_PLAYER',
     uid,
     sortDir
 });
 
-export const startSetSortDir = (uid, sortDir) => {
+export const startSetSortDir = (uid, gid, sortDir) => {
     // console.log("startSetSortDir");
     return (dispatch, getState) => {
-        return database.ref(`players/${uid}/sortDir`).set(sortDir).then(() => {
+        return database.ref(`players/${uid}/games/${gid}/sortDir`).set(sortDir).then(() => {
             dispatch(setSortDir(uid, sortDir));
         });
     };
 };
 
-export const setPrevSortCol = (uid, prevSortCol) => ({
+export const setPrevSortCol = (uid, gid, prevSortCol) => ({
     type: 'EDIT_PLAYER',
     uid,
     prevSortCol
 });
 
-export const startSetPrevSortCol = (uid, prevSortCol) => {
-    // console.log("startSetPrevSortCol -- " + prevSortCol);
+export const startSetPrevSortCol = (uid, gid, prevSortCol) => {
+    if (prevSortCol === undefined) {
+        prevSortCol = 'createdAt';
+    }
+    console.log("startSetPrevSortCol uid = " +  uid + " gid = " + gid + " prevSortCol =" + prevSortCol);
     return (dispatch, getState) => {
-        return database.ref(`players/${uid}/prevSortCol`).set(prevSortCol).then(() => {
+        return database.ref(`players/${uid}/games/${gid}/prevSortCol`).set(prevSortCol).then(() => {
             dispatch(setPrevSortCol(uid, prevSortCol));
         });
     };
 };
 
-export const setPrevSortDir = (uid, prevSortDir) => ({
+export const setLinesPerPage = (uid, gid, linesPerPage) => ({
+    type: 'EDIT_PLAYER',
+    uid,
+    linesPerPage
+});
+
+export const startSetLinesPerPage = (uid, gid, linesPerPage) => {
+    console.log("startSetLinesPerPage uid = " +  uid + " gid = " + gid + " prevSortCol =" + linesPerPage);
+    return (dispatch, getState) => {
+        return database.ref(`players/${uid}/games/${gid}/linesPerPage`).set(linesPerPage).then(() => {
+            dispatch(setLinesPerPage(linesPerPage));
+        });
+    };
+};
+
+export const setPrevSortDir = (uid, gid, prevSortDir) => ({
     type: 'EDIT_PLAYER',
     uid,
     prevSortDir
 });
 
-export const startSetPrevSortDir = (uid, prevSortDir) => {
+export const startSetPrevSortDir = (uid, gid, prevSortDir) => {
+    if (prevSortDir === undefined) {
+        prevSortDir = 'createdAt';
+    }
     // console.log("startSetPrevSortDir");
     return (dispatch, getState) => {
-        return database.ref(`players/${uid}/prevSortDir`).set(prevSortDir).then(() => {
+        return database.ref(`players/${uid}/games/${gid}/prevSortDir`).set(prevSortDir).then(() => {
             dispatch(setPrevSortDir(uid, prevSortDir));
         });
     };
 };
-
