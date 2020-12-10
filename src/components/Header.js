@@ -25,9 +25,12 @@ export const Header = (props) => {
     );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    startLogout: () => dispatch(startLogout())
-});
+const mapDispatchToProps = (dispatch) => {
+    console.log("header loading dispatch = " + JSON.stringify(dispatch, null, 2));
+    return ({
+        startLogout: () => dispatch(startLogout())
+    });
+};
 
 const mapStateToProps = (state) => ({
     name: state.auth.name

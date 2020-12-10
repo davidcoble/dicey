@@ -13,6 +13,7 @@ export class RollList extends React.Component {
         }
     }
     render() {
+        console.log("XXXXXXXX!");
         return (
             <div>
                 <b>Rolls</b>
@@ -42,7 +43,7 @@ export class RollList extends React.Component {
     }
 }
 const mapStateToProps = (state, props) => {
-    // console.log("mapStateToProps props = " + JSON.stringify(props, null, 2));
+    console.log("mapStateToProps props = " + JSON.stringify(props, null, 2));
     let player = state.players.find((p) => { return p.uid === state.auth.uid });
     // console.log("player = " + JSON.stringify(player));
     let gid = player.rollingGame;

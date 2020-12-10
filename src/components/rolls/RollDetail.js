@@ -18,6 +18,7 @@ export class RollDetail extends React.Component {
         this.props.startEditRoll(e);
     };
     render() {
+
         return (
             <div className='rowForm'>
                 <div className='colForm-time'>{
