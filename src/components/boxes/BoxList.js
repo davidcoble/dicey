@@ -6,7 +6,6 @@ import {Link} from "react-router-dom";
 
 const BoxList = (props) => {
     //console.log("BoxList props = " + JSON.stringify(props));
-    const uid = props.uid;
     return (
         <div>
             <Link className="button-round" to="/boxes/create">+</Link>
@@ -31,7 +30,7 @@ const mapStateToProps = (state) => {
     //console.log("mapStateToProps state = " + JSON.stringify(state, null, 2));
     return {
         boxes: selectBoxes(state.boxes),
-        uid: state.auth.uid
+        pid: state.auth.pid,
     };
 };
 

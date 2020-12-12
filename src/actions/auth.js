@@ -1,5 +1,6 @@
-import { firebase, googleAuthProvider } from '../firebase/firebase';
-import database from '../firebase/firebase';
+import database, {firebase, googleAuthProvider} from '../firebase/firebase';
+import {playersCursor} from "../horizon/cursors";
+import {v4} from "uuid";
 
 
 export const login = (auth) => {
@@ -18,59 +19,60 @@ export const startLogin = () => {
     };
 };
 
-// export const setAdmin = (isAdmin) => {
-//     return {
-//         type: 'SET_ADMIN',
-//         isAdmin
-//     };
-// };
-//
-// export const startSetAdmin = () => {
-//     return (dispatch, getState) => {
-//         const uid = getState().auth.uid;
-//         console.log("startSetAdmin uid = " + uid);
-//         let isAdmin = false;
-//         database.ref(`users/${uid}/isAdmin`).on('value', (snapshot) =>{
-//            isAdmin = snapshot;
-//         });
-//         dispatch(setAdmin(isAdmin));
-//     };
-// };
-
 export const startSaveUserPage = (path) => {
     //console.log("startSaveUserPage called with path = " + path);
     return (dispatch, getState) => {
-        //console.log("state = " + JSON.stringify(getState()));
-        const uid = getState().auth.uid;
-        //console.log("uid="+uid);
-        if(uid) {
-            return database.ref(`players/${uid}/path`).set(path);
-        }
+        // //console.log("state = " + JSON.stringify(getState()));
+        // const pid = getState().auth.pid;
+        // //console.log("pid="+pid);
+        // if(pid) {
+        //     return database.ref(`players/${pid}/path`).set(path);
+        // }
     }
 }
 
 export const startSetLoggedIn = () => {
+    console.log("startSetLoggedIn");
     return (dispatch, getState) => {
-        let auth = getState().auth;
-        const uid = auth.uid;
-        const name = auth.name;
-        const email = auth.email;
-        const photoURL = auth.photoURL;
-        auth.isAdmin = false;
-        return database.ref(`players/${uid}/name`).set(name).then(() => {
-            database.ref(`players/${uid}/loggedIn`).set(true);
-        }).then(() => {
-            database.ref(`players/${uid}/email`).set(email);
-        }).then(() => {
-            database.ref(`players/${uid}/photoURL`).set(photoURL);
-        }).then(() => {
-            database.ref(`players/${uid}/isAdmin`).on('value', (snap) => {
-                auth.isAdmin = JSON.stringify(snap);
-
-            });
-        }).then(() => {
-            dispatch(login(auth));
-        });
+        playersCursor.fetch().subscribe(
+            result => {
+                //console.log('Result:', JSON.stringify(result));
+                const date = Date.now();
+                let update = {
+                    uid: getState().auth.uid,
+                    name: getState().auth.name,
+                    email: getState().auth.email,
+                    photoURL: getState().auth.photoURL,
+                    lastLogin: date,
+                    isAdmin: false,
+                };
+                let found = null;
+                result.map(r => {
+                    //console.log("r = " + JSON.stringify(r));
+                    //playersCursor.remove(r);
+                    if (r.uid === getState().auth.uid) {
+                        found = r.id;
+                    }
+                });
+                // TODO: get rid of this hard-coding
+                if(getState().auth.uid === 'rmw3LZhztjP0fhiWXopehZxjQ3B2') {
+                    update.isAdmin = true;
+                }
+                // console.log('found = ', found);
+                // console.log('update = ', JSON.stringify(update, null, 2));
+                if (found == null) {
+                    const uuid = v4();
+                    console.log("creating player with id = " + uuid);
+                    playersCursor.insert({id: uuid, ...update});
+                    getState().auth.pid = uuid;
+                } else {
+                    playersCursor.update({id: found, ...update});
+                    getState().auth.pid = found;
+                }
+            },
+            err => console.error(err),
+            () => console.log('Results fetched')
+        );
     };
 };
 
@@ -80,9 +82,8 @@ export const logout = () => ({
 
 export const startLogout = () => {
     return (dispatch, getState) => {
-        const uid = getState().auth.uid;
         return firebase.auth().signOut().then(() => {
-            database.ref(`players/${uid}/loggedIn`).set(false);
+            dispatch(logout());
         });
     };
 };

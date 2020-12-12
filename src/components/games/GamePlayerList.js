@@ -5,7 +5,6 @@ import { selectGamePlayers } from '../../selectors/players';
 
 const GamePlayerList = (props) => {
     //console.log("GamePlayerList props = " + JSON.stringify(props, null, 2));
-    const uid = props.uid;
     return (
         <div>
             <div className='colForm'>
@@ -15,7 +14,7 @@ const GamePlayerList = (props) => {
                     ) : (
                         props.players.map((player) => {
                             return (
-                                <GamePlayerDetail key={player.uid} {...player} />
+                                <GamePlayerDetail key={player.id} {...player} />
                             );
                         })
                     )

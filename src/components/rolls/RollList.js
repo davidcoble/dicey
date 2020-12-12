@@ -43,14 +43,14 @@ export class RollList extends React.Component {
 }
 const mapStateToProps = (state, props) => {
     // console.log("mapStateToProps props = " + JSON.stringify(props, null, 2));
-    let player = state.players.find((p) => { return p.uid === state.auth.uid });
+    let player = state.players.find((p) => { return p.id === state.auth.pid });
     // console.log("player = " + JSON.stringify(player));
     let gid = player.rollingGame;
     let game = state.games.filter((g) => g.id == gid)[0];
 
     return {
         rolls: selectRolls(state.rolls, gid),
-        uid: state.auth.uid,
+        pid: state.auth.pid,
         games: state.games,
         roll_game: game,
         roll_turn: player.games[gid] === undefined ? '' : player.games[gid].turn

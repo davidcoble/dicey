@@ -2,7 +2,7 @@
 
 const playersReducerDefaultState = [];
 
-export default (state = playersReducerDefaultState, action) => {
+export const playersReducer = (state = playersReducerDefaultState, action) => {
   switch (action.type) {
       case 'SET_PLAYERS':
           //console.log("SET_PLAYERS called");
@@ -10,7 +10,7 @@ export default (state = playersReducerDefaultState, action) => {
       case 'EDIT_PLAYER':
           //console.log("EDIT_PLAYER called action = " + JSON.stringify(action, null, 2));
           return state.map((player) => {
-              if (player.uid === action.uid) {
+              if (player.id === action.pid) {
                   return {
                       ...player,
                       ...action.updates

@@ -1,0 +1,39 @@
+2020-12-12T08:35:36.286847760 0.020201s notice: Recursively removing directory /home/coble/WebstormProjects/dicey/rethinkdb_data/tmp
+2020-12-12T08:35:36.291772830 0.025127s notice: Initializing directory /home/coble/WebstormProjects/dicey/rethinkdb_data
+2020-12-12T08:35:36.291838126 0.025191s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/home/coble/WebstormProjects/dicey/rethinkdb_data' did not already exist or is empty.)
+2020-12-12T08:35:36.291856359 0.025209s notice: Running rethinkdb 2.4.1~0bionic (CLANG 6.0.0 (tags/RELEASE_600/final))...
+2020-12-12T08:35:36.293650855 0.027005s notice: Running on Linux 5.4.0-56-generic x86_64
+2020-12-12T08:35:36.293718922 0.027072s notice: Loading data from directory /home/coble/WebstormProjects/dicey/rethinkdb_data
+2020-12-12T08:35:36.323582189 0.056936s info: Automatically using cache size of 12141 MB
+2020-12-12T08:35:36.323966969 0.057320s notice: Listening for intracluster connections on port 29015
+2020-12-12T08:35:36.325256262 0.058609s notice: Listening for client driver connections on port 28015
+2020-12-12T08:35:36.325303572 0.058656s notice: Listening for administrative HTTP connections on port 8080
+2020-12-12T08:35:36.325305662 0.058658s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2020-12-12T08:35:36.325307343 0.058660s notice: Listening on driver addresses: 127.0.0.1, ::1
+2020-12-12T08:35:36.325308977 0.058662s notice: Listening on http addresses: 127.0.0.1, ::1
+2020-12-12T08:35:36.325310589 0.058663s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2020-12-12T08:35:36.325312250 0.058665s notice: Server ready, "thrain_038" 0ce6e765-35b4-49b5-8b63-99c4c158a124
+2020-12-12T08:35:36.737406958 0.470760s info: Table 8097d72b-8025-4af4-959e-e7761debe7bd: Starting a new Raft election for term 1.
+2020-12-12T08:35:36.737598257 0.470951s info: Table 8097d72b-8025-4af4-959e-e7761debe7bd: Added replica on this server.
+2020-12-12T08:35:36.740797550 0.474150s info: Table 23f47831-8e3d-41d7-bee9-d090b1c59f29: Starting a new Raft election for term 1.
+2020-12-12T08:35:36.743790781 0.477144s info: Table 23f47831-8e3d-41d7-bee9-d090b1c59f29: Added replica on this server.
+2020-12-12T08:35:36.743798626 0.477151s info: Table a912bf04-ece6-4ce4-b43a-70b6a8fbfc07: Starting a new Raft election for term 1.
+2020-12-12T08:35:36.743921617 0.477274s info: Table a912bf04-ece6-4ce4-b43a-70b6a8fbfc07: Added replica on this server.
+2020-12-12T08:35:36.747704176 0.481057s info: Table 8097d72b-8025-4af4-959e-e7761debe7bd: This server is Raft leader for term 1. Latest log index is 0.
+2020-12-12T08:35:36.751174489 0.484527s info: Table 23f47831-8e3d-41d7-bee9-d090b1c59f29: This server is Raft leader for term 1. Latest log index is 0.
+2020-12-12T08:35:36.754762785 0.488116s info: Table a912bf04-ece6-4ce4-b43a-70b6a8fbfc07: This server is Raft leader for term 1. Latest log index is 0.
+2020-12-12T08:35:37.316201991 1.049555s info: Table 425f1f15-7d96-408f-82df-9f501b7ea681: Starting a new Raft election for term 1.
+2020-12-12T08:35:37.316494284 1.049847s info: Table 425f1f15-7d96-408f-82df-9f501b7ea681: Added replica on this server.
+2020-12-12T08:35:37.320720683 1.054074s info: Table 425f1f15-7d96-408f-82df-9f501b7ea681: This server is Raft leader for term 1. Latest log index is 0.
+2020-12-12T08:35:52.599027147 16.332380s info: Table 16b6734f-00ce-4566-ba8c-a74e0c7f284a: Starting a new Raft election for term 1.
+2020-12-12T08:35:52.599050612 16.332404s info: Table 1a1a368e-8641-4a15-a201-a0b43a0875cf: Starting a new Raft election for term 1.
+2020-12-12T08:35:52.599264728 16.332618s info: Table 16b6734f-00ce-4566-ba8c-a74e0c7f284a: Added replica on this server.
+2020-12-12T08:35:52.599525017 16.332878s info: Table 1a1a368e-8641-4a15-a201-a0b43a0875cf: Added replica on this server.
+2020-12-12T08:35:52.606866253 16.340219s info: Table 4c6fc664-e5a2-4bd6-96ec-ccb5704ae1f8: Starting a new Raft election for term 1.
+2020-12-12T08:35:52.609850797 16.343204s info: Table 4c6fc664-e5a2-4bd6-96ec-ccb5704ae1f8: Added replica on this server.
+2020-12-12T08:35:52.609858500 16.343211s info: Table 9096b422-bbf1-431a-ba33-5994a6cb43f5: Starting a new Raft election for term 1.
+2020-12-12T08:35:52.610062170 16.343415s info: Table 9096b422-bbf1-431a-ba33-5994a6cb43f5: Added replica on this server.
+2020-12-12T08:35:52.613825629 16.347179s info: Table 16b6734f-00ce-4566-ba8c-a74e0c7f284a: This server is Raft leader for term 1. Latest log index is 0.
+2020-12-12T08:35:52.617636747 16.350990s info: Table 1a1a368e-8641-4a15-a201-a0b43a0875cf: This server is Raft leader for term 1. Latest log index is 0.
+2020-12-12T08:35:52.621574637 16.354928s info: Table 4c6fc664-e5a2-4bd6-96ec-ccb5704ae1f8: This server is Raft leader for term 1. Latest log index is 0.
+2020-12-12T08:35:52.625503530 16.358857s info: Table 9096b422-bbf1-431a-ba33-5994a6cb43f5: This server is Raft leader for term 1. Latest log index is 0.

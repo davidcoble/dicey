@@ -27,10 +27,10 @@ const GameDetail = (ref) => {
                         <div className='headerList'>Players</div>
                         <GamePlayerList {...ref}/>
                         {
-                            ref.players !== undefined && ref.players[ref.uid] ? (
-                                <Link to={`/game/${ref.id}/player/${ref.uid}/remove`}>leave</Link>
+                            ref.players !== undefined && ref.players[ref.pid] ? (
+                                <Link to={`/game/${ref.id}/player/${ref.pid}/remove`}>leave</Link>
                             ) : (
-                                <Link to={`/game/${ref.id}/player/${ref.uid}/add`}>join</Link>
+                                <Link to={`/game/${ref.id}/player/${ref.pid}/add`}>join</Link>
                             )
                         }
                     </div>
@@ -38,6 +38,9 @@ const GameDetail = (ref) => {
                         <div className='headerList'>Subscribers</div>
                         <GameSubscriberList {...ref}/>
                     </div>
+                </div>
+                <div className='rowList'>
+                    <pre>{`${JSON.stringify(ref,null,2)}`}</pre>
                 </div>
             </div>
         </div>

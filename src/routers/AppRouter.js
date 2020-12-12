@@ -19,6 +19,7 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { startSaveUserPage } from '../actions/auth';
 import connect from "react-redux/es/connect/connect";
+import {PartyFavorManagementPage} from "../components/partyFavors/PartyFavorManagementPage";
 
 export const history = createHistory();
 
@@ -44,6 +45,7 @@ const AppRouter = ({startSaveUserPage}) => {
                     <PrivateRoute path="/game/:gid/subscriber/:pid/unsubscribe" component={GameSubscriberRemovePage}/>
                     <PrivateRoute path="/players" component={PlayerManagementPage}/>
                     <PrivateRoute path="/rolls" component={RollManagementPage}/>
+                    <PrivateRoute path="/partyFavors" component={PartyFavorManagementPage}/>
                     <PrivateRoute path="/email" component={ContactForm}/>
                     <Route component={NotFoundPage}/>
                 </Switch>

@@ -6,13 +6,12 @@ import {Link} from "react-router-dom";
 
 const PlayerGameList = (props) => {
     //console.log("PlayerGameList props = " + JSON.stringify(props));
-    const uid = props.uid;
     return (
         <div>
             <div>
                 {
                     props.games.length === 0 ? (
-                        <div>No Games</div>
+                        <b>No Games</b>
                     ) : (
                         props.games.map((game) => {
                             return (

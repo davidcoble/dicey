@@ -1,11 +1,4 @@
-import uuid from 'uuid';
-import database from '../firebase/firebase';
-
-// ADD_ROLL
-export const addRoll = (roll) => ({
-    type: 'ADD_ROLL',
-    roll
-});
+import { rollsCursor } from "../horizon/cursors";
 
 export const startAddRoll = (rollData = {}) => {
     return (dispatch, getState) => {
@@ -25,33 +18,15 @@ export const startAddRoll = (rollData = {}) => {
         } = rollData;
         const roll = { description, dice, sides, mods, gid, turn, result, epilogue, createdAt, createdBy };
         // console.log("about to store roll: " + JSON.stringify(roll, null, 2));
-        return database.ref(`rolls`).push(roll).then((ref) => {
-            // console.log("added roll");
-        });
+        rollsCursor.insert(roll);
     };
 };
-
-// REMOVE_ROLL
-export const removeRoll = ({ id } = {}) => ({
-    type: 'REMOVE_ROLL',
-    id
-});
 
 export const startRemoveRoll = ({ id } = {}) => {
     return (dispatch, getState) => {
-        const uid = getState().auth.uid;
-        return database.ref(`rolls/${id}`).remove().then(() => {
-            dispatch(removeRoll({ id }));
-        });
+        rollsCursor.remove(id);
     };
 };
-
-// EDIT_ROLL
-export const editRoll = (id, updates) => ({
-    type: 'EDIT_ROLL',
-    id,
-    updates
-});
 
 export const startEditRoll = ({id, updates} = {}) => {
     // console.log("id = " + JSON.stringify(id));
@@ -59,9 +34,7 @@ export const startEditRoll = ({id, updates} = {}) => {
     return (dispatch, getState) => {
         const userName = getState().auth.name;
         updates.createdBy = userName;
-        return database.ref(`rolls/${id}`).update(updates).then(() => {
-            // dispatch(editRoll(id, updates));
-        });
+        rollsCursor.update({id, ...updates});
     };
 };
 
@@ -73,27 +46,17 @@ export const setRolls = (rolls) => ({
 
 export const startSetRolls = () => {
     return (dispatch, getState) => {
-        const uid = getState().auth.uid;
-        let rollsRef = database.ref('rolls');
-        rollsRef.once('value', (snapshot) => {
-            const rolls = [];
-            snapshot.forEach((childSnapshot) => {
-                rolls.push({
-                    id: childSnapshot.key,
-                    ...childSnapshot.val()
-                });
-            });
-            dispatch(setRolls(rolls));
-        });
-        rollsRef.on('value', (snapshot) => {
-            const rolls = [];
-            snapshot.forEach((childSnapshot) => {
-                rolls.push({
-                    id: childSnapshot.key,
-                    ...childSnapshot.val()
-                });
-            });
-            dispatch(setRolls(rolls));
-        });
+        rollsCursor
+            .order('id')
+            .watch()
+            .subscribe(allRolls => {
+                    const rolls = [];
+                    allRolls.map(g => {
+                        rolls.push(g);
+                    });
+                    dispatch(setRolls(rolls));
+                },
+                error => console.error(error)
+            );
     };
 };

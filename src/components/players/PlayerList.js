@@ -13,16 +13,18 @@ const PlayerList = (props) => (
                     <div>No Players</div>
                 ) : (
                     props.players.map((player) => {
-                        return <PlayerDetail key={player.uid} {...player} />
+                        return <PlayerDetail key={player.id} {...player} />
                     })
                 )
             }
+            <pre className='small'>{JSON.stringify(props.state, null, 2)}</pre>
         </div>
     </div>
 );
 const mapStateToProps = (state) => {
     return {
-        players: state.players != undefined ? state.players: []
+        state: state,
+        players: state.players !== undefined ? state.players: [],
     };
 };
 

@@ -1,7 +1,6 @@
-import database from '../firebase/firebase';
-import { login } from './auth';
+import { playersCursor } from "../horizon/cursors";
 
-export const setPlayers = (players, auth) => {
+export const setPlayers = (players) => {
     return {
         type: 'SET_PLAYERS',
         players
@@ -9,136 +8,92 @@ export const setPlayers = (players, auth) => {
 };
 
 export const startSetPlayers = () => {
+    console.log("startSetPlayers running");
     return (dispatch, getState) => {
         let auth = getState().auth;
-        let uid = auth.uid;
-        let playersRef = database.ref('players');
-        playersRef.once('value').then((snapshot) => {
-            // console.log("users snapshot = " + JSON.stringify(snapshot));
-            const players = [];
-            snapshot.forEach((child) => {
-                //let val = local_obj[key];
-                let key = child.key;
-                if(auth.uid == child.key) {
-                    // auth = child.val();
-                    // auth.uid = uid;
-                    dispatch(login(auth));
-                }
-                players.push({
-                    uid: child.key,
-                    ...child.val()
-                });
-            });
-            dispatch(setPlayers(players, auth));
-        });
+        playersCursor
+            .order('id')
+            .watch()
+            .subscribe(allPlayers => {
+                    const players = [];
+                    // console.log("playerCursor allPlayers = "
+                    //     + JSON.stringify(allPlayers, null, 2));
+                    allPlayers.map(p => {
+                        players.push(p);
+                    });
+                    dispatch(setPlayers(players));
 
-        playersRef.on('value', (snapshot) => {
-            const players = [];
-            snapshot.forEach((child) => {
-                players.push({
-                    uid: child.key,
-                    ...child.val()
-                });
-                if(auth.uid === child.key) {
-                    if(child.val().isAdmin === 'true') {
-                        auth.isAdmin = 'true';
-                    }
-                    let newAuth = {
-                        isAdmin: child.val().isAdmin,
-                        ...auth
-                    };
-                    dispatch(login(newAuth));
-                }
-            });
-            dispatch(setPlayers(players, auth));
-        });
+                },
+                error => console.error(error)
+            );
+
     };
 };
 
-
-export const setPlayerRollingGame = (uid, gid) => ({
-    type: "EDIT_PLAYER",
-    rollingGame: {gid}
-});
-
-export const startSetPlayerRollingGame = ({uid, gid} = {}) => {
-    // console.log("uid = " + uid + " gid  = " + gid);
+export const startSetPlayerRollingGame = ({pid, gid} = {}) => {
+    // console.log("pid = " + pid + " gid  = " + gid);
     return (dispatch, getState) => {
-        return database.ref(`players/${uid}/rollingGame`).set(gid).then(() => {
-            dispatch(setPlayerRollingGame(uid, gid));
-        });
+        let update = {
+            id: pid,
+            rollingGame: gid,
+        }
+        playersCursor.update(update);
     };
 };
 
-export const setPlayerRollingGameTurn = (uid, gid, tid) => ({
-    type: "EDIT_PLAYER",
-    rollingGame: {gid}
-});
-
-export const startSetPlayerRollingGameTurn = ({uid, gid, tid} = {}) => {
-    // console.log("uid = " + uid + " gid  = " + gid + " tid  = " + tid);
+export const startSetPlayerRollingGameTurn = ({pid, gid, tid} = {}) => {
+    // console.log("pid = " + pid + " gid  = " + gid + " tid  = " + tid);
     return (dispatch, getState) => {
-        return database.ref(`players/${uid}/games/${gid}/turn`).set(tid).then(() => {
-            dispatch(setPlayerRollingGameTurn(uid, gid, tid));
-        });
+        let update = {};
+        update.id = pid;
+        update.games = {};
+        update.games[gid] = {};
+        update.games[gid].turn = tid;
+        playersCursor.update(update);
     };
 };
-
-export const addGameToPlayer = (playerId, gameId) => ({
-    type: 'ADD_GAME_TO_PLAYER',
-    playerId,
-    gameId
-});
 
 export const startAddGameToPlayer = ({gid, pid} = {}) => {
-    // console.log(" startAddGameToPlayer; playerId = " + pid);
-    return (dispatch) => {
-        return database.ref(`players/${pid}/games/${gid}/in`).set(true).then(() => {
-           dispatch(addGameToPlayer(pid, gid));
-        });
-    };
+    return addOrRemoveGameFromPlayer({gid, pid, add: true});
 };
 
-export const removeGameFromPlayer = (playerId, gameId) => ({
-    type: 'REMOVE_GAME_FROM_PLAYER',
-    playerId,
-    gameId
-});
 
 export const startRemoveGameFromPlayer = ({gid, pid} = {}) => {
-    // console.log("startRemoveGameFromPlayer; playerId = " + gid);
-    return (dispatch, getState) => {
-        return database.ref(`players/${pid}/games/${gid}/in`).set(false).then(() => {
-            dispatch(removeGameFromPlayer(pid, gid));
-        });
-    }
+    return addOrRemoveGameFromPlayer({gid, pid, add: false});
 };
 
+const addOrRemoveGameFromPlayer = ({gid, pid, add} = {}) => {
+    // console.log(" addOrRemoveGameFromPlayer; " +
+    //     "gid = " + gid + " pid = " + pid + " add = " + add);
+    return () => {
+        let update = {id: pid};
+        update.games = {};
+        update.games[gid] = {};
+        update.games[gid].in = add;
+        // console.log("addOrRemoveGameFromPlayer update = " +
+        //     JSON.stringify(update, null, 2));
+        try {
+            playersCursor.update(update);
+        } catch (e) {
+            console.log("ERROR  = " + JSON.stringify(e));
+        }
+    };
 
-export const hideNotPlaying = (uid, isAdmin) => ({
-    type: 'EDIT_PLAYER',
-    uid,
-    isAdmin
-});
+}
 
-export const startHideNotPlaying = (uid, isAdmin) => {
-    return (dispatch, getState) => {
-        return database.ref(`players/${uid}/hideNotPlaying`).set(isAdmin).then(() => {
-            dispatch(hideNotPlaying(uid, isAdmin));
-        });
+export const startHideNotPlaying = (pid, bHide) => {
+    return () => {
+        let update = {id: pid};
+        update.hideNotPlaying = bHide;
+        playersCursor.update(update);
     };
 };
 
-export const makePlayerAdmin = (uid, isAdmin) => ({
-    type: 'EDIT_PLAYER',
-    uid,
-    isAdmin
-});
 
-export const startMakePlayerAdmin = (uid, isAdmin) => {
-    return (dispatch, getState) => {
-        return database.ref(`players/${uid}/isAdmin`).set(isAdmin).then(() => {
-            dispatch(makePlayerAdmin(uid, isAdmin));
-        });
+export const startMakePlayerAdmin = (pid, isAdmin) => {
+    return () => {
+        let update = {id: pid};
+        update.isAdmin = isAdmin;
+        playersCursor.update(update);
     };
 };

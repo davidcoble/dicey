@@ -36,12 +36,12 @@ export class RollManagementPage extends React.Component {
 
     onSelectRollingGame = ({gid} = {}) => {
         // console.log("gid = " + gid);
-        let uid = this.props.uid;
+        // let pid = this.props.pid;
         // console.log("uid = " + uid);
-        this.props.startSetPlayerRollingGame(this.props.uid, gid);
+        this.props.startSetPlayerRollingGame(this.props.pid, gid);
     };
     onSelectRollingGameTurn = ({gid, tid} = {}) => {
-        this.props.startSetPlayerRollingGameTurn(this.props.uid, gid, tid);
+        this.props.startSetPlayerRollingGameTurn(this.props.pid, gid, tid);
     };
     onSubmit = (rollRequest) => {
         // console.log("[RollManagementPage.onSubmit] rollRequest = " + JSON.stringify(rollRequest, null, 2));
@@ -99,10 +99,28 @@ export class RollManagementPage extends React.Component {
 };
 
 const mapStateToProps = (state, props) => {
-    let player = state.players.find((p) => { return p.uid === state.auth.uid});
-    let game = state.games.find((g) => {
-        return g.id === player.rollingGame;
+    //console.log("mapStateToPro ps state.players = " + JSON.stringify(state.players, null, 2));
+    let player = state.players.find((p) => {
+        //console.log("mapStateToProps player = " + JSON.stringify(p, null, 2));
+        return p.id === state.auth.pid
     });
+    //console.log("auth = " + JSON.stringify(state.auth, null, 2));
+    if (player === undefined) {
+        console.log("ERROR: player not found state.auth.pid = " + state.auth.pid);
+        player = {};
+    }
+    if (player.games === undefined) {
+        player.games = {};
+    }
+    if (player.rollingGame === undefined) {
+        player.rollingGame = null;
+    }
+    let game = undefined;
+    if (player.rollingGame !== null) {
+        game = state.games.find((g) => {
+            return g.id === player.rollingGame;
+        });
+    }
     /*
         console.log("player.rollingGame = " + JSON.stringify(player.rollingGame));
         console.log("state.games = " + JSON.stringify(state.games, null, 2));
@@ -110,7 +128,7 @@ const mapStateToProps = (state, props) => {
     */
     return {
         to_email: selectGamePlayersForCC(state.players, game),
-        uid: state.auth.uid,
+        pid: state.auth.pid,
         roll: state.rolls ? state.rolls.find((roll) => roll.id === props.match.params.id) : [],
         gameValue: game === undefined ? '' : game.id,
         gameLabel: game === undefined ? '' : game.name,
@@ -119,12 +137,13 @@ const mapStateToProps = (state, props) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    startSetPlayerRollingGame: (uid, gid) => {
-        // console.log("startSetPlayerRollingGame uid = " + uid + " gid " + gid);
-        dispatch(startSetPlayerRollingGame({uid: uid, gid: gid}));
+    startSetPlayerRollingGame: (pid, gid) => {
+        // console.log("startSetPlayerRollingGame pid = " + pid + " gid " + gid);
+        dispatch(startSetPlayerRollingGame({pid: pid, gid: gid}));
     },
-    startSetPlayerRollingGameTurn: (uid, gid, tid) => {
-        dispatch(startSetPlayerRollingGameTurn({uid: uid, gid: gid, tid: tid}));
+    startSetPlayerRollingGameTurn: (pid, gid, tid) => {
+        //console.log("startSetPlayerRollingGameTurn pid = " + pid + " gid = " + gid + " tid = " + tid);
+        dispatch(startSetPlayerRollingGameTurn({pid: pid, gid: gid, tid: tid}));
         dispatch(startSetGameTurn({gid: gid, tid: tid}));
     },
     startAddRoll: (roll) => {

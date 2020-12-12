@@ -6,8 +6,8 @@ import { startRemoveGameFromPlayer } from '../../actions/players';
 
 export class GamePlayerRemovePage extends React.Component {
     componentWillMount() {
-        this.props.startRemovePlayerFromGame({ gid: this.props.game.id, pid: this.props.player.uid });
-        this.props.startRemoveGameFromPlayer({ gid: this.props.game.id, pid: this.props.player.uid });
+        this.props.startRemovePlayerFromGame({ gid: this.props.game.id, pid: this.props.player.id });
+        this.props.startRemoveGameFromPlayer({ gid: this.props.game.id, pid: this.props.player.id });
         this.props.history.push('/games');
     }
     render() {
@@ -27,7 +27,7 @@ const mapStateToProps = (state, props) => {
     // console.log("GameEditPage mapStateToProps state.game = " + JSON.stringify(state.game, null, 4));
     return {
         game: state.games.find((game) => game.id === props.match.params.gid),
-        player: state.players.find((player) => player.uid === props.match.params.pid)
+        player: state.players.find((player) => player.id === props.match.params.pid)
     };
 }
 

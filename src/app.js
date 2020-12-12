@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
+import { startSetPartyFavors} from "./actions/partyFavors";
 import { startSetPlayers} from "./actions/players";
 import { startSetLoggedIn } from "./actions/auth";
 import { startMakePlayerAdmin } from "./actions/players";
 import { startSetBoxes } from "./actions/boxes";
 import { startSetRolls } from "./actions/rolls";
-import { startSetExpenses } from "./actions/expenses";
 import { startSetGames } from "./actions/games";
-import { login, logout } from './actions/auth';
+import { login, logout, setPartyFavor } from './actions/auth';
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
@@ -34,6 +34,7 @@ const renderApp = () => {
 ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
+    // console.log("onAuthStateChanged user = " + JSON.stringify(user, null, 2));
     if (user) {
         let auth = {
             uid: user.uid,
@@ -42,27 +43,31 @@ firebase.auth().onAuthStateChanged((user) => {
             photoURL: user.photoURL,
             isAdmin: 'false'
         };
+        // new Promise((pass) => {
+        store.dispatch(startSetPlayers());
+        store.dispatch(startSetBoxes());
+        store.dispatch(startSetRolls());
+        store.dispatch(startSetGames());
+        store.dispatch(startSetLoggedIn());
+        // return pass;
+        // })
+        //     .then((pass) => {
+        // console.log("onAuthStateChanged auth = " + JSON.stringify(auth, null, 2));
         store.dispatch(login(auth));
-        store.dispatch(startSetLoggedIn())
-            .then(() => {
-                if(user.uid == 'dyMIEyrAb8T4PgLkIeVrpxLSPkE3') {
-                    store.dispatch(startMakePlayerAdmin(user.uid, true));
-                }
-            })
-            .then(store.dispatch(startSetPlayers()))
-            .then(store.dispatch(startSetLoggedIn()))
-            .then(store.dispatch(startSetBoxes()))
-            .then(store.dispatch(startSetRolls()))
-            .then(store.dispatch(startSetExpenses()))
-            .then(store.dispatch(startSetGames()))
-            .then(() => {
-                renderApp();
-                if (history.location.pathname === '/') {
-                    history.push('/players');
-                }
-            });
+        //     return pass;
+        // })
+        // .then(
+        renderApp();
+        // )
+        // .then(() => {
+        if (history.location.pathname === '/') {
+            console.log("navigating to /players");
+            history.push('/players');
+        }
+        //         }
+        //     }
+        // )
     } else {
-        // console.log("logged out");
         store.dispatch(logout());
         renderApp();
         history.push('/');

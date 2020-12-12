@@ -1,11 +1,4 @@
-import uuid from 'uuid';
-import database from '../firebase/firebase';
-
-// ADD_GAME
-export const addGame = (game) => ({
-    type: 'ADD_GAME',
-    game
-});
+import { gamesCursor }   from "../horizon/cursors";
 
 export const startAddGame = (gameData = {}) => {
     return (dispatch, getState) => {
@@ -20,86 +13,47 @@ export const startAddGame = (gameData = {}) => {
         } = gameData;
         const game = { description, name, box, createdAt, createdBy };
         // console.log("about to store game: " + JSON.stringify(game, null, 2));
-        return database.ref(`games`).push(game).then((ref) => {
-            // console.log("added game");
-        });
+        gamesCursor.insert(game);
     };
 };
-
-// REMOVE_GAME
-export const removeGame = ({ id } = {}) => ({
-    type: 'REMOVE_GAME',
-    id
-});
 
 export const startRemoveGame = ({ id } = {}) => {
     return (dispatch, getState) => {
-        const uid = getState().auth.uid;
-        return database.ref(`games/${id}`).remove().then(() => {
-            dispatch(removeGame({ id }));
-        });
+        console.log("startRemoveGame id = " + id);
+        gamesCursor.remove(id);
     };
 };
 
-export const addPlayerToGame = (gameId, playerId) => ({
-    type: 'ADD_PLAYER_TO_GAME',
-    gameId,
-    playerId
-});
-
 export const startAddPlayerToGame = ({gid, pid} = {}) => {
-    // console.log("startAddPlayerToGame; gameId = " + gid);
-    return (dispatch, getState) => {
-        return database.ref(`games/${gid}/players/${pid}`).set(true).then(() => {
-            dispatch(addPlayerToGame(gid, pid));
-        });
-    }
+    let updates = {};
+    updates.players = {};
+    updates.players[pid] = true;
+    console.log("updates = " + JSON.stringify(updates, null, 2));
+    return startEditGame(gid, updates);
 };
-
-export const removePlayerFromGame = (gameId, playerId) => ({
-    type: 'REMOVE_PLAYER_FROM_GAME',
-    gameId,
-    playerId
-});
 
 export const startRemovePlayerFromGame = ({gid, pid} = {}) => {
-    // console.log("startRemovePlayerFromGame; gameId = " + gid);
-    return (dispatch, getState) => {
-        return database.ref(`games/${gid}/players/${pid}`).set(false).then(() => {
-            dispatch(removePlayerFromGame(gid, pid));
-        });
-    }
+    let updates = {};
+    updates.players = {};
+    updates.players[pid] = false;
+    console.log("updates = " + JSON.stringify(updates, null, 2));
+    return startEditGame(gid, updates);
 };
 
-export const addSubscriberToGame = (gameId, subscriberId) => ({
-    type: 'ADD_SUBSCRIBER_TO_GAME',
-    gameId,
-    subscriberId
-});
-
-export const startAddSubscriberToGame = ({gid, uid} = {}) => {
-    // console.log("startAddSubscriberToGame; gameId = " + gid);
-    return (dispatch, getState) => {
-        return database.ref(`games/${gid}/subscribers/${uid}`).set(true).then(() => {
-            dispatch(addSubscriberToGame(gid, uid));
-        });
-    }
+export const startAddSubscriberToGame = ({gid, pid} = {}) => {
+    let updates = {};
+    updates.subscribers = {};
+    updates.subscribers[pid] = true;
+    console.log("updates = " + JSON.stringify(updates, null, 2));
+    return startEditGame(gid, updates);
 };
 
-export const removeSubscriberFromGame = (gameId, subscriberId) => ({
-    type: 'REMOVE_SUBSCRIBER_FROM_GAME',
-    gameId,
-    subscriberId
-});
-
-export const startRemoveSubscriberFromGame = ({gid, uid} = {}) => {
-    console.log("startRemoveSubscriberFromGame; gameId = " + gid);
-    console.log("startRemoveSubscriberFromGame; userId = " + uid);
-    return (dispatch, getState) => {
-        return database.ref(`games/${gid}/subscribers/${uid}`).set(false).then(() => {
-            dispatch(removeSubscriberFromGame(gid, uid));
-        });
-    }
+export const startRemoveSubscriberFromGame = ({gid, pid} = {}) => {
+    let updates = {};
+    updates.subscribers = {};
+    updates.subscribers[pid] = false;
+    console.log("updates = " + JSON.stringify(updates, null, 2));
+    return startEditGame(gid, updates);
 };
 
 
@@ -112,28 +66,18 @@ export const editGame = (id, updates) => ({
 
 export const startEditGame = (id, updates) => {
     // console.log("id = " + JSON.stringify(id));
-    // console.log("updates = " + JSON.stringify(updates));
+    // updates.box.label = updates.box.label + " right?";
+    console.log("updates = " + JSON.stringify({id, ...updates}, null, 2));
     return (dispatch, getState) => {
-        const userName = getState().auth.name;
-        updates.createdBy = userName;
-        return database.ref(`games/${id}`).update(updates).then(() => {
-            dispatch(editGame(id, updates));
-        });
+        gamesCursor.update({id, ...updates});
     };
 };
 
-export const setGameTurn = (gid, tid) => ({
-    type: "EDIT_GAME",
-    currentTurn: {tid}
-});
-
 export const startSetGameTurn = ({gid, tid} = {}) => {
     // console.log("uid = " + uid + " gid  = " + gid + " tid  = " + tid);
-    return (dispatch, getState) => {
-        return database.ref(`games/${gid}/turn`).set(tid).then(() => {
-            dispatch(setGameTurn(gid, tid));
-        });
-    };
+    let updates = {};
+    updates['turn'] = tid;
+    return startEditGame(gid, updates);
 };
 
 // SET_GAMES
@@ -144,27 +88,17 @@ export const setGames = (games) => ({
 
 export const startSetGames = () => {
     return (dispatch, getState) => {
-        const uid = getState().auth.uid;
-        let gamesRef = database.ref('games');
-        gamesRef.once('value', (snapshot) => {
-            const games = [];
-            snapshot.forEach((childSnapshot) => {
-                games.push({
-                    id: childSnapshot.key,
-                    ...childSnapshot.val()
-                });
-            });
-            dispatch(setGames(games));
-        });
-        gamesRef.on('value', (snapshot) => {
-            const games = [];
-            snapshot.forEach((childSnapshot) => {
-                games.push({
-                    id: childSnapshot.key,
-                    ...childSnapshot.val()
-                });
-            });
-            dispatch(setGames(games));
-        });
+        gamesCursor
+            .order('id')
+            .watch()
+            .subscribe(allGames => {
+                    const games = [];
+                    allGames.map(g => {
+                        games.push(g);
+                    });
+                    dispatch(setGames(games));
+                },
+                error => console.error(error)
+            );
     };
 };

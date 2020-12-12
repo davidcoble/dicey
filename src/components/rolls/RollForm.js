@@ -22,7 +22,7 @@ export class RollForm extends React.Component {
             turn: props.turn ? props.turn : '',
             createdAt: props.roll ? moment(props.roll.createdAt) : moment(),
             error: '',
-            uid: props.uid,
+            pid: props.pid,
             selectedGame: props.rollingGame,
             ...props
         };
@@ -249,7 +249,7 @@ export class RollForm extends React.Component {
                         </div>
                         <div className="colForm-descr" >
                             <b className='headerList'>email recipients</b>
-                            <GameSubscriberList uid={this.props.player.uid} {...this.props.game}/>
+                            <GameSubscriberList pid={this.props.player.id} {...this.props.game}/>
                         </div>
                     </div>
                 </form>
@@ -259,7 +259,7 @@ export class RollForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    let player = state.players.find((p) => { return p.uid === state.auth.uid});
+    let player = state.players.find((p) => { return p.id === state.auth.pid});
     let rollingGame = player.rollingGame;
     // console.log("player.rollingGame " + JSON.stringify(player.rollingGame, null, 2));
     let turnList = [];

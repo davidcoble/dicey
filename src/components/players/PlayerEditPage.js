@@ -5,7 +5,7 @@ import { startMakePlayerAdmin } from '../../actions/players';
 
 export class PlayerEditPage extends React.Component {
   onSubmit = (isAdmin) => {
-    this.props.startMakePlayerAdmin(this.props.player.uid, isAdmin);
+    this.props.startMakePlayerAdmin(this.props.player.id, isAdmin);
     this.props.history.push('/players');
   };
   render() {
@@ -29,12 +29,12 @@ export class PlayerEditPage extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return ({
-        player: state.players.find((player) => player.uid === props.match.params.id)
+        player: state.players.find((player) => player.id === props.match.params.pid)
     });
 }
 
 const mapDispatchToProps = (dispatch, props) => ({
-    startMakePlayerAdmin: (id, props) => dispatch(startMakePlayerAdmin(id, props.isAdmin))
+    startMakePlayerAdmin: (pid, props) => dispatch(startMakePlayerAdmin(pid, props.isAdmin))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlayerEditPage);

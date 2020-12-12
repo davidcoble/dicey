@@ -6,9 +6,9 @@ import { startAddGameToPlayer, startSetPlayerRollingGame } from '../../actions/p
 
 export class GamePlayerAddPage extends React.Component {
     componentWillMount() {
-        this.props.startAddGameToPlayer({ gid: this.props.game.id, pid: this.props.player.uid });
-        this.props.startSetPlayerRollingGame({uid: this.props.player.uid, gid: this.props.game.id});
-        this.props.startAddPlayerToGame({ gid: this.props.game.id, pid: this.props.player.uid });
+        this.props.startAddGameToPlayer({ gid: this.props.game.id, pid: this.props.player.id });
+        this.props.startSetPlayerRollingGame({pid: this.props.player.id, gid: this.props.game.id});
+        this.props.startAddPlayerToGame({ gid: this.props.game.id, pid: this.props.player.id });
         this.props.history.push('/games');
     }
     render() {
@@ -28,7 +28,7 @@ const mapStateToProps = (state, props) => {
     // console.log("GameEditPage mapStateToProps state.game = " + JSON.stringify(state.game, null, 4));
     return {
         game: state.games.find((game) => game.id === props.match.params.gid),
-        player: state.players.find((player) => player.uid === props.match.params.pid)
+        player: state.players.find((player) => player.id === props.match.params.pid)
     };
 }
 

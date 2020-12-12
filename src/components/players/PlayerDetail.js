@@ -4,14 +4,14 @@ import PlayerGameList from './PlayerGameList';
 
 const PlayerDetail = (player) => (
     <div>
-        <Link to={`/editPlayer/${player.uid}`}>{player.name}</Link>
+        <Link to={`/editPlayer/${player.id}`}>{player.name}</Link>
         {/*<b> loggedIn: {player.loggedIn ? 'yes' : 'no'}*/}
         {/*    isAdmin: {player.isAdmin ? 'yes':'no'}*/}
-        {/*    path: {player.path} uid: {player.uid}*/}
+        {/*    path: {player.path} pid: {player.pid}*/}
         {/*</b>*/}
-        <br/>
+        {/*<pre>{JSON.stringify(player, null, 2)}</pre>*/}
         <b>Currently Playing:</b>
-        <PlayerGameList key={player.uid} {...player}/>
+        <PlayerGameList key={player.id} {...player}/>
     </div>
 );
 

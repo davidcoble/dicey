@@ -30,7 +30,7 @@ export class GamesManagementPage extends React.Component {
 
 }
 const mapStateToProps = (state) => {
-    console.log("GamesManagementPage state.msgs = " + JSON.stringify(state.msgs, null, 2));
+    //console.log("GamesManagementPage state.msgs = " + JSON.stringify(state.msgs, null, 2));
     return {
         msgs: state.msgs
     };

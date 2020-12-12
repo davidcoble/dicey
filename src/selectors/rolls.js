@@ -12,30 +12,16 @@ export const selectRolls = (rolls, gid) => {
         .sort((a,b) => {
             return a.createdAt < b.createdAt ? 1 : -1
         });
-    // console.log("rolls = " + JSON.stringify(rolls));
-    return rolls.filter((roll) => {
-        return true;
-    });
-    // .sort((a, b) => {
-    //     //console.log("comparing a to b " + JSON.stringify(a) + " " + JSON.stringify(b));
-    //     return a.name < b.name ? -1 : 1;
-    //     // if (sortBy === 'name') {
-    //     //     console.log("comparing a to b " + JSON.stringify(a) + " " + JSON.stringify(b));
-    //     //     return b.name < a.name ? -1 : 1;
-    //     // } else if (sortBy === 'amount') {
-    //     //     return a.amount < b.amount ? 1 : -1;
-    //     // }
-    // });
 };
 
-export const selectGamePlayersForCC = (players, game, uid) => {
+export const selectGamePlayersForCC = (players, game) => {
     let cc_list = [];
     if (game === undefined) {
         return cc_list;
     }
     players.filter((p) => {
         return p.games && p.games[game.id] && p.games[game.id].in
-            && game.subscribers && game.subscribers[p.uid];
+            && game.subscribers && game.subscribers[p.id];
     }).map((p) => {
         cc_list.push(p.email);
     });

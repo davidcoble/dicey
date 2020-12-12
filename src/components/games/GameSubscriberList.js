@@ -8,19 +8,19 @@ import {startAddSubscriberToGame, startRemoveSubscriberFromGame} from '../../act
 class GameSubscriberList extends Component {
     addUser = (e) => {
         e.preventDefault();
-        console.log("uid = " + this.props.uid);
-        console.log("gid = " + this.props.id);
-        this.props.startAddSubscriberToGame({gid: this.props.id, uid: this.props.uid});
+        //console.log("pid = " + this.props.pid);
+        //console.log("gid = " + this.props.id);
+        this.props.startAddSubscriberToGame({gid: this.props.id, pid: this.props.pid});
     }
     removeUser = (e) => {
         e.preventDefault();
-        console.log("uid = " + this.props.uid);
-        console.log("gid = " + this.props.id);
-        this.props.startRemoveSubscriberFromGame({gid: this.props.id, uid: this.props.uid});
+        //console.log("pid = " + this.props.pid);
+        //console.log("gid = " + this.props.id);
+        this.props.startRemoveSubscriberFromGame({gid: this.props.id, pid: this.props.pid});
     }
     render() {
         // console.log("GameSubscriberList props = " + JSON.stringify(props, null, 2));
-        const uid = this.props.uid;
+        const pid = this.props.pid;
         const gid = this.props.id;
         let found = 0;
         return (
@@ -31,11 +31,11 @@ class GameSubscriberList extends Component {
                             <div>No subscribers</div>
                         ) : (
                             this.props.subscribers.map((subscriber) => {
-                                if (uid === subscriber.uid) {
+                                if (pid === subscriber.id) {
                                     found = 1;
                                 }
                                 return (
-                                    <GamePlayerDetail key={subscriber.uid} {...subscriber}/>
+                                    <GamePlayerDetail key={subscriber.id} {...subscriber}/>
                                 );
                             })
                         )

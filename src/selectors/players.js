@@ -8,7 +8,7 @@ export const selectGamePlayers = (players, gamers) => {
     if(gamers === undefined)
         return [];
     return players.filter((player) => {
-        const pid = player.uid;
+        const pid = player.id;
         if (gamers[pid]) {
             return true;
         }
@@ -30,7 +30,7 @@ export const selectGameSubscribers = (players, subscribers) => {
         return [];
     }
     return players.filter((p) => {
-        const pid = p.uid;
+        const pid = p.id;
         if (subscribers[pid]) {
             return true;
         }
