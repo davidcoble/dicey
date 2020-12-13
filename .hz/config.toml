@@ -57,7 +57,7 @@ start_rethinkdb = true
 ###############################################################################
 # Debug Options
 # 'debug' enables debug log statements
-# debug = false
+debug = true
 
 
 ###############################################################################
@@ -71,8 +71,8 @@ start_rethinkdb = true
 # 'access_control_allow_origin' sets a host that can access auth settings
 #   (typically your frontend host)
 #------------------------------------------------------------------------------
-allow_anonymous = true
-allow_unauthenticated = true
+# allow_anonymous = true
+# allow_unauthenticated = true
 # auth_redirect = "/"
 # access_control_allow_origin = ""
 #
