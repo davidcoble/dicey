@@ -5,8 +5,8 @@ install:
 	yarn install
 
 dev: install
-    horizon serve --dev &
-	yarn run dev-server &
+    horizon serve --dev \&
+	yarn run dev-server \&
 
 buildprod:
 	yarn build:prod
