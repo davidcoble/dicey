@@ -49,8 +49,8 @@ project_name = "dicey"
 # 'start_rethinkdb' will run an internal RethinkDB instance
 # 'rdb_timeout' is the number of seconds to wait when connecting to RethinkDB
 #------------------------------------------------------------------------------
-connect = "localhost:28015"
-start_rethinkdb = false
+# connect = "192.168.0.37:28015"
+start_rethinkdb = true
 # rdb_timeout = 30
 
 
@@ -72,8 +72,8 @@ start_rethinkdb = false
 # 'access_control_allow_origin' sets a host that can access auth settings
 #   (typically your frontend host)
 #------------------------------------------------------------------------------
-# allow_anonymous = false
-# allow_unauthenticated = false
+allow_anonymous = true
+allow_unauthenticated = true
 # auth_redirect = "/"
 # access_control_allow_origin = ""
 #

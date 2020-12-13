@@ -13,8 +13,9 @@ if (process.env.NODE_ENV === 'test') {
 module.exports.debug = true;
 module.exports = (env) => {
   const isProduction = env === 'production';
+  console.log("#################################### isProduction = " + isProduction);
   const CSSExtract = new ExtractTextPlugin('styles.css');
-
+  console.log("#################################### Firebase URL = " + process.env.FIREBASE_DATABASE_URL);
   return {
     entry: ['babel-polyfill', './src/app.js'],
     output: {
@@ -22,7 +23,7 @@ module.exports = (env) => {
       filename: 'bundle.js'
     },
     module: {
-        rules: [{
+      rules: [{
         loader: 'babel-loader',
         test: /\.js$/,
         exclude: /node_modules/
@@ -60,6 +61,9 @@ module.exports = (env) => {
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
       contentBase: path.join(__dirname, 'public'),
+      disableHostCheck: true,
+      host: '0.0.0.0',
+
       historyApiFallback: true,
       publicPath: '/dist/'
     }
