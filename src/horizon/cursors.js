@@ -1,5 +1,5 @@
 import Horizon from '@horizon/client';
-const horizon = new Horizon({host: 'localhost:8181'});
+const horizon = new Horizon({host: 'dice.coblefriends.com:8181'});
 export const gamesCursor = horizon('games');
 export const partyFavorCursor = horizon('weNeedList');
 export const playersCursor = horizon('players');
