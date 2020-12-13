@@ -63,7 +63,6 @@ module.exports = (env) => {
       contentBase: path.join(__dirname, 'public'),
       disableHostCheck: true,
       host: '0.0.0.0',
-
       historyApiFallback: true,
       publicPath: '/dist/'
     }
