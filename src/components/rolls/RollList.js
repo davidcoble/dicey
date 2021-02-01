@@ -16,7 +16,10 @@ export class RollList extends React.Component {
         console.log("RollList ShowDeleted= " + this.props.showDeleted)
         return (
             <div>
-                <p><br/><b>Rolls</b></p>
+                <div className='table_title'>
+                    <div><b>Rolls</b></div>
+                    <div>Rolls you have okayed for deletion</div>
+                </div>
                 <div className='colForm'>
                     <div className='rowForm'>
                         <ReactTooltip id='timestamp'>
@@ -59,7 +62,6 @@ export class RollList extends React.Component {
                             <span>
                                 Click "delete" button to request deletion.  All players must request deletion.<br/>
                                 Warning!  If you are the last player to request deletion, it will take effect immediately.<br/>
-                                You have been warned.<br/>
                                 Click "retain" to rescind your request to delete.
                             </span>
                         </ReactTooltip>

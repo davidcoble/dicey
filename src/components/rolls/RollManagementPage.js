@@ -91,7 +91,7 @@ export class RollManagementPage extends React.Component {
 
     render() {
         return (
-            <div>p
+            <div>
                 <div>
                     <RollForm
                         onSelectRollingGame={this.onSelectRollingGame}

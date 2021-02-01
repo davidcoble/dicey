@@ -149,6 +149,18 @@ export class RollForm extends React.Component {
             value: this.props.turn,
             label: this.props.turn
         }
+        const gameSelectStyles = {
+            menu: base => ({
+                ...base,
+                marginTop: 0,
+                paddingTop: 0,
+                paddingBottom: 0,
+            }),
+            menuList: (provided, state) => ({
+                paddingTop: 0,
+                paddingBottom: 0,
+            })
+        }
         //console.log("selectedTurn = " + JSON.stringify(selectedTurn));
         //console.log("selectedTurn = " + JSON.stringify(this.state.createdAt, null, 2));
         // console.log("gameNames = " + JSON.stringify(gameNames, null, 2));
@@ -156,9 +168,9 @@ export class RollForm extends React.Component {
         // console.log("selectedTurn = " + JSON.stringify(selectedTurn));
         // console.log("selectedGame = " + JSON.stringify(selectedGame));
         return (
-            <div>
+            <div className='roll_form_wrapper'>
                 <form onSubmit={this.onSubmit}>
-                    {this.state.error && <p className="form__error">{this.state.error}</p> || <p>&nbsp;</p>}
+                    {this.state.error && <p className="form__error">{this.state.error}</p>}
                     <div className="rowForm" >
                         <div className="colForm" >
                             <div className="rowForm" >
@@ -170,6 +182,7 @@ export class RollForm extends React.Component {
                                         value={selectedGame}
                                         defaultValue={selectedGame}
                                         onChange={this.onGameChange}
+                                        styles={gameSelectStyles}
                                     />
 
                                 </div>
