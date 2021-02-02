@@ -13,7 +13,7 @@ export class RollList extends React.Component {
         }
     }
     render() {
-        console.log("XXXXXXXX!");
+        console.log("1.XXXXXXXX!");
         return (
             <div>
                 <b>Rolls</b>
