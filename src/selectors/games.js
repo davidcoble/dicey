@@ -4,8 +4,19 @@ import moment from 'moment';
 // this should be called selectGamesf
 export const selectGames = (games, player) => {
     //console.log("games = " + JSON.stringify(games));
+    console.log("player = " + JSON.stringify(player, null, 2));
     let hideNotPlaying = player.hideNotPlaying ? true : false;
+    let playerShowDeleted = player.showDeletedGames;
     return games.filter((game) => {
+        console.log("filtering games game = " + JSON.stringify(game, null, 2));
+        console.log("game.deleted = " + game.deleted + " playerShowDeleted = " + playerShowDeleted);
+        let deleted = game.deleted !== undefined && game.deleted;
+        if (deleted === playerShowDeleted) {
+            console.log("continuing");
+        } else {
+            console.log("returning false");
+            return false;
+        }
         if (hideNotPlaying) {
             return player && player.games !== undefined && player.games[game.id].in;
         } else {

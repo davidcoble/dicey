@@ -1,6 +1,6 @@
 import uuid from 'uuid';
 import React from 'react';
-import RollList from './RollList';
+import RollTable from './RollTable';
 import RollForm from './RollForm';
 import EmailClient from "../EmailClient";
 import { startAddMsg } from "../../actions/msgs";
@@ -19,7 +19,7 @@ export class RollManagementPage extends React.Component {
         }
         //console.log("RollManagementPage props = " + JSON.stringify(props,null,2));
     }
-    componentWillMount() {
+    componentDidMount() {
         let u = uuid();
         // console.log("u = " + u);
         // console.log("componentWillMount props" + JSON.stringify(this.props, null, 2));

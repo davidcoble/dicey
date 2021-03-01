@@ -7,14 +7,16 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 if (process.env.NODE_ENV === 'test') {
   require('dotenv').config({ path: '.env.test' });
 } else if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config({ path: 'envDevelopment.js' });
+  require('dotenv').config({ path: '.env.development' });
+} else {
+  console.log("XXXXXXXXXXXXXX huston, not sure about the environment here.");
 }
 
 module.exports.debug = true;
 module.exports = (env) => {
   const isProduction = env === 'production';
   const CSSExtract = new ExtractTextPlugin('styles.css');
-
+  console.log("yo yo yo!\n");
   return {
     entry: ['babel-polyfill', './src/app.js'],
     output: {

@@ -1,0 +1,23 @@
+.rollTable {
+  width: 100%;
+  font-size: $m-size;
+}
+
+.pagerTable {
+  font-size: $s-size;
+}
+
+.rollTable__td__ellipsis {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.rollTable__td__wrap {
+  white-space: normal;
+}
+
+.rollTable__th__left {
+  text-align: left;
+}

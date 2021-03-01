@@ -163,12 +163,7 @@ export class RollDetail extends React.Component {
                                 <button className='button-extra-small' onClick={this.deleteRoll}>delete</button>
                         }
                     </div>
-                    {/*
-                <div className='rowForm'>
-                    <div className='colForm'><input type='checkbox'/></div>
-                    <div className='colForm'><input type='checkbox'/></div>
-                </div>
-*/}
+                   
                 </div>
             );
         }

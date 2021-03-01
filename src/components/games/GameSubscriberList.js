@@ -8,14 +8,14 @@ import {startAddSubscriberToGame, startRemoveSubscriberFromGame} from '../../act
 class GameSubscriberList extends Component {
     addUser = (e) => {
         e.preventDefault();
-        console.log("uid = " + this.props.uid);
-        console.log("gid = " + this.props.id);
+        // console.log("uid = " + this.props.uid);
+        // console.log("gid = " + this.props.id);
         this.props.startAddSubscriberToGame({gid: this.props.id, uid: this.props.uid});
     }
     removeUser = (e) => {
         e.preventDefault();
-        console.log("uid = " + this.props.uid);
-        console.log("gid = " + this.props.id);
+        // console.log("uid = " + this.props.uid);
+        // console.log("gid = " + this.props.id);
         this.props.startRemoveSubscriberFromGame({gid: this.props.id, uid: this.props.uid});
     }
     render() {

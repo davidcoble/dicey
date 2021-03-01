@@ -23,7 +23,24 @@
   padding: 0;
 }
 
-.table_title {
+.banner {
+  background-color: #99F;
+  width: 100%;
+  text-align: center;
+  font-size: $l-size;
+  height: 40px;
+}
+
+.banner--lefthalf {
+  width: 50%;
+  float: left;
+}
+
+.banner--righthalf {
+  width: 50%;
+  float: right;
+
+  .table_title {
   background-color: red;
   align-items: right;
 }

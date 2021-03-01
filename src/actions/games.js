@@ -35,8 +35,23 @@ export const removeGame = ({ id } = {}) => ({
 export const startRemoveGame = ({ id } = {}) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        return database.ref(`games/${id}`).remove().then(() => {
+        return database.ref(`games/${id}/deleted`).set(true).then(() => {
             dispatch(removeGame({ id }));
+        });
+    };
+};
+
+// UNDELETE_GAME
+export const undeleteGame = ({ id } = {}) => ({
+    type: 'UNDELETE_GAME',
+    id
+});
+
+export const startUndeleteGame = ({ id } = {}) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`games/${id}/deleted`).set(false).then(() => {
+            dispatch(undeleteGame({ id }));
         });
     };
 };
@@ -93,8 +108,8 @@ export const removeSubscriberFromGame = (gameId, subscriberId) => ({
 });
 
 export const startRemoveSubscriberFromGame = ({gid, uid} = {}) => {
-    console.log("startRemoveSubscriberFromGame; gameId = " + gid);
-    console.log("startRemoveSubscriberFromGame; userId = " + uid);
+    // console.log("startRemoveSubscriberFromGame; gameId = " + gid);
+    // console.log("startRemoveSubscriberFromGame; userId = " + uid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/subscribers/${uid}`).set(false).then(() => {
             dispatch(removeSubscriberFromGame(gid, uid));

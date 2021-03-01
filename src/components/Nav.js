@@ -1,15 +1,15 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 export const Nav = (props) => (
     <div className='navDiv'>
         <nav className='navNav'>
-            <Link className='nav__link' to='/players'>players</Link>
-            <Link className='nav__link' to='/games'>games</Link>
-            <Link className='nav__link' to='/rolls'>rolls</Link>
+            <NavLink activeClassName="selected" className='nav__link' to='/players'>players</NavLink>
+            <NavLink activeClassName="selected" className='nav__link' to='/games'>games</NavLink>
+            <NavLink activeClassName="selected" className='nav__link' to='/rolls'>rolls</NavLink>
             { props.auth.isAdmin === 'true' &&
-            (<Link className='nav__link' to='/boxes'>boxes</Link>) }
+            (<NavLink activeClassName="selected" className='nav__link' to='/boxes'>boxes</NavLink>) }
             <a className='nav__link' href='https://github.com/davidcoble/dicey/issues'>suggestions</a>
             {/*{ props.auth.isAdmin === 'true' ? (*/}
             {/*    <Link className='nav__link' to='/'>admin {props.auth.name}</Link>*/}

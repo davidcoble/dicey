@@ -13,7 +13,6 @@ export class RollList extends React.Component {
         }
     }
     render() {
-        console.log("RollList ShowDeleted= " + this.props.showDeleted)
         return (
             <div>
                 <div className='table_title'>
@@ -79,14 +78,16 @@ export class RollList extends React.Component {
     }
 }
 const mapStateToProps = (state, props) => {
-    // console.log("mapStateToProps props = " + JSON.stringify(props, null, 2));
+    console.log("mapStateToProps props = " + JSON.stringify(props, null, 2));
     let player = state.players.find((p) => { return p.uid === state.auth.uid });
     // console.log("player = " + JSON.stringify(player));
     let gid = player.rollingGame;
     let game = state.games.filter((g) => g.id == gid)[0];
+    let sortCol = player.sortCol;
+    let sortDir = player.sortDir;
 
     return {
-        rolls: selectRolls(state.rolls, gid),
+        rolls: selectRolls(state.rolls, gid, sortCol, sortDir),
         uid: state.auth.uid,
         games: state.games,
         roll_game: game,
