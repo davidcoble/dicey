@@ -12,7 +12,7 @@ export const Header = (props) => {
             <div className="content-container-header">
                 <div className="header__content">
                     <Link className="header__title" to="/dashboard">
-                        <h1>Slice and Dice</h1>
+                        <h1>Alea Iacta Est</h1>
                     </Link>
                     <div className="header__right">
                         <p>Logged in as {name}</p>

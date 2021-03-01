@@ -10,6 +10,16 @@
   text-decoration: none;
 }
 
+.button-small {
+  padding: 0px;
+}
+
+.button-extra-small {
+  padding: 3px;
+  border: 1px solid grey;
+  width: 50px;
+}
+
 .button-tiny {
   background: $blue;
   border: none;

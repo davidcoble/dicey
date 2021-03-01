@@ -12,18 +12,18 @@ import { RollList } from "./RollList";
 export class RollForm extends React.Component {
     constructor(props) {
         super(props);
-        // console.log("RollForm props.turn = " + JSON.stringify(props.turn, null, 2));
+        console.log("RollForm props.linkedGame = " + props.linkedGame);
+
         this.state = {
             description: '',
             dice: '',
             sides: props.sides ? props.sides : '',
             mods: '',
-            game: props.game ? props.game.name : '',
+            game: props.linkedGame ? props.linkedGame : ( props.game ? props.game.name : '' ),
             turn: props.turn ? props.turn : '',
             createdAt: props.roll ? moment(props.roll.createdAt) : moment(),
             error: '',
             uid: props.uid,
-            selectedGame: props.rollingGame,
             ...props
         };
         //console.log("RollForm this.state = " + JSON.stringify(this.state, null, 2));
@@ -63,12 +63,19 @@ export class RollForm extends React.Component {
         this.state.gameValue = e.value;
         this.props.onSelectRollingGame({ gid: e.value });
     };
-
     onTurnChange = (e) => {
         // console.log("turn change! e = " + JSON.stringify(e, null, 2));
         // const name = e.target.value;
+        e.preventDefault();
         this.state.turn = e.label;
         this.props.onSelectRollingGameTurn({ gid: this.props.gameValue, tid: e.value });
+    };
+
+    onShowDeleted = (e) => {
+        // e.preventDefault();
+        console.log("onShowDeleted e.target.checked = " + e.target.checked);
+        this.state.showDeleted = e.target.checked;
+        this.props.onShowDeleted({showDeleted: this.state.showDeleted});
     };
 
     previousTurn = (event) => {
@@ -106,9 +113,6 @@ export class RollForm extends React.Component {
         this.props.onSelectRollingGameTurn({ gid: this.props.gameValue, tid: newTurn });
 
     };
-
-
-
 
     onSubmit = (e) => {
         e.preventDefault();
@@ -152,6 +156,18 @@ export class RollForm extends React.Component {
             value: this.props.turn,
             label: this.props.turn
         }
+        const gameSelectStyles = {
+            menu: base => ({
+                ...base,
+                marginTop: 0,
+                paddingTop: 0,
+                paddingBottom: 0,
+            }),
+            menuList: (provided, state) => ({
+                paddingTop: 0,
+                paddingBottom: 0,
+            })
+        }
         //console.log("selectedTurn = " + JSON.stringify(selectedTurn));
         //console.log("selectedTurn = " + JSON.stringify(this.state.createdAt, null, 2));
         // console.log("gameNames = " + JSON.stringify(gameNames, null, 2));
@@ -159,21 +175,21 @@ export class RollForm extends React.Component {
         // console.log("selectedTurn = " + JSON.stringify(selectedTurn));
         // console.log("selectedGame = " + JSON.stringify(selectedGame));
         return (
-            <div>
+            <div className='roll_form_wrapper'>
                 <form onSubmit={this.onSubmit}>
-                    {this.state.error && <p className="form__error">{this.state.error}</p> || <p>&nbsp;</p>}
+                    {this.state.error && <p className="form__error">{this.state.error}</p>}
                     <div className="rowForm" >
                         <div className="colForm" >
                             <div className="rowForm" >
                                 <div className="colForm" >
                                     <p>Select Game</p>
-
                                     <Select
                                         className='game-select'
                                         options={gameNames}
                                         value={selectedGame}
                                         defaultValue={selectedGame}
                                         onChange={this.onGameChange}
+                                        styles={gameSelectStyles}
                                     />
 
                                 </div>
@@ -181,7 +197,9 @@ export class RollForm extends React.Component {
                                     <p>
                                         <button className="tightButton" onClick={this.previousTurn}>&lt;&lt;&lt;</button>
                                         Select Turn
-                                        <button className="tightButton" onClick={this.nextTurn}>>>></button>
+                                        <button onClick={this.nextTurn}>+</button>
+                                        Show Deleted
+                                        <input type='checkbox' onChange={this.onShowDeleted}/>
                                     </p>
                                     <Select
                                         className='turn-select'

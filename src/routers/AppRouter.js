@@ -45,7 +45,8 @@ const AppRouter = ({startSaveUserPage}) => {
                     <PrivateRoute path="/game/:gid/subscriber/:pid/subscribe" component={GameSubscriberAddPage}/>
                     <PrivateRoute path="/game/:gid/subscriber/:pid/unsubscribe" component={GameSubscriberRemovePage}/>
                     <PrivateRoute path="/players" component={PlayerManagementPage}/>
-                    <PrivateRoute path="/rolls" component={RollManagementPage}/>
+                    <PrivateRoute path="/rolls/:gid" component={RollManagementPage}/>
+                    <PrivateRoute path="/rolls/" component={RollManagementPage}/>
                     <PrivateRoute path="/email" component={ContactForm}/>
                     <Route component={NotFoundPage}/>
                 </Switch>
