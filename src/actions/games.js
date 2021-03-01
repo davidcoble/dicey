@@ -35,8 +35,23 @@ export const removeGame = ({ id } = {}) => ({
 export const startRemoveGame = ({ id } = {}) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        return database.ref(`games/${id}`).remove().then(() => {
+        return database.ref(`games/${id}/deleted`).set(true).then(() => {
             dispatch(removeGame({ id }));
+        });
+    };
+};
+
+// UNDELETE_GAME
+export const undeleteGame = ({ id } = {}) => ({
+    type: 'UNDELETE_GAME',
+    id
+});
+
+export const startUndeleteGame = ({ id } = {}) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`games/${id}/deleted`).set(false).then(() => {
+            dispatch(undeleteGame({ id }));
         });
     };
 };

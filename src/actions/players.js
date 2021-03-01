@@ -62,7 +62,7 @@ export const setPlayerRollingGame = (uid, gid) => ({
 });
 
 export const startSetPlayerRollingGame = ({ uid, gid } = {}) => {
-    // console.log("uid = " + uid + " gid  = " + gid);
+    console.log("startSetPlayerRollingGame uid = " + uid + " gid  = " + gid);
     return (dispatch, getState) => {
         return database.ref(`players/${uid}/rollingGame`).set(gid).then(() => {
             dispatch(setPlayerRollingGame(uid, gid));
@@ -138,6 +138,25 @@ export const startSetHideNotPlaying = (uid, hideNotPlaying) => {
     return (dispatch, getState) => {
         return database.ref(`players/${uid}/hideNotPlaying`).set(hideNotPlaying).then(() => {
             dispatch(setPlayerHideNotPlaying(uid, hideNotPlaying));
+        });
+    };
+};
+
+export const setShowDeletedGames = (uid, showDeletedGames) => ({
+    type: 'EDIT_PLAYER',
+    uid,
+    showDeletedGames
+});
+
+export const startShowDeletedGames = (showDeletedGames) => {
+    // console.log("xxx. startShowDeletedGames showDeletedGames = " + showDeletedGames);
+    return (dispatch, getState) => {
+        let auth = getState().auth;
+        const uid = auth.uid;
+        // console.log("startShowDeletedGames uid = " + uid + " showDeletedGames = " + showDeletedGames);
+        return database.ref(`players/${uid}/showDeletedGames`).set(showDeletedGames).then(() => {
+            // console.log("about to dispatch setShowDeletedGames(uid, showDeletedGames)");
+            dispatch(setShowDeletedGames(uid, showDeletedGames));
         });
     };
 };
