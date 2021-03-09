@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import AppRouter, { history } from './routers/AppRouter';
 import configureStore from './store/configureStore';
-import { startSetPlayers} from "./actions/players";
+import { startSetPlayers, startAddPlayer} from "./actions/players";
 import { startSetLoggedIn } from "./actions/auth";
 import { startMakePlayerAdmin } from "./actions/players";
 import { startSetBoxes } from "./actions/boxes";
@@ -42,6 +42,7 @@ firebase.auth().onAuthStateChanged((user) => {
             photoURL: user.photoURL,
             isAdmin: 'false'
         };
+        //console.log("auth = " + JSON.stringify(auth, null, 2));
         store.dispatch(login(auth));
         store.dispatch(startSetLoggedIn())
             .then(() => {
@@ -61,6 +62,7 @@ firebase.auth().onAuthStateChanged((user) => {
                     history.push('/players');
                 }
             });
+        store.dispatch(startAddPlayer(auth));
     } else {
         // console.log("logged out");
         store.dispatch(logout());

@@ -13,6 +13,7 @@ export class RollList extends React.Component {
         }
     }
     render() {
+        console.log("roll list with tool tips")
         return (
             <div>
                 <div className='table_title'>

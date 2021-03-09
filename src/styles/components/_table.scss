@@ -1,6 +1,7 @@
 .rollTable {
   width: 100%;
   font-size: $m-size;
+  border-spacing: 0px;
 }
 
 .pagerTable {
@@ -8,16 +9,97 @@
 }
 
 .rollTable__td__ellipsis {
-  max-width: 100px;
+  max-width: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: $m-size;
+}
+
+.rollTable__td__left {
+  text-align: left;
+}
+.rollTable__td__center {
+  text-align: center;
+}
+.rollTable__td__right {
+  text-align: right;
 }
 
 .rollTable__td__wrap {
   white-space: normal;
 }
 
+.rollTable__div_header {
+  height: 90px;
+  display: block;
+}
+.rollTable__div_body {
+  display: block;
+}
+
+.rollTable__selectors {
+  height: 20px;
+  font-weight: bold;
+  align: center;
+
+  position: relative;
+}
+.rollTable__selectors_in {
+  position: absolute;
+  bottom: 0;
+  align: center;
+
+}
+
 .rollTable__th__left {
+  background: $light-grey;
   text-align: left;
+  font-size: $m-size;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rollTable__th__center {
+  background: $light-grey;
+  text-align: center;
+  font-size: $m-size;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.rollTable__th__right {
+  background: $light-grey;
+  text-align: right;
+  font-size: $m-size;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rollTable__timestamp__header {
+  width: 7%;
+}
+
+.rollTable__player__header {
+  width: 7%;
+}
+.rollTable__turn__header {
+  width: 6%;
+}
+.rollTable__description__header {
+  width: 25%;
+}
+.rollTable__dice__header {
+  width: 3%;
+}
+.rollTable__sides__header {
+  width: 3%;
+}
+.rollTable__mod__header {
+  width: 3%;
+}
+.rollTable__result__header {
+  width: 7%;
+}
+.rollTable__epilogue__header {
+  width: 30%;
 }

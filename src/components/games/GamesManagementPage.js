@@ -26,7 +26,7 @@ export class GamesManagementPage extends React.Component {
     }
     render() {
         // console.log("GMP render state = " + JSON.stringify(this.state, null, 2));
-        // console.log("GMP render props = " + JSON.stringify(this.props, null, 2));
+        console.log("GMP render props = " + JSON.stringify(this.props, null, 2));
         return (
             <div>
                 {

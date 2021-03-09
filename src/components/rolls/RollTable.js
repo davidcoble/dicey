@@ -4,6 +4,8 @@ import {selectRolls} from '../../selectors/rolls';
 import RollRow from "./RollRow";
 import {startSetSortCol, startSetSortDir, startSetPrevSortDir, startSetPrevSortCol} from '../../actions/players';
 import RollTablePager from "./RollTablePager";
+import ReactTooltip from 'react-tooltip'
+import LoadingOverlay from 'react-loading-overlay';
 
 export class RollTable extends React.Component {
     constructor(props) {
@@ -28,6 +30,7 @@ export class RollTable extends React.Component {
     }
     setSortBy = (colName) => {
         console.log("colName = " + colName);
+
         let newDir;
         // console.log("this.props.sortDir = " + this.props.sortDir);
         if (this.props.sortDir !== undefined && this.props.sortDir !== "") {
@@ -41,93 +44,87 @@ export class RollTable extends React.Component {
             this.props.startSetSortCol(this.props.uid, this.props.gid, colName);
             this.props.startSetSortDir(this.props.uid, this.props.gid, newDir);
         } else {
-            console.log("colName2 = " + colName);
-            this.props.startSetPrevSortCol(this.props.uid, this.props.gid,
-                this.props.sortCol === undefined ? 'createdAt' : this.props.sortCol);
-            this.props.startSetPrevSortDir(this.props.uid, this.props.gid,
-                this.props.sortDir === undefined ? 1 : this.props.sortDir);
+            // console.log("colName2 = " + colName);
+            // this.props.startSetPrevSortCol(this.props.uid, this.props.gid,
+            //     this.props.sortCol === undefined ? 'createdAt' : this.props.sortCol);
+            // this.props.startSetPrevSortDir(this.props.uid, this.props.gid,
+            //     this.props.sortDir === undefined ? 1 : this.props.sortDir);
             this.props.startSetSortCol(this.props.uid, this.props.gid, colName);
             this.props.startSetSortDir(this.props.uid, this.props.gid, newDir);
         }
     }
 
     render() {
+        console.log("RollTable with two Tooltips");
         return (
-            <div>
+            <div className='rollTable__div_body'>
                 <div>
                     <div className='banner banner--lefthalf'>
                         Rolls
                     </div>
                     <div className='banner banner--righthalf'>
-                        <RollTablePager/>
+                    {/*    <RollTablePager/>*/}
                     </div>
                 </div>
                 <table className="rollTable">
                     <thead>
                     <tr>
-                        <th className="rollTable__th__left">
-                            <img className="img--sort" src={this.sortImgForColumn('createdAt')}/>
-                            <button className="button--tight button--bold"
-                                    onClick={() => this.setSortBy('createdAt')}>timestamp
-                            </button>
-                            <img className="img--sort" src={this.sortImgForColumn('createdAt')}/>
+                        <th className="rollTable__th__left rollTable__timestamp__header">
+                            <ReactTooltip id='timestamp'>
+                                <span>The time the die/dice was/were rolled.</span>
+                            </ReactTooltip>
+                            <p className="button--tight button--bold" data-tip data-for='timestamp'>timestamp</p>
                         </th>
-                        <th className="rollTable__th__left">
-                            <img className="img--sort" src={this.sortImgForColumn('player')}/>
-                            <button className="button--tight button--bold"
-                                    onClick={() => this.setSortBy('player')}>player
-                            </button>
-                            <img className="img--sort" src={this.sortImgForColumn('player')}/>
+                        <th className="rollTable__th__left rollTable__player__header">
+                            <ReactTooltip id='player'>
+                                <span>The player who requested the roll.</span>
+                            </ReactTooltip>
+                            <p className="button--tight button--bold" data-tip data-for='player'>player</p>
                         </th>
-                        <th className="rollTable__th__left">
-                            <img className="img--sort" src={this.sortImgForColumn('turn')}/>
-                            <button className="button--tight button--bold"
-                                    onClick={() => this.setSortBy('turn')}>turn
-                            </button>
-                            <img className="img--sort" src={this.sortImgForColumn('turn')}/>
+                        <th className="rollTable__th__left rollTable__turn__header">
+                            <ReactTooltip id='turn'>
+                                <span>The turn in the game for which it/they was/were requested.</span>
+                            </ReactTooltip>
+                            <p data-tip data-for='turn'>turn</p>
                         </th>
-                        <th className="rollTable__th__left">
-                            <img className="img--sort" src={this.sortImgForColumn('description')}/>
-                            <button className="button--tight button--bold"
-                                    onClick={() => this.setSortBy('description')}>description
-                            </button>
-                            <img className="img--sort" src={this.sortImgForColumn('description')}/>
+                        <th className="rollTable__th__left rollTable__description__header">
+                            <ReactTooltip id='description'>
+                                <span>A brief description of the event that required the roll.</span>
+                            </ReactTooltip>
+                            <p className="button--tight button--bold" data-tip data-for='description'>description</p>
                         </th>
-                        <th className="rollTable__th__left">
-                            <img className="img--sort" src={this.sortImgForColumn('dice')}/>
-                            <button className="button--tight button--bold"
-                                    onClick={() => this.setSortBy('dice')}>dice
-                            </button>
-                            <img className="img--sort" src={this.sortImgForColumn('dice')}/>
+                        <th className="rollTable__th__center rollTable__dice__header">
+                            <ReactTooltip id='dice'>
+                                <span>The number of dice to roll (default = 1).</span>
+                            </ReactTooltip>
+                            <p className="button--tight button--bold" data-tip data-for='dice'>dice</p>
                         </th>
-                        <th className="rollTable__th__left">
-                            <img className="img--sort" src={this.sortImgForColumn('sides')}/>
-                            <button className="button--tight button--bold"
-                                    onClick={() => this.setSortBy('sides')}>sides
-                            </button>
-                            <img className="img--sort" src={this.sortImgForColumn('sides')}/>
+                        <th className="rollTable__th__center rollTable__sides__header">
+                            <ReactTooltip id='sides'>
+                                <span>The number of sides each die should have (default defined in game box).</span>
+                            </ReactTooltip>
+                            <p className="button--tight button--bold"  data-tip data-for='sides'>sides</p>
                         </th>
-                        <th className="rollTable__th__left">
-                            <img className="img--sort" src={this.sortImgForColumn('mod')}/>
-                            <button className="button--tight button--bold"
-                                    onClick={() => this.setSortBy('mod')}>mod
-                            </button>
-                            <img className="img--sort" src={this.sortImgForColumn('mod')}/>
+                        <th className="rollTable__th__center rollTable__mod__header">
+                            <ReactTooltip id='mod'>
+                                <span>A modifier to be applied to the sum of the dice rolled.</span>
+                            </ReactTooltip>
+                            <p className="button--tight button--bold" data-tip data-for='mod'>mod</p>
                         </th>
-                        <th className="rollTable__th__left">
-                            <img className="img--sort" src={this.sortImgForColumn('result')}/>
-                            <button className="button--tight button--bold"
-                                    onClick={() => this.setSortBy('result')}>result
-                            </button>
-                            <img className="img--sort" src={this.sortImgForColumn('result')}/>
+                        <th className="rollTable__th__right rollTable__result__header">
+                            <ReactTooltip id='result'>
+                                <span>The result of the roll, with modifier explicitly applied.</span>
+                            </ReactTooltip>
+                            <p className="button--tight button--bold" data-tip data-for='result'>result</p>
                         </th>
-                        <th className="rollTable__th__left">
-                            <img className="img--sort" src={this.sortImgForColumn('epilogue')}/>
-                            <button className="button--tight button--bold"
-                                    onClick={() => this.setSortBy('epilogue')}>epilogue
-                            </button>
-                            <img className="img--sort" src={this.sortImgForColumn('epilogue')}/>
+                        <th className="rollTable__th__left rollTable__epilogue__header">
+                            <ReactTooltip id='epilogue'>
+                                <span>A text box to explain the meaning of the result.  The text is
+                                    updated in real time for anyone viewing the roll page of this game.</span>
+                            </ReactTooltip>
+                            <p className="button--tight button--bold" data-tip data-for='epilogue'>epilogue</p>
                         </th>
+{/*
                         <th className="rollTable__th__left">
                             <img className="img--sort" src={this.sortImgForColumn('delete')}/>
                             <button className="button--tight button--bold"
@@ -135,11 +132,13 @@ export class RollTable extends React.Component {
                             </button>
                             <img className="img--sort" src={this.sortImgForColumn('delete')}/>
                         </th>
+*/}
                     </tr>
                     </thead>
                     <tbody>
                     {
                         this.props.rolls.map((roll) => {
+                            //console.log("Calling RollRow with roll = " + JSON.stringify(roll, null, 2));
                             return <RollRow key={roll.id} {...roll} />
                         })
                     }
@@ -155,7 +154,7 @@ const mapStateToProps = (state, props) => {
     let player = state.players.find((p) => {
         return p.uid === state.auth.uid
     });
-    // console.log("player = " + JSON.stringify(player, null, 2));
+    //console.log("player = " + JSON.stringify(player, null, 2));
     let gid = player.rollingGame;
     let game = state.games.filter((g) => g.id === gid)[0];
     // console.log("RollTable.mapStateToProps state = " + JSON.stringify(state, null, 2));

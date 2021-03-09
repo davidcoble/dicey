@@ -24,6 +24,19 @@
   font-weight: 300;
   padding: 2px;
 }
+.roll-checkbox-sum {
+
+}
+.roll-text-sides {
+  border: 1px solid #cacccd;
+  height: 20px;
+  font-size: $font-size-small;
+  font-weight: 300;
+  padding: 2px;
+  background-image: url("/images/sides.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
 
 .box-text-input {
   border: 1px solid #cacccd;
@@ -32,6 +45,7 @@
   font-size: $font-size-small;
   font-weight: 300;
   padding: $s-size;
+  background-image: "/images/down2.png";
 }
 
 .roll-text-input-descr {

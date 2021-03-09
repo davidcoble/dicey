@@ -73,7 +73,7 @@ export class RollDetail extends React.Component {
         if (deleted === true) {
             return (<div></div>);
         } else {
-
+            console.log("this.props.id = " + this.props.id);
             return (
                 <div className='rowForm' >
                     <ReactTooltip id={`roll${this.props.id}`}>

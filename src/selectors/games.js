@@ -6,10 +6,10 @@ export const selectGames = (games, player) => {
     //console.log("games = " + JSON.stringify(games));
     console.log("player = " + JSON.stringify(player, null, 2));
     let hideNotPlaying = player.hideNotPlaying ? true : false;
-    let playerShowDeleted = player.showDeletedGames;
+    let playerShowDeleted = player.showDeletedGames ? true : false;
     return games.filter((game) => {
-        console.log("filtering games game = " + JSON.stringify(game, null, 2));
-        console.log("game.deleted = " + game.deleted + " playerShowDeleted = " + playerShowDeleted);
+        //console.log("filtering games game = " + JSON.stringify(game, null, 2));
+        //console.log("game.deleted = " + game.deleted + " playerShowDeleted = " + playerShowDeleted);
         let deleted = game.deleted !== undefined && game.deleted;
         if (deleted === playerShowDeleted) {
             console.log("continuing");

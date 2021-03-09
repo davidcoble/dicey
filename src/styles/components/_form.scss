@@ -37,7 +37,7 @@
 
 .rollListRow {
   @extend .colForm;
-  height: 30px;
+  height: 20px;
   padding-top: 5px;
 }
 
@@ -83,7 +83,11 @@
 }
 .colForm-form-sides {
   @extend .rollListRow;
-  width: 60px;
+  width: 50px;
+}
+.colForm-form-sum {
+  @extend .rollListRow;
+  white-space: nowrap;
 }
 .colForm-result {
   @extend .rollListRow;
@@ -91,7 +95,7 @@
 }
 .colForm-epilogue {
   @extend .rollListRow;
-  width: 400px;
+  width: 500px;
   padding: 0;
   font-size: $s-size;
   padding-bottom: 0px;
@@ -99,9 +103,10 @@
 }
 .colForm-epilogueForm {
   @extend .rollListRow;
-  width: 400px;
+  width: 100%;
   border: 1px solid grey;
-  padding: 3px;
+  padding: 0px;
+  font-size: $m-size;
   //padding: 0px;
   //padding-bottom: 0px;
   //padding-top: 0px;
@@ -115,6 +120,6 @@
   width: 15em;
 }
 
-.roll_form_wrapper {
-  background-color: green;
-}
+//.roll_form_wrapper {
+//  background-color: green;
+//}

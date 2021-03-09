@@ -48,8 +48,8 @@ export class RollManagementPage extends React.Component {
         console.log("RollManagementPage onShowDeleted = " + showDeleted);
         this.props.startSetShowDeleted(this.props.uid, showDeleted);
     };
-    onSubmit = (rollRequest) => {
-        // console.log("[RollManagementPage.onSubmit] rollRequest = " + JSON.stringify(rollRequest, null, 2));
+
+    handleSumRequest = (rollRequest) => {
         let rolls = [];
         let rollSum = 0;
         rollSum += parseInt(rollRequest.mods);
@@ -58,13 +58,13 @@ export class RollManagementPage extends React.Component {
             rolls.push(j);
             rollSum += j;
         }
-        rollRequest.result = "(" + rolls.join(', ') + ") " +
+        rollRequest.result = "(" + rolls.join(' + ') + ") " +
             (rollRequest.mods ? "+ (" + rollRequest.mods + ")" : "")
             + " = " + rollSum + "";
         // console.log("RMP rollRequest = " + JSON.stringify(rollRequest, null, 2));
         // console.log("this.props = " + JSON.stringify(this.props, null, 2));
         this.props.startAddRoll(rollRequest);
-        let roll_link = "http://localhost:8080/rolls/" + this.props.gameValue;
+        let roll_link = "http://dice.coblefriends.com:8080/rolls/" + this.props.gameValue;
         // console.log("roll_link = " + roll_link);
         let emailVars = {
             to_email: this.state.to_email,
@@ -79,7 +79,7 @@ export class RollManagementPage extends React.Component {
             roll_result: rollRequest.result,
             roll_link: roll_link
         };
-        // console.log("emailVars.to_email = >" + JSON.stringify(emailVars.to_email, null, 2 ) + "<");
+        console.log("summation emailVars.to_email = >" + JSON.stringify(emailVars.to_email, null, 2 ) + "<");
         if (emailVars.to_email === undefined || emailVars.to_email.length < 1) {
             // console.log("skipping email");
             return;
@@ -87,12 +87,34 @@ export class RollManagementPage extends React.Component {
         // console.log("sending email");
         let emailClient = new EmailClient(emailVars);
         emailClient.sendEmail();
+    }
+
+    handleSeriesRequest = (rollRequest) => {
+        let numRolls = rollRequest.dice;
+        let singleRollRequest = JSON.parse(JSON.stringify(rollRequest));
+        console.log("handleSeries numRolls = " + numRolls);
+        singleRollRequest.dice = 1;
+        for (let i = 0; i < numRolls; i++) {
+            singleRollRequest.description = "(" +(i+1) + " of " + numRolls + ") " + rollRequest.description;
+            this.handleSumRequest(singleRollRequest);
+        }
+    }
+
+
+
+    onSubmit = (rollRequest) => {
+        console.log("[RollManagementPage.onSubmit] rollRequest = " + JSON.stringify(rollRequest, null, 2));
+        if (rollRequest.seriesSum === 'sum') {
+            this.handleSumRequest(rollRequest);
+        } else {
+            this.handleSeriesRequest(rollRequest);
+        }
     };
 
     render() {
         return (
             <div>
-                <div>
+                <div className='rollTable__div_header'>
                     <RollForm
                         onSelectRollingGame={this.onSelectRollingGame}
                         onSelectRollingGameTurn={this.onSelectRollingGameTurn}
@@ -102,7 +124,7 @@ export class RollManagementPage extends React.Component {
                         linkedGame={this.props.match.params.gid}
                     />
                 </div>
-                <RollList showDeleted={this.props.showDeleted} />
+                <RollTable showDeleted={this.props.showDeleted} />
             </div>
         );
     };
@@ -114,7 +136,7 @@ const mapStateToProps = (state, props) => {
         return g.id === player.rollingGame;
     });
     let showDeleted = player.showDeleted == undefined ? false : player.showDeleted;
-    console.log("showDeleted " + showDeleted);
+    //console.log("showDeleted " + showDeleted);
     /*
         console.log("player.rollingGame = " + JSON.stringify(player.rollingGame));
         console.log("state.games = " + JSON.stringify(state.games, null, 2));

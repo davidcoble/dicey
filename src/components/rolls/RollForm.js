@@ -24,11 +24,22 @@ export class RollForm extends React.Component {
             createdAt: props.roll ? moment(props.roll.createdAt) : moment(),
             error: '',
             uid: props.uid,
+            sumButtonText: 'sum',
             ...props
         };
+
         //console.log("RollForm this.state = " + JSON.stringify(this.state, null, 2));
     }
 
+    onSumClicked = (e) => {
+        e.preventDefault();
+        console.log("Sum Clicked target.value = " + JSON.stringify(e.target.value, null, 2));
+        if (e.target.value === 'sum') {
+            this.setState({sumButtonText: 'series'});
+        } else {
+            this.setState({sumButtonText: 'sum'});
+        }
+    };
     onDescriptionChange = (e) => {
         e.preventDefault();
         const description = e.target.value;
@@ -131,6 +142,7 @@ export class RollForm extends React.Component {
             turn: this.props.turn,
             createdAt: createdAt,
             createdBy: this.props.player.name,
+            seriesSum: this.state.sumButtonText,
             // ...this.state
         });
     };
@@ -141,7 +153,7 @@ export class RollForm extends React.Component {
 
     render() {
         let gameNames = [];
-        this.props.games.map((game) => {
+        this.props.games.filter((game) => {return game.deleted !== true}).map((game) => {
             gameNames.push({ value: game.id, label: game.name });
         });
         let gameTurns = [];
@@ -182,7 +194,11 @@ export class RollForm extends React.Component {
                         <div className="colForm" >
                             <div className="rowForm" >
                                 <div className="colForm" >
-                                    <p>Select Game</p>
+                                    <div className='rollTable__selectors'>
+                                        <div className='rollTable__selectors_in'>
+                                            Select Game
+                                        </div>
+                                    </div>
                                     <Select
                                         className='game-select'
                                         options={gameNames}
@@ -191,16 +207,17 @@ export class RollForm extends React.Component {
                                         onChange={this.onGameChange}
                                         styles={gameSelectStyles}
                                     />
-
                                 </div>
                                 <div className="colForm" >
-                                    <p>
-                                        <button className="tightButton" onClick={this.previousTurn}>&lt;&lt;&lt;</button>
-                                        Select Turn
-                                        <button onClick={this.nextTurn}>+</button>
-                                        Show Deleted
-                                        <input type='checkbox' onChange={this.onShowDeleted}/>
-                                    </p>
+                                    <div className='rollTable__selectors'>
+                                        <div className='rollTable__selectors_in'>
+                                            <button className="tightButton" onClick={this.previousTurn}>&lt;&lt;&lt;</button>
+                                            Select Turn
+                                            <button className="tightButton" onClick={this.nextTurn}>>>></button>
+                                            {/*Show Deleted*/}
+                                            {/*<input type='checkbox' onChange={this.onShowDeleted}/>*/}
+                                        </div>
+                                    </div>
                                     <Select
                                         className='turn-select'
                                         options={gameTurns}
@@ -212,7 +229,6 @@ export class RollForm extends React.Component {
                             </div>
                             <div className="rowForm" >
                                 <div className="colForm-descr" >
-                                    <p>Description</p>
                                     <input
                                         type="text"
                                         placeholder="Description"
@@ -224,7 +240,6 @@ export class RollForm extends React.Component {
                                     />
                                 </div>
                                 <div className="colForm-other" >
-                                    <p>Dice</p>
                                     <input
                                         type="text"
                                         placeholder="Dice"
@@ -234,19 +249,24 @@ export class RollForm extends React.Component {
                                         onChange={this.onDiceChange}
                                     />
                                 </div>
+                                <div className="colForm-form-sum">
+                                    <button
+                                        className="button--sum"
+                                        value={this.state.sumButtonText}
+                                        onClick={this.onSumClicked}
+                                    >{this.state.sumButtonText}</button>
+                                </div>
                                 <div className="colForm-form-sides" >
-                                    <p>Sides</p>
                                     <input
                                         type="text"
                                         placeholder="Sides"
-                                        className="roll-text-input"
+                                        className="roll-text-sides"
                                         value={this.state.sides}
                                         onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                                         onChange={this.onSidesChange}
                                     />
                                 </div>
                                 <div className="colForm-other" >
-                                    <p>Mods</p>
                                     <input
                                         type="text"
                                         placeholder="Mods"
@@ -257,7 +277,6 @@ export class RollForm extends React.Component {
                                     />
                                 </div>
                                 <div className="colForm-other" >
-                                    <p>&nbsp;</p>
                                     <button>Roll</button>
                                 </div>
                             </div>

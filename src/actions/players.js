@@ -1,6 +1,24 @@
 import database from '../firebase/firebase';
 import { login } from './auth';
 
+export const addPlayer = (player) => {
+    return {
+        type: "ADD_PLAYER",
+        player
+    }
+};
+
+export const startAddPlayer = (player) => {
+    console.log("startAddPlayer player = " + JSON.stringify(player, null, 2));
+    return (dispatch, getState) => {
+        console.log("getState = " + JSON.stringify(getState, null, 2));
+        let pid = player.uid;
+        return database.ref(`players/${pid}`).update(player).then(()=>{
+            addPlayer(player);
+        });
+    };
+};
+
 export const setPlayers = (players, auth) => {
     return {
         type: 'SET_PLAYERS',

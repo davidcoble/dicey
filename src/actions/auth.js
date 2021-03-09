@@ -14,7 +14,7 @@ export const startLogin = () => {
         'prompt': 'select_account'
     });
     return () => {
-        console.log("startLogin callback called.");
+        //console.log("startLogin callback called.");
         let retval = firebase.auth().signInWithPopup(googleAuthProvider);
         return retval;
     };
@@ -55,7 +55,7 @@ export const startSetLoggedIn = () => {
     return (dispatch, getState) => {
         let auth = getState().auth;
         let my_state = getState();
-        console.log("my_state = " + JSON.stringify(my_state, null, 2));
+        //console.log("my_state = " + JSON.stringify(my_state, null, 2));
         const uid = auth.uid;
         const name = auth.name;
         const email = auth.email;
