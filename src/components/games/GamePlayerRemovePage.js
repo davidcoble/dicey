@@ -5,7 +5,7 @@ import { startRemovePlayerFromGame } from '../../actions/games';
 import { startRemoveGameFromPlayer } from '../../actions/players';
 
 export class GamePlayerRemovePage extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.startRemovePlayerFromGame({ gid: this.props.game.id, pid: this.props.player.uid });
         this.props.startRemoveGameFromPlayer({ gid: this.props.game.id, pid: this.props.player.uid });
         this.props.history.push('/games');

@@ -11,7 +11,9 @@ export const gameReducer = (state = gameReducerDefaultState, action) => {
                 action.game
             ];
         case 'REMOVE_GAME':
-            return state.filter(({ id }) => id !== action.id);
+            return state;
+        case 'UNDELETE_GAME':
+            return state;
         case 'EDIT_GAME':
             return state.map((game) => {
                 if (game.id === action.id) {

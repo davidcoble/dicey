@@ -11,6 +11,7 @@ import GamePlayerRemovePage from '../components/games/GamePlayerRemovePage';
 import GameSubscriberAddPage from '../components/games/GameSubscriberAddPage';
 import GameSubscriberRemovePage from '../components/games/GameSubscriberRemovePage';
 import GamesManagementPage from '../components/games/GamesManagementPage';
+import GameUndeletePage from "../components/games/GameUndeletePage";
 import PlayerManagementPage from '../components/players/PlayerManagementPage';
 import RollManagementPage from '../components/rolls/RollManagementPage';
 import NotFoundPage from '../components/NotFoundPage';
@@ -38,12 +39,14 @@ const AppRouter = ({startSaveUserPage}) => {
                     <PrivateRoute path="/game/create" component={GameAddPage}/>
                     <PrivateRoute path="/game/edit/:id" component={GameEditPage}/>
                     <PrivateRoute path="/game/delete/:id" component={GameDeletePage}/>
+                    <PrivateRoute path="/game/undelete/:id" component={GameUndeletePage}/>
                     <PrivateRoute path="/game/:gid/player/:pid/add" component={GamePlayerAddPage}/>
                     <PrivateRoute path="/game/:gid/player/:pid/remove" component={GamePlayerRemovePage}/>
                     <PrivateRoute path="/game/:gid/subscriber/:pid/subscribe" component={GameSubscriberAddPage}/>
                     <PrivateRoute path="/game/:gid/subscriber/:pid/unsubscribe" component={GameSubscriberRemovePage}/>
                     <PrivateRoute path="/players" component={PlayerManagementPage}/>
-                    <PrivateRoute path="/rolls" component={RollManagementPage}/>
+                    <PrivateRoute path="/rolls/:gid" component={RollManagementPage}/>
+                    <PrivateRoute path="/rolls/" component={RollManagementPage}/>
                     <PrivateRoute path="/email" component={ContactForm}/>
                     <Route component={NotFoundPage}/>
                 </Switch>

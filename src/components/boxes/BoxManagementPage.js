@@ -42,7 +42,7 @@ export class BoxManagementPage extends React.Component {
             );
         }
         else if (this.props.match.path.startsWith('/boxes/edit')) {
-            console.log("props = " + JSON.stringify(this.props, null,2));
+//            console.log("props = " + JSON.stringify(this.props, null,2));
             return (
                 <div>
                     <div className="page-header">

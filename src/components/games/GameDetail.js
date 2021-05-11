@@ -12,7 +12,11 @@ const GameDetail = (ref) => {
                     <div className='colList-med'>
                         <div className='headerList'>Name</div>
                         <i>{ref.name}</i>
-                        <Link to={`/game/delete/${ref.id}`}>delete game</Link>
+                        {ref.deleted ?
+                            <Link to={`/game/undelete/${ref.id}`}>undelete game</Link>
+                            :
+                            <Link to={`/game/delete/${ref.id}`}>delete game</Link>
+                        }
                     </div>
                     <div className='colList-med'>
                         <div className='headerList'>Box</div>

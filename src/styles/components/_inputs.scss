@@ -10,7 +10,12 @@
   @extend .text-input;
 }
 
-
+.rollFormRow1 {
+  //background: #99c;
+  height: 25px;
+  text-align: center;
+  padding-top: 3px;
+}
 
 .textarea {
   @extend .text-input;
@@ -23,6 +28,10 @@
   font-size: $font-size-small;
   font-weight: 300;
   padding: 2px;
+}
+.roll-checkbox-input {
+  padding: 20px;
+  text-align: center;
 }
 
 .box-text-input {
@@ -39,7 +48,9 @@
 }
 
 .game-select {
-  width: 200px;
+  line-height: 1;
+  padding: 0px 0px;
+  width: 150px;
 }
 .turn-select {
   width: 200px;

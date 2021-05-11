@@ -10,6 +10,7 @@ export class GameEditPage extends React.Component {
         this.props.history.push('/games');
     };
     onRemove = () => {
+        console.log("onRemove!");
         this.props.startRemoveGame({ id: this.props.game.id });
         this.props.history.push('/games');
     };

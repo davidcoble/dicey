@@ -16,9 +16,28 @@
   flex-direction: row;
 }
 
+.rowFormHolder {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+}
+
 .rowForm-right {
   display: inline;
   margin: 0 0 0 auto;
+}
+
+.rowForm-center {
+  display: inline;
+  margin: 1px 0 0 0;
+}
+
+.line-grey {
+  background-color: #CCC;
+}
+
+.line-blue {
+  background-color: #CCF;
 }
 
 .colForm {
@@ -26,60 +45,216 @@
   flex-direction: column;
   font-size: small;
 }
+.colFormLeft {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+  width: 10%;
+}
+.colFormCenter {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+  width: 60%;
+  text-align: center;
+  height: 100%;
+  padding-top: 8px;
+}
+.colFormRight {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+  width: 10%;
+}
 
-.colForm-descr {
-  @extend .colForm;
+.colForm-300 {
+  @extend .rollListRow;
   width: 300px;
 }
-.colForm-time {
-  @extend .colForm;
-  width: 150px;
-}
-.colForm-name {
-  @extend .colForm;
-  width: 200px;
-}
-.colForm-turn {
-  @extend .colForm;
-  width: 120px;
-}
 
-.colForm-dice {
-  @extend .colForm;
-  width: 40px;
+$timeWidth:      10%;
+$nameWidth:       7%;
+$turnWidth:       7%;
+$descrWidth:     16%;
+$diceWidth:       3%;
+$sidesWidth:      3%;
+$modsWidth:       3%;
+$sumWidth:        3%;
+$resultWidth:    20%;
+$epilogueWidth:  20%;
+$deleteWidth:     6%;
+
+.rollList-header {
+  @extend .rollListRow;
+  border: 1px solid black;
+  font-weight: bold;
+  text-align: center;
 }
-.colForm-sides {
+.rollFormRow {
   @extend .colForm;
-  width: 40px;
+  height: 20px;
+
 }
-.colForm-mods {
+.rollListRow {
   @extend .colForm;
-  width: 40px;
+  height: 20px;
+  overflow: hidden;
+  //padding-top: 5px;
+}
+.rollList-roll-time {
+  @extend .rollListRow;
+  width: $timeWidth;
+
+}
+.pink {
+  background-color: #FDD;
+}
+.blue {
+  background-color: #DDF;
+}
+.rollList-roll-name {
+  @extend .rollListRow;
+  width: $nameWidth;
+}
+.rollList-roll-button2 {
+  @extend .rollListRow;
+  width: 100%;
+  text-align: center;
+}
+.rollList-roll-turn {
+  @extend .rollListRow;
+  width: $turnWidth;
+}
+.rollList-roll-descr {
+  @extend .rollListRow;
+  width: $descrWidth;
+}
+.rollList-roll-dice {
+  @extend .rollListRow;
+  width: $diceWidth;
+  text-align: center;
+}
+.rollList-roll-sides {
+  @extend .rollListRow;
+  width: $sidesWidth;
+  text-align: center;
+}
+.rollList-roll-mods {
+  @extend .rollListRow;
+  width: $modsWidth;
+  text-align: center;
+}
+.rollList-roll-sum {
+  @extend .rollListRow;
+  width: $sumWidth;
+  text-align: center;
+}
+.rollList-roll-result{
+  @extend .rollListRow;
+  width: $resultWidth;
+  text-align: right;
+  padding-right: 10px;
+}
+.rollList-roll-epilogue{
+  @extend .rollListRow;
+  width: $epilogueWidth;
+}
+.rollList-roll-delete{
+  @extend .rollListRow;
+  width: $deleteWidth;
+  text-align: center;
+}
+.rollList-header-time {
+  @extend .rollList-header;
+  width: $timeWidth;
+}
+.rollList-header-name {
+  @extend .rollList-header;
+  width: $nameWidth;
+}
+.rollList-header-turn {
+  @extend .rollList-header;
+  width: $turnWidth;
+}
+.rollList-header-descr {
+  @extend .rollList-header;
+  width: $descrWidth;
+}
+.rollList-header-dice {
+  @extend .rollList-header;
+  width: $diceWidth;
+}
+.rollList-header-sides {
+  @extend .rollList-header;
+  width: $sidesWidth;
+}
+.rollList-header-mods {
+  @extend .rollList-header;
+  width: $modsWidth;
+}
+.rollList-header-sum {
+  @extend .rollList-header;
+  width: $modsWidth;
+}
+.rollList-header-result{
+  @extend .rollList-header;
+  width: $resultWidth;
+}
+.rollList-header-epilogue{
+  @extend .rollList-header;
+  width: $epilogueWidth;
+}
+.rollList-header-delete{
+  @extend .rollList-header;
+  width: $deleteWidth;
+}
+.rollForm-header {
+  @extend .rollListRow;
+}
+.colForm-descr {
+  @extend .rollFormRow;
+  width: 300px;
 }
 .colForm-other {
-  @extend .colForm;
+  @extend .rollFormRow;
   width: 40px;
+}
+.colForm-checkbox {
+  @extend .rollFormRow;
+  width: 40px;
+  text-align: center;
 }
 .colForm-form-sides {
-  @extend .colForm;
+  @extend .rollFormRow;
   width: 60px;
-}
-.colForm-result {
-  @extend .colForm;
-  width: 120px;
+  text-align: center;
 }
 .colForm-epilogue {
-  @extend .colForm;
+  @extend .rollForm-header;
   width: 400px;
+  padding: 0;
+  font-size: $s-size;
+  padding-bottom: 0px;
+  padding-top: 0px;
 }
-.colForm-delete {
-  @extend .colForm;
-  text-align: center;
-  background: green;
-  width: 40px;
+.colForm-epilogueForm {
+  @extend .rollForm-header;
+  width: 100%;
+  border: 1px solid #ddd;
+  padding: 0px;
+  //padding: 0px;
+  //padding-bottom: 0px;
+  //padding-top: 0px;
+  //margin-bottom: 0px;
+  //margin-top: 0px;
+  //height: 20px;
 }
 
 .turnListArea {
   height: 400px;
   width: 15em;
+}
+
+.roll_form_wrapper {
+  //background-color: green;
 }

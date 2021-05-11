@@ -1,4 +1,3 @@
-import uuid from 'uuid';
 import database from '../firebase/firebase';
 
 // ADD_ROLL
@@ -18,12 +17,13 @@ export const startAddRoll = (rollData = {}) => {
             mods = '',
             gid = '',
             turn = '',
+            sum = false,
             result = '',
             epilogue = '',
             createdAt = 0,
             createdBy = userName
         } = rollData;
-        const roll = { description, dice, sides, mods, gid, turn, result, epilogue, createdAt, createdBy };
+        const roll = { description, dice, sides, mods, sum, gid, turn, result, epilogue, createdAt, createdBy };
         // console.log("about to store roll: " + JSON.stringify(roll, null, 2));
         return database.ref(`rolls`).push(roll).then((ref) => {
             // console.log("added roll");
@@ -46,6 +46,38 @@ export const startRemoveRoll = ({ id } = {}) => {
     };
 };
 
+// DELETE_ROLL
+export const deleteRoll = ({ id } = {}) => ({
+    type: 'DELETE_ROLL',
+    id
+});
+
+export const startDeleteRoll = ({ id } = {}) => {
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`rolls/${id}/deleters/${uid}`).set(true).then(() => {
+            dispatch(deleteRoll({ id }));
+        });
+    };
+};
+
+// UNDELETE_ROLL
+export const undeleteRoll = ({ id } = {}) => ({
+    type: 'UNDELETE_ROLL',
+    id
+});
+
+export const startUndeleteRoll = ({ id } = {}) => {
+    // console.log("startUndeleteRoll id = " + id);
+    return (dispatch, getState) => {
+        const uid = getState().auth.uid;
+        return database.ref(`rolls/${id}/deleters/${uid}`).set(false).then(() => {
+            dispatch(undeleteRoll({ id }));
+        });
+    };
+};
+
+
 // EDIT_ROLL
 export const editRoll = (id, updates) => ({
     type: 'EDIT_ROLL',
@@ -57,8 +89,7 @@ export const startEditRoll = ({id, updates} = {}) => {
     // console.log("id = " + JSON.stringify(id));
     // console.log("updates = " + JSON.stringify(updates));
     return (dispatch, getState) => {
-        const userName = getState().auth.name;
-        updates.createdBy = userName;
+        updates.createdBy = getState().auth.name;
         return database.ref(`rolls/${id}`).update(updates).then(() => {
             // dispatch(editRoll(id, updates));
         });

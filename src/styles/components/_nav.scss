@@ -18,16 +18,24 @@
 }
 
 div.navDiv {
-  padding: 0 10px;
+  padding: 0px 0px 0px 0px;
 
 }
 
 .nav__link {
-  color: #999;
+  color: $off-white;
   font-size: $m-size;
   padding-right: 5px;
+  padding-left: 5px;
+  padding-bottom: 0px;
   text-decoration: none;
+  line-height: 0.8;
+  background-color: $dark-blue;
+}
 
+.selected {
+  color: $dark-blue;
+  background-color: $off-white;
 }
 
 .title {

@@ -29,10 +29,11 @@ export class RollEpilogueForm extends React.Component {
     };
 
     render() {
+        // console.log("RollEpilogueForm this.props=" + JSON.stringify(this.props, null, 2));
         return (
             <form onSubmit={this.onSubmit}>
                 <input
-                    className='colForm-epilogue'
+                    className={`colForm-epilogueForm ${this.props.color}`}
                     type='text'
                     placeholder='epilogue'
                     value={this.props.epilogue}

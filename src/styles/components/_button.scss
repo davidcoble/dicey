@@ -10,6 +10,19 @@
   text-decoration: none;
 }
 
+.button-small {
+  padding: 0px;
+}
+
+.button-extra-small {
+  padding: 3px;
+  border: 1px solid grey;
+  width: 50px;
+  height: 100%;
+  text-align: center;
+  padding-bottom: 10px;
+}
+
 .button-tiny {
   background: $blue;
   border: none;
@@ -20,6 +33,22 @@
   line-height: 1;
   padding: $t-size;
   text-decoration: none;
+}
+
+.tightButton {
+  background: $off-white;
+  border: none;
+}
+
+.button--tight {
+  background: $off-white;
+  border: none;
+}
+.button--bold {
+  font-weight: 700;
+}
+.button--trans {
+  background: transparent;
 }
 
 .button--link {
@@ -44,4 +73,9 @@
   font-weight: 300;
   line-height: 1;
   text-decoration: none;
+}
+
+.img--sort {
+  width: $s-size;
+  height: $s-size;
 }

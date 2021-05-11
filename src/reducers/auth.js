@@ -4,6 +4,7 @@ export default (state = authReducerDefaultState, action) => {
     switch (action.type) {
         case 'LOGIN':
             return {
+                pid: action.pid,
                 uid: action.uid,
                 name: action.name,
                 email: action.email,

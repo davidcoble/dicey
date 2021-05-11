@@ -7,7 +7,7 @@ const GamePlayerDetail = (ref) => {
     // console.log("GamePlayerDetail: ref = " + JSON.stringify(ref, null, 4));
     return (
         <div>
-            <b>{ref.name}</b>
+            <p>{ref.name}</p>
         </div>
     );
 };
