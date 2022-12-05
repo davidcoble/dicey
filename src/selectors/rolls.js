@@ -3,44 +3,17 @@ import moment from 'moment';
 // Get visible rolls
 // this should be called selectRolls
 export const selectRolls = (rolls, gid, player) => {
-    //console.log("selectors/rolls.js player = " + JSON.stringify(player, null, 2));
-    let sortCol = player.games[gid].sortCol;
-    let sortDir = player.games[gid].sortDir;
-    let prevSortCol = player.games[gid].prevSortCol;
-    let prevSortDir = player.games[gid].prevSortDir;
-    let lines = player.games[gid].linesPerPage;
-    lines = 30;
-    // let pageNum = player.games[gid].pageNum;
-    // console.log("in selectRolls, lines  = " + lines);
-    // console.log("in selectRolls, gid  = " + gid);
-    let col, dir, prevCol, prevDir;
-    if (rolls === undefined || gid === undefined) {
-        return [];
-    }
-    if (sortCol === "") {
-        col = "createdAt";
-    } else {
-        col = sortCol;
-    }
-    if (prevSortCol === "") {
-        prevCol = "player";
-    } else {
-        prevCol = prevSortCol;
-    }
-    if ((sortDir !== 1) && (sortDir !== -1)) {
-        dir = 1;
-    } else {
-        dir = sortDir;
-    }
-    if ((prevSortDir !== 1) && (prevSortDir !== -1)) {
-        prevDir = 1;
-    } else {
-        prevDir = prevSortDir;
-    }
+    // console.log("selectors/rolls.js player = " + JSON.stringify(player, null, 2));
+    let showafew = 3;
     return rolls.filter((roll) => {
         return roll.gid === gid;
     }).sort((a, b) => {
-        return a.createdAt < b.createdAt;
+        // if ( showafew > 0 ) {
+        //     console.log("Comparison " + showafew);
+        //     console.log("    a.createdAt = " + a.createdAt);
+        //     console.log("    b.createdAt = " + b.createdAt);
+        // }
+        return b.createdAt - a.createdAt;
     });
 };
 

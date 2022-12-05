@@ -7,4 +7,4 @@ dev: install
 
 pub:
 	npm run build:prod
-	rsync -avze ssh public/ ubuntu@tuskypi:/var/www/html/dice
+	rsync -avze ssh public/ coble@ori:/var/www/html/dice
