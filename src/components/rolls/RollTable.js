@@ -55,7 +55,7 @@ export class RollTable extends React.Component {
     }
 
     render() {
-        console.log("RollTable with two Tooltips");
+        //console.log("RollTable with two Tooltips");
         return (
             <div className='rollTable__div_body'>
                 <div>
@@ -123,6 +123,12 @@ export class RollTable extends React.Component {
                                     updated in real time for anyone viewing the roll page of this game.</span>
                             </ReactTooltip>
                             <p className="button--tight button--bold" data-tip data-for='epilogue'>epilogue</p>
+                        </th>
+                        <th className="rollTable__th__right rollTable__result__header">
+                            <ReactTooltip id='result'>
+                                <span>Copy the summary to the clipboard.</span>
+                            </ReactTooltip>
+                            <p className="button--tight button--bold" data-tip data-for='result'>copy</p>
                         </th>
 {/*
                         <th className="rollTable__th__left">

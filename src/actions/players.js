@@ -9,9 +9,9 @@ export const addPlayer = (player) => {
 };
 
 export const startAddPlayer = (player) => {
-    console.log("startAddPlayer player = " + JSON.stringify(player, null, 2));
+    //console.log("startAddPlayer player = " + JSON.stringify(player, null, 2));
     return (dispatch, getState) => {
-        console.log("getState = " + JSON.stringify(getState, null, 2));
+        //console.log("getState = " + JSON.stringify(getState, null, 2));
         let pid = player.uid;
         return database.ref(`players/${pid}`).update(player).then(()=>{
             addPlayer(player);

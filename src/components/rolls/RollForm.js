@@ -12,7 +12,7 @@ import { RollList } from "./RollList";
 export class RollForm extends React.Component {
     constructor(props) {
         super(props);
-        console.log("RollForm props.linkedGame = " + props.linkedGame);
+        //console.log("RollForm props.linkedGame = " + props.linkedGame);
 
         this.state = {
             description: '',

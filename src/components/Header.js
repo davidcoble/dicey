@@ -27,7 +27,7 @@ export const Header = (props) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-    console.log("header loading dispatch = " + JSON.stringify(dispatch, null, 2));
+    //console.log("header loading dispatch = " + JSON.stringify(dispatch, null, 2));
     return ({
         startLogout: () => dispatch(startLogout())
     });

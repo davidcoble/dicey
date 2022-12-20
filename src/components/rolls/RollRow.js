@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import RollEpilogueForm from './RollEpilogueForm';
 import { startEditRoll } from '../../actions/rolls';
 import ReactTooltip from 'react-tooltip'
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 
 export class RollRow extends React.Component {
@@ -22,7 +23,16 @@ export class RollRow extends React.Component {
     };
     render() {
         //console.log("RollRow this.state = " + JSON.stringify(this.state, null, 2));
-
+      let rollDetail = `
+      Date: `+moment(this.state.createdAt).format('YY/MM/DD HH:mm:ss')+`
+      Player: `+this.state.createdBy+`
+      Description: `+this.state.description+`
+      Turn: `+this.state.turn+`
+      Dice: `+this.state.dice +` `+ this.state.sides +`-sided dice
+      Modifier: `+this.state.mods+`
+      Result: `+this.state.result+`
+      Epilogue: `+this.props.epilogue+`
+      `;
         return (
             <tr>
                 <td className="rollTable__td__ellipsis">
@@ -81,6 +91,13 @@ export class RollRow extends React.Component {
                         rid={this.state.id}
                         epilogue={this.state.epilogue}
                         onSubmit={this.onSubmitEpilogue}/>
+                </td>
+                <td className="rollTable__td__ellipsis rollTable__td__right">
+                    <CopyToClipboard text={rollDetail}
+                      onCopy={() => this.setState({copied: true})}>
+                      <button>copy</button>
+                    </CopyToClipboard>
+                    {this.state.copied ? <span style={{color: 'red'}}>Copied.</span> : null}
                 </td>
             </tr>
         );
