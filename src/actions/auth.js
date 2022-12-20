@@ -83,8 +83,11 @@ export const logout = () => ({
 });
 
 export const startLogout = () => {
+    console.log("startLogout called");
     return (dispatch, getState) => {
+        console.log("startLogout return called dispatch = " + dispatch);
         const uid = getState().auth.uid;
+        console.log("startLogout return uid = " + uid);
         return firebase.auth().signOut().then(() => {
             database.ref(`login/${uid}/loggedIn`).set(false);
         });

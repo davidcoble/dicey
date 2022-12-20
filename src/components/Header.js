@@ -5,6 +5,7 @@ import { startLogout } from '../actions/auth';
 import Nav from "./Nav";
 
 export const Header = (props) => {
+    console.log("Header props = " + JSON.stringify(props, null, 2));
     const startLogout = props.startLogout;
     const name = props.name;
     return (

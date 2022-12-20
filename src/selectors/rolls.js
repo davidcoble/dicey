@@ -40,7 +40,12 @@ export const selectRolls = (rolls, gid, player) => {
     return rolls.filter((roll) => {
         return roll.gid === gid;
     }).sort((a, b) => {
-        return a.createdAt < b.createdAt;
+        let compared = b.createdAt - a.createdAt;
+        if (compared === 0) {
+            compared = b.description.localeCompare(a.description);
+        }
+        // console.log("a.description = " + a.description + "  and compared = " + compared);
+        return compared;
     });
 };
 
