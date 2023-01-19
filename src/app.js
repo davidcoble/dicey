@@ -19,9 +19,9 @@ import LoadingPage from './components/LoadingPage';
 
 const store = configureStore();
 const jsx = (
-    <Provider store={store}>
-        <AppRouter />
-    </Provider>
+        <Provider store={store}>
+            <AppRouter />
+        </Provider>
 );
 let hasRendered = false;
 const renderApp = () => {
@@ -34,6 +34,7 @@ const renderApp = () => {
 ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
+    console.log("onAuthStateChanged user = " + JSON.stringify(user, null, 2));
     if (user) {
         let auth = {
             uid: user.uid,
@@ -45,23 +46,23 @@ firebase.auth().onAuthStateChanged((user) => {
         //console.log("auth = " + JSON.stringify(auth, null, 2));
         store.dispatch(login(auth));
         store.dispatch(startSetLoggedIn())
-            .then(() => {
-                if(user.uid == '34qfrxIFNBf5ZoHKPKCK30LFRyG2') {
-                    store.dispatch(startMakePlayerAdmin(user.uid, true));
-                }
-            })
-            .then(store.dispatch(startSetPlayers()))
-            .then(store.dispatch(startSetLoggedIn()))
-            .then(store.dispatch(startSetBoxes()))
-            .then(store.dispatch(startSetRolls()))
-            .then(store.dispatch(startSetExpenses()))
-            .then(store.dispatch(startSetGames()))
-            .then(() => {
-                renderApp();
-                if (history.location.pathname === '/') {
-                    history.push('/players');
-                }
-            });
+                .then(() => {
+                    if(user.uid == '34qfrxIFNBf5ZoHKPKCK30LFRyG2') {
+                        store.dispatch(startMakePlayerAdmin(user.uid, true));
+                    }
+                })
+                .then(store.dispatch(startSetPlayers()))
+                .then(store.dispatch(startSetLoggedIn()))
+                .then(store.dispatch(startSetBoxes()))
+                .then(store.dispatch(startSetRolls()))
+                .then(store.dispatch(startSetExpenses()))
+                .then(store.dispatch(startSetGames()))
+                .then(() => {
+                    renderApp();
+                    if (history.location.pathname === '/') {
+                        history.push('/players');
+                    }
+                });
         store.dispatch(startAddPlayer(auth));
     } else {
         // console.log("logged out");

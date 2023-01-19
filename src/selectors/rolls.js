@@ -3,17 +3,14 @@ import moment from 'moment';
 // Get visible rolls
 // this should be called selectRolls
 export const selectRolls = (rolls, gid, player) => {
-    // console.log("selectors/rolls.js player = " + JSON.stringify(player, null, 2));
-    let showafew = 3;
     return rolls.filter((roll) => {
         return roll.gid === gid;
     }).sort((a, b) => {
-        // if ( showafew > 0 ) {
-        //     console.log("Comparison " + showafew);
-        //     console.log("    a.createdAt = " + a.createdAt);
-        //     console.log("    b.createdAt = " + b.createdAt);
-        // }
-        return b.createdAt - a.createdAt;
+        let compared = b.createdAt - a.createdAt;
+        if (compared === 0) {
+            compared = b.description.localeCompare(a.description);
+        }
+        return compared;
     });
 };
 

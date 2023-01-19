@@ -259,7 +259,7 @@ export class RollForm extends React.Component {
                                 <div className="colForm-form-sides" >
                                     <input
                                         type="text"
-                                        placeholder="Sides"
+                                        placeholder=""
                                         className="roll-text-sides"
                                         value={this.state.sides}
                                         onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
