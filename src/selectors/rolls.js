@@ -22,6 +22,8 @@ export const selectGamePlayersForCC = (players, game, uid) => {
     if (game === undefined) {
         return cc_list;
     }
+    //console.log("selectGamePlayersForCC players = " + JSON.stringify(players, null, 2));
+    //console.log("selectGamePlayersForCC game = " + JSON.stringify(game, null, 2));
     players.filter((p) => {
         return p.games && p.games[game.id] && p.games[game.id].in
             && game.subscribers && game.subscribers[p.uid];

@@ -3,7 +3,7 @@ install:
 	yarn install
 
 dev: install
-	yarn run dev-server --host 0.0.0.0
+	yarn run dev-server
 
 pub:
 	npm run build:prod

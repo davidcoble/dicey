@@ -58,12 +58,14 @@ export class RollManagementPage extends React.Component {
             rolls.push(j);
             rollSum += j;
         }
+        rollRequest.id = uuid();
         rollRequest.result = "(" + rolls.join(' + ') + ") " +
             (rollRequest.mods ? "+ (" + rollRequest.mods + ")" : "")
             + " = " + rollSum + "";
-        // console.log("RMP rollRequest = " + JSON.stringify(rollRequest, null, 2));
+        console.log("RMP rollRequest = " + JSON.stringify(rollRequest, null, 2));
         // console.log("this.props = " + JSON.stringify(this.props, null, 2));
-        this.props.startAddRoll(rollRequest);
+        let gotFromStart = this.props.startAddRoll(rollRequest);
+        console.log("gotFromStart = " + JSON.stringify(gotFromStart, null, 2));
         let roll_link = "http://dice.coblefriends.com:8080/rolls/" + this.props.gameValue;
         // console.log("roll_link = " + roll_link);
         let emailVars = {
@@ -77,7 +79,8 @@ export class RollManagementPage extends React.Component {
             roll_sides: rollRequest.sides,
             roll_mod: rollRequest.mods,
             roll_result: rollRequest.result,
-            roll_link: roll_link
+            roll_link: roll_link,
+            roll_id: rollRequest.id
         };
         console.log("summation emailVars.to_email = >" + JSON.stringify(emailVars.to_email, null, 2 ) + "<");
         if (emailVars.to_email === undefined || emailVars.to_email.length < 1) {
