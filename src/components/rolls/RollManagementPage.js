@@ -54,7 +54,7 @@ export class RollManagementPage extends React.Component {
         let rollSum = 0;
         rollSum += parseInt(rollRequest.mods);
         for (let i = 0; i < rollRequest.dice; i++) {
-            let j = Math.floor((Math. () * rollRequest.sides) + 1);
+            let j = Math.floor((Math.random() * rollRequest.sides) + 1);
             rolls.push(j);
             rollSum += j;
         }
