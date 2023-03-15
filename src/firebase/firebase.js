@@ -1,5 +1,5 @@
 import * as firebase from 'firebase';
-import firebaseConfig from '../../envDevelopment.js'
+import { firebaseConfig } from '../../envDevelopment.js'
 
 
 const config = {
