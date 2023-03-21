@@ -60,7 +60,7 @@ export const startSetLoggedIn = () => {
         const name = auth.name;
         const email = auth.email;
         const photoURL = auth.photoURL;
-        auth.isAdmin = false;
+        const isAdmin = auth.isAdmin;
         return database.ref(`login/${uid}/name`).set(name).then(() => {
             database.ref(`login/${uid}/loggedIn`).set(true);
         }).then(() => {
@@ -68,10 +68,7 @@ export const startSetLoggedIn = () => {
         }).then(() => {
             database.ref(`login/${uid}/photoURL`).set(photoURL);
         }).then(() => {
-            database.ref(`login/${uid}/isAdmin`).on('value', (snap) => {
-                auth.isAdmin = JSON.stringify(snap);
-
-            });
+            database.ref(`login/${uid}/isAdmin`).set(isAdmin);
         }).then(() => {
             dispatch(login(auth));
         });

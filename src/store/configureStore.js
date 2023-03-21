@@ -6,6 +6,7 @@ import { rollReducer } from '../reducers/rolls';
 import { msgReducer } from '../reducers/msgs';
 import { gameReducer, gameFilter } from '../reducers/games';
 import playersReducer from '../reducers/players';
+import { resultReducer } from '../reducers/results';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -17,6 +18,7 @@ export default () => {
             gameFilter: gameFilter,
             games: gameReducer,
             msgs: msgReducer,
+            results: resultReducer,
             rolls: rollReducer,
             players: playersReducer
         }),

@@ -117,6 +117,7 @@ export class RollManagementPage extends React.Component {
 };
 
 const mapStateToProps = (state, props) => {
+    console.log("state = " + JSON.stringify(state, null, 2));
     let player = state.players.find((p) => { return p.uid === state.auth.uid});
     let game = state.games.find((g) => {
         return g.id === player.rollingGame;

@@ -40,17 +40,20 @@ firebase.auth().onAuthStateChanged((user) => {
             name: user.displayName,
             email: user.email,
             photoURL: user.photoURL,
-            isAdmin: 'false'
+            isAdmin: false
         };
+        if (user.uid == 'nAwoqVoZqFUrs5GZ5NJLvN2F5MA2') {
+            auth.isAdmin = true;
+        }
+        // console.log("auth = " + JSON.stringify(auth, null, 2));
         store.dispatch(login(auth));
         store.dispatch(startSetLoggedIn())
             .then(() => {
-                if(user.uid == '34qfrxIFNBf5ZoHKPKCK30LFRyG2') {
+                if(user.uid == 'nAwoqVoZqFUrs5GZ5NJLvN2F5MA2') {
                     store.dispatch(startMakePlayerAdmin(user.uid, true));
                 }
             })
             .then(store.dispatch(startSetPlayers()))
-            .then(store.dispatch(startSetLoggedIn()))
             .then(store.dispatch(startSetBoxes()))
             .then(store.dispatch(startSetRolls()))
             .then(store.dispatch(startSetExpenses()))

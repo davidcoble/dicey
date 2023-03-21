@@ -20,7 +20,7 @@ export const Header = (props) => {
                     </div>
                 </div>
             </div>
-            <Nav/>
+            <Nav auth={props} />
         </header>
     );
 };
@@ -32,8 +32,11 @@ const mapDispatchToProps = (dispatch) => {
     });
 };
 
-const mapStateToProps = (state) => ({
-    name: state.auth.name
-});
+const mapStateToProps = (state) => {
+    // console.log("Header mapStateToProps state.auth = " + JSON.stringify(state.auth, null, 2));
+    return ({
+        name: state.auth.name
+    });
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

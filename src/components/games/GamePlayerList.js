@@ -25,12 +25,13 @@ const GamePlayerList = (props) => {
     );
 }
 const mapStateToProps = (state, props) => {
-    /*
+
         console.log("GamePlayerList mapStateToProps state = " + JSON.stringify(state, null, 2));
         console.log("GamePlayerList mapStateToProps props = " + JSON.stringify(props, null, 2));
-    */
+    let playerList = selectGamePlayers(state.players, props.players); 
+    console.log("playerList = " + JSON.stringify(playerList, null, 2));
     return {
-        players: selectGamePlayers(state.players, props.players)
+        players: playerList
     };
 };
 

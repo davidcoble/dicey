@@ -219,6 +219,12 @@ $deleteWidth:     6%;
   @extend .rollFormRow;
   width: 40px;
 }
+.ten-per {
+  width: 10%;
+}
+.five-per {
+  width: 5%;
+}
 .colForm-checkbox {
   @extend .rollFormRow;
   width: 40px;
