@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 import database from '../firebase/firebase';
-import {setGames} from "./games";
-
+import { setGames } from "./games";
+import { history } from "../routers/AppRouter";
 // ADD_RESULT
 export const addResult = (result) => ({
     type: 'ADD_RESULT',
@@ -12,21 +12,35 @@ export const startAddResult = (resultData = {}) => {
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         const {
-            name = '',
-            description = '',
-            sides = '',
-            note = '',
-            amount = 0,
-            createdAt = 0
+            rollType = '',
+            dice = 0,
+            sides = 0,
+            createdAt = 0,
+            outcomes = [],
+            boxes = {},
         } = resultData;
-        const result = { name, description, sides, note, amount, createdAt };
-        return database.ref(`resultes`).push(result).then((ref) => {
-            // console.log("result added");
+        for (let x = dice; x <= dice * sides; x++) {
+            outcomes[x - dice] = {
+                rolled: x,
+                result: "your rolled " + x
+            }
+        }
+        const result = { rollType, dice, sides, createdAt, outcomes, boxes };
+        // console.log("about to add result to database: "+JSON.stringify(result,null,2));
+        return database.ref(`results`).push(result).then((ref) => {
+            console.log("result added ref = " + ref);
+            let refstring = String(ref);
+            let offset = refstring.indexOf("results/");
+            let rid = refstring.substring(offset + 8);
+            console.log("result added rid = " + rid);
+            history.push("/results/edit/" + rid);
+            return ref;
+
         });
-            // dispatch(addResult({
-            //     id: ref.key,
-            //     ...result
-            // }));
+        // dispatch(addResult({
+        //     id: ref.key,
+        //     ...result
+        // }));
     };
 };
 
@@ -38,7 +52,7 @@ export const removeResult = ({ id } = {}) => ({
 
 export const startRemoveResult = ({ id } = {}) => {
     return (dispatch, getState) => {
-        return database.ref(`resultes/${id}`).remove().then(() => {
+        return database.ref(`results/${id}`).remove().then(() => {
             dispatch(removeResult({ id }));
         });
     };
@@ -53,41 +67,45 @@ export const editResult = (id, updates) => ({
 
 export const startEditResult = (id, updates) => {
     return (dispatch) => {
-        return database.ref(`resultes/${id}`).update(updates).then(() => {
+        return database.ref(`results/${id}`).update(updates).then(() => {
             dispatch(editResult(id, updates));
         });
     };
 };
 
-// SET_RESULTES
-export const setResultes = (resultes) => ({
-    type: 'SET_RESULTES',
-    resultes
+// SET_RESULTS
+export const setResults = (results) => ({
+    type: 'SET_RESULTS',
+    results
 });
 
-export const startSetResultes = () => {
+export const startSetResults = () => {
+    //console.log("startSetResults called");
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
-        let resultesRef = database.ref('resultes');
-        resultesRef.once('value', (snapshot) => {
-            const resultes = [];
+        let resultsRef = database.ref('results');
+        resultsRef.once('value', (snapshot) => {
+            const results = [];
             snapshot.forEach((childSnapshot) => {
-                resultes.push({
+                // console.log("childSnapshot = " + JSON.stringify(childSnapshot, null, 2));
+                results.push({
                     id: childSnapshot.key,
                     ...childSnapshot.val()
                 });
             });
-            dispatch(setResultes(resultes));
+            // console.log("results = " + JSON.stringify(results, null, 2));
+            dispatch(setResults(results));
         });
-        resultesRef.on('value', (snapshot) => {
-            const resultes = [];
+        resultsRef.on('value', (snapshot) => {
+            const results = [];
             snapshot.forEach((childSnapshot) => {
-                resultes.push({
+                results.push({
                     id: childSnapshot.key,
                     ...childSnapshot.val()
                 });
             });
-            dispatch(setResultes(resultes));
+            // console.log("on results = " + JSON.stringify(results, null, 2));
+            dispatch(setResults(results));
         });
     };
 };

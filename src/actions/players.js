@@ -105,9 +105,15 @@ export const addGameToPlayer = (playerId, gameId) => ({
 });
 
 export const startAddGameToPlayer = ({ gid, pid } = {}) => {
-    // console.log(" startAddGameToPlayer; playerId = " + pid);
+    console.log(" startAddGameToPlayer; playerId = " + pid + " gameId = " + gid);
     return (dispatch) => {
-        return database.ref(`players/${pid}/games/${gid}/in`).set(true).then(() => {
+        return database.ref(`players/${pid}/games/${gid}`).set(
+            {
+                in: true,
+                sortCol: 'createdAt',
+                sortDir: 1,
+            }
+        ).then(() => {
             dispatch(addGameToPlayer(pid, gid));
         });
     };

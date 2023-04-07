@@ -3,7 +3,6 @@
 const resultReducerDefaultState = [];
 
 export const resultReducer = (state = resultReducerDefaultState, action) => {
-    //console.log("reducer action = " + JSON.stringify(action));
     switch (action.type) {
         case 'ADD_RESULT':
             return [
@@ -24,6 +23,7 @@ export const resultReducer = (state = resultReducerDefaultState, action) => {
                 }
             });
         case 'SET_RESULTS':
+            // console.log("reducer action.results = " + JSON.stringify(action.results, null, 2));
             return action.results;
         default:
             return state;

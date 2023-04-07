@@ -74,6 +74,21 @@
   line-height: 1;
   text-decoration: none;
 }
+.button-tiny-circle {
+  width: 20px;
+  height: 20px;
+  padding-left: 5px;
+  padding-top: 0px;
+  background: $blue;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  display: inline-block;
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1em;
+  text-decoration: none;
+}
 
 .img--sort {
   width: $s-size;

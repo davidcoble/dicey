@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 
 class GameList extends React.Component {
 
-    //console.log("GameList props = " + JSON.stringify(props));
     render() {
+        // console.log("GameList props = " + JSON.stringify(this.props.games));
         const uid = this.props.uid;
         return (
             <div>
@@ -40,6 +40,7 @@ const mapStateToProps = (state) => {
     // console.log("mapStateToProps state.error = " + JSON.stringify(state.error, null, 2));
     let player = state.players.filter((p) => { return p.uid === state.auth.uid })[0];
     //console.log("mapStateToProps player = " + JSON.stringify(player, null, 2));
+    // console.log("state.games = " + JSON.stringify(state.games, null, 2));
     return {
         games: selectGames(state.games, player),
         uid: state.auth.uid,

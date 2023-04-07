@@ -6,9 +6,11 @@ import GamePlayerListEntry from './GamePlayerListEntry';
 const GamePlayerDetail = (ref) => {
     // console.log("GamePlayerDetail: ref = " + JSON.stringify(ref, null, 4));
     return (
-        <div>
-            <p>{ref.name}</p>
-        </div>
+        <p>
+            <b>
+                {ref.name}
+            </b>
+        </p>
     );
 };
 

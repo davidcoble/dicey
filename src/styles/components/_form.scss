@@ -55,10 +55,12 @@
   display: flex;
   flex-direction: column;
   font-size: small;
-  width: 60%;
   text-align: center;
   height: 100%;
   padding-top: 8px;
+}
+.form-300 {
+  width: 300px;
 }
 .colFormRight {
   display: flex;
@@ -70,6 +72,22 @@
 .colForm-300 {
   @extend .rollListRow;
   width: 300px;
+}
+.colForm-all {
+  @extend .rollListRow;
+  width: 100%;
+}
+
+.noWrap {
+  white-space: nowrap;
+}
+
+.pad-10 {
+  padding: 10px;
+}
+
+.pad-10r {
+  padding-right: 10px;
 }
 
 $timeWidth:      10%;
@@ -219,11 +237,24 @@ $deleteWidth:     6%;
   @extend .rollFormRow;
   width: 40px;
 }
+.colForm-100px {
+  @extend .rollFormRow;
+  width: 100px;
+}
+.twenty-per {
+  width: 20%;
+}
+.twenty-five-per {
+  width: 25%;
+}
 .ten-per {
   width: 10%;
 }
 .five-per {
   width: 5%;
+}
+.center {
+  text-align: center;
 }
 .colForm-checkbox {
   @extend .rollFormRow;

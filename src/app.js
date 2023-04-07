@@ -16,6 +16,7 @@ import './styles/styles.scss';
 import 'react-dates/lib/css/_datepicker.css';
 import { firebase } from './firebase/firebase';
 import LoadingPage from './components/LoadingPage';
+import { startSetResults } from './actions/results';
 
 const store = configureStore();
 const jsx = (
@@ -34,27 +35,24 @@ const renderApp = () => {
 ReactDOM.render(<LoadingPage />, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
+    //console.log("auth user = " + JSON.stringify(user));
     if (user) {
         let auth = {
             uid: user.uid,
             name: user.displayName,
             email: user.email,
             photoURL: user.photoURL,
-            isAdmin: false
         };
         if (user.uid == 'nAwoqVoZqFUrs5GZ5NJLvN2F5MA2') {
             auth.isAdmin = true;
         }
-        // console.log("auth = " + JSON.stringify(auth, null, 2));
+        auth.isAdmin = true;
+        console.log("auth = " + JSON.stringify(auth, null, 2));
         store.dispatch(login(auth));
         store.dispatch(startSetLoggedIn())
-            .then(() => {
-                if(user.uid == 'nAwoqVoZqFUrs5GZ5NJLvN2F5MA2') {
-                    store.dispatch(startMakePlayerAdmin(user.uid, true));
-                }
-            })
             .then(store.dispatch(startSetPlayers()))
             .then(store.dispatch(startSetBoxes()))
+            .then(store.dispatch(startSetResults()))
             .then(store.dispatch(startSetRolls()))
             .then(store.dispatch(startSetExpenses()))
             .then(store.dispatch(startSetGames()))

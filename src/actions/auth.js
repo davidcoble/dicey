@@ -20,25 +20,6 @@ export const startLogin = () => {
     };
 };
 
-// export const setAdmin = (isAdmin) => {
-//     return {
-//         type: 'SET_ADMIN',
-//         isAdmin
-//     };
-// };
-//
-// export const startSetAdmin = () => {
-//     return (dispatch, getState) => {
-//         const uid = getState().auth.uid;
-//         console.log("startSetAdmin uid = " + uid);
-//         let isAdmin = false;
-//         database.ref(`users/${uid}/isAdmin`).on('value', (snapshot) =>{
-//            isAdmin = snapshot;
-//         });
-//         dispatch(setAdmin(isAdmin));
-//     };
-// };
-
 export const startSaveUserPage = (path) => {
     //console.log("startSaveUserPage called with path = " + path);
     return (dispatch, getState) => {
@@ -68,8 +49,18 @@ export const startSetLoggedIn = () => {
         }).then(() => {
             database.ref(`login/${uid}/photoURL`).set(photoURL);
         }).then(() => {
-            database.ref(`login/${uid}/isAdmin`).set(isAdmin);
+            let playerIsAdminRef = database.ref(`players/${uid}/isAdmin`)
+            playerIsAdminRef.once('value', (snapshot) => {
+                console.log("once setLoggedIn snapshot = " + JSON.stringify(snapshot, null, 2));
+                auth.isAdmin = !!snapshot;
+            });
+            
+            playerIsAdminRef.on('value', (snapshot) => {
+                console.log("on setLoggedIn snapshot = " + JSON.stringify(snapshot, null, 2));
+                auth.isAdmin = !!snapshot;
+            });
         }).then(() => {
+            
             dispatch(login(auth));
         });
     };

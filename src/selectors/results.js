@@ -12,38 +12,38 @@ export const selectResults = (results) => {
     });
 };
 
-export const selectTurns = (results, result) => {
-    let turnList = [];
-    //console.log("selectTurns results = " + JSON.stringify(results, null, 2));
-    //console.log("selectTurns result = " + JSON.stringify(result, null, 2));
-    if (results !== undefined) {
-        results.filter((b1) => {
-            return b1.id === result.id
-        }).map((b) => {
-            if (b.turnList !== undefined) {
-                b.turnList.split("\n").map((turn) => {
-                    turnList.push({value: turn, label: turn});
-                });
-            }
-        });
-    }
-    return turnList;
-};
+// export const selectTurns = (results, result) => {
+//     let turnList = [];
+//     //console.log("selectTurns results = " + JSON.stringify(results, null, 2));
+//     //console.log("selectTurns result = " + JSON.stringify(result, null, 2));
+//     if (results !== undefined) {
+//         results.filter((b1) => {
+//             return b1.id === result.id
+//         }).map((b) => {
+//             if (b.turnList !== undefined) {
+//                 b.turnList.split("\n").map((turn) => {
+//                     turnList.push({value: turn, label: turn});
+//                 });
+//             }
+//         });
+//     }
+//     return turnList;
+// };
 
 
 // Get visible results
 // this should be called selectResultsf
-export const selectPlayerResults = (results, playerresults) => {
+export const selectBoxResults = (results, box) => {
     //console.log("selectPlayerResults results = " + JSON.stringify(results));
     //console.log("selectPlayerResults playerresults = " + JSON.stringify(playerresults));
-    if(playerresults === undefined)
+    if (results === undefined)
         return [];
-    return results.filter((result) => {
-        const gid = result.id;
-        if (playerresults[gid]) {
-            return true;
-        }
-        return false;
+    let resultsOut = results.filter((result) => {
+        let resultName = result.rollType;
+        let boxName = box.name;
+        let resultValid = result.boxes[box.id] !== undefined ? result.boxes[box.id].checked : false;
+        // console.log("For result " + resultName + ", box " + boxName + " valid = " + resultValid);
+        return resultValid;
     }).sort((a, b) => {
         //console.log("comparing a to b " + JSON.stringify(a) + " " + JSON.stringify(b));
         return a.name < b.name ? -1 : 1;
@@ -54,6 +54,8 @@ export const selectPlayerResults = (results, playerresults) => {
         //     return a.amount < b.amount ? 1 : -1;
         // }
     });
+    //console.log("resultsOut = " + JSON.stringify(resultsOut, null, 2));
+    return resultsOut;
 };
 
-{}
+{ }

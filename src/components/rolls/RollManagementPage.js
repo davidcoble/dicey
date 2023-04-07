@@ -117,11 +117,13 @@ export class RollManagementPage extends React.Component {
 };
 
 const mapStateToProps = (state, props) => {
-    console.log("state = " + JSON.stringify(state, null, 2));
+    // console.log("state = " + JSON.stringify(state, null, 2));
     let player = state.players.find((p) => { return p.uid === state.auth.uid});
     let game = state.games.find((g) => {
         return g.id === player.rollingGame;
     });
+    let games = state.games.filter((k) => { return k.players[state.auth.uid]});
+    // console.log("games = " + JSON.stringify(games, null, 2));
     let showDeleted = player.showDeleted == undefined ? false : player.showDeleted;
     // console.log("showDeleted " + showDeleted);
     /*
@@ -135,7 +137,7 @@ const mapStateToProps = (state, props) => {
         roll: state.rolls ? state.rolls.find((roll) => roll.id === props.match.params.id) : [],
         gameValue: game === undefined ? '' : game.id,
         gameLabel: game === undefined ? '' : game.name,
-        games: Object.keys(player.games).filter((k) => { return player.games[k].in }),
+        games: games,
         showDeleted: showDeleted
     };
 };

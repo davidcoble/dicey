@@ -1,14 +1,15 @@
 import React from 'react';
 import ResultList from './ResultList';
 import ResultForm from './ResultForm';
-import {startAddResult, startEditResult, startRemoveResult} from "../../actions/results";
-import {connect} from "react-redux";
+import { startAddResult, startEditResult, startRemoveResult } from "../../actions/results";
+import { connect } from "react-redux";
+
 
 export class ResultManagementPage extends React.Component {
 
     onSubmitAddResult = (result) => {
         this.props.startAddResult(result);
-        this.props.history.push('/results');
+        //this.props.history.push('/results');
     };
 
     onSubmitEditResult = (result) => {
@@ -16,42 +17,62 @@ export class ResultManagementPage extends React.Component {
         this.props.history.push('/results');
     };
     onRemoveResult = () => {
-        this.props.startRemoveResult({id: this.props.result.id});
+        this.props.startRemoveResult({ id: this.props.result.id });
         this.props.history.push("/results");
     };
     componentWillMount() {
         if (this.props.match.path.startsWith('/results/delete')) {
+            //this.props.onSubmit();
             this.onRemoveResult();
         }
     };
 
+
     render() {
         // console.log("render with props = " + JSON.stringify(this.props, null, 2));
         if (this.props.location.pathname.startsWith('/results/create')) {
-            return (
-                <div>
-                    <div className="page-header">
-                        <div className="content-container">
-                            <h1 className="page-header__title">Add Game Result</h1>
-                        </div>
-                    </div>
-                    <div className="content-container">
-                        <ResultForm onSubmit={this.onSubmitAddResult} />
-                    </div>
-                </div>
+            let tval = this.onSubmitAddResult(
+                {
+                    rollType: "combat",
+                    dice: 1,
+                    sides: 6,
+                    outcomes: [
+                        { rolled: 1 },
+                        { rolled: 2 },
+                        { rolled: 3 },
+                        { rolled: 4 },
+                        { rolled: 5 },
+                        { rolled: 6 },
+                    ],
+                    boxes: { fakeId: { checked: false } }
+                }
             );
+            console.log("tval = " + tval);
+            return null;
+            // return (
+            //     <div>
+            //         <div className="page-header">
+            //             <div className="content-container">
+            //                 <h1 className="page-header__title">Add Game Result</h1>
+            //             </div>
+            //         </div>
+            //         <div className="content-container">
+            //             <ResultForm onSubmit={this.onSubmitAddResult} />
+            //         </div>
+            //     </div>
+            // );
         }
         else if (this.props.match.path.startsWith('/results/edit')) {
-//            console.log("props = " + JSON.stringify(this.props, null,2));
+            //            console.log("props = " + JSON.stringify(this.props, null,2));
             return (
                 <div>
                     <div className="page-header">
                         <div className="content-container">
-                            <h1 className="page-header__title">Editing result {this.props.result.name}</h1>
+                            <h1 className="page-header__title">Editing result {this.props.result.rollType}</h1>
                         </div>
                     </div>
                     <div className="result-content-container">
-                        <ResultForm result={this.props.result} onSubmit={this.onSubmitEditResult} />
+                        <ResultForm history={this.props.history} result={this.props.result} onSubmit={this.onSubmitEditResult} />
                     </div>
                 </div>
             );

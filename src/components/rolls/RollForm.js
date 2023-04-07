@@ -8,6 +8,8 @@ import GamePlayerList from "../games/GamePlayerList";
 import { selectTurns } from '../../selectors/boxes';
 import { selectGamePlayersForCC } from '../../selectors/rolls';
 import { RollList } from "./RollList";
+import { selectBoxResults } from '../../selectors/results';
+import { Link } from 'react-router-dom';
 
 export class RollForm extends React.Component {
     constructor(props) {
@@ -20,7 +22,7 @@ export class RollForm extends React.Component {
             sides: props.sides ? props.sides : '',
             mods: '',
             sum: false,
-            game: props.linkedGame ? props.linkedGame : ( props.game ? props.game.name : '' ),
+            game: props.linkedGame ? props.linkedGame : (props.game ? props.game.name : ''),
             turn: props.turn ? props.turn : '',
             createdAt: props.roll ? moment(props.roll.createdAt) : moment(),
             error: '',
@@ -60,7 +62,7 @@ export class RollForm extends React.Component {
         //e.preventDefault();
         const sum = e.target.checked;
         console.log("sum = " + sum);
-        this.setState(() => ({sum}));
+        this.setState(() => ({ sum }));
         console.log("sum = " + sum);
     };
 
@@ -83,7 +85,7 @@ export class RollForm extends React.Component {
         // e.preventDefault();
         console.log("onShowDeleted e.target.checked = " + e.target.checked);
         this.state.showDeleted = e.target.checked;
-        this.props.onShowDeleted({showDeleted: this.state.showDeleted});
+        this.props.onShowDeleted({ showDeleted: this.state.showDeleted });
     };
 
     previousTurn = (event) => {
@@ -119,9 +121,29 @@ export class RollForm extends React.Component {
         }
         let newTurn = this.props.turns[newTurnIndex].value;
         this.props.onSelectRollingGameTurn({ gid: this.props.gameValue, tid: newTurn });
-
     };
-
+    onPresetSelect = (e) => {
+        e.preventDefault();
+        let value = e.target.value;
+        console.log("value = " + JSON.stringify(value, null, 2));
+        let matchedResult = {};
+        const matchingResults = this.props.results.filter((result) => {
+            if(result.rollType === value) {
+                console.log("matched: " + JSON.stringify(result, null, 2));
+                matchedResult = {...result};
+                return true;
+            }
+            return false;
+        });
+        console.log("matchingResults: " + JSON.stringify(matchingResults));
+        if (matchingResults.length > 1) {
+            console.log("Warning: more than one result with rollType " + value);
+        }
+        let dice = matchedResult.dice;
+        let sum = true;
+        let description = matchedResult.rollType;
+        this.setState({description, dice, sum});
+    };
     onSubmit = (e) => {
         e.preventDefault();
         const createdAt = moment.now();
@@ -150,6 +172,7 @@ export class RollForm extends React.Component {
     // }
 
     render() {
+        console.log("this.props.sum = " + JSON.stringify(this.props.sum, null, 2));
         let gameNames = [];
         this.props.games.map((game) => {
             gameNames.push({ value: game.id, label: game.name });
@@ -178,6 +201,10 @@ export class RollForm extends React.Component {
                 paddingBottom: 0,
             })
         }
+        let presets = [];
+        this.props.results.map((result) => {
+            presets.push({ value: result.rollType, label: result.rollType });
+        })
         //console.log("selectedTurn = " + JSON.stringify(selectedTurn));
         //console.log("selectedTurn = " + JSON.stringify(this.state.createdAt, null, 2));
         // console.log("gameNames = " + JSON.stringify(gameNames, null, 2));
@@ -206,7 +233,7 @@ export class RollForm extends React.Component {
                                 <div className="colForm" >
                                     <div className="rowForm">
                                         <div className="colFormLeft" ><button onClick={this.previousTurn}>-</button></div>
-                                        <div  className="colFormCenter" ><p>Select Turn</p></div>
+                                        <div className="colFormCenter" ><p>Select Turn</p></div>
                                         <div className="colFormRight" ><button onClick={this.nextTurn}>+</button></div>
                                     </div>
                                     {/*Show Deleted*/}
@@ -223,6 +250,25 @@ export class RollForm extends React.Component {
                                 </div>
                             </div>
                             <div className="rowForm" >
+                                <div className="colForm-100px" >
+                                    <p>Presets</p>
+                                    <select
+                                        type='select'
+                                        className='preset-select'
+                                        value={this.state.description}
+                                        onChange={this.onPresetSelect}
+                                    >
+                                        <option></option>
+                                        {
+                                            this.props.results.map((result) => {
+                                                return <option key={result.id}>{result.rollType}</option>
+                                            })
+                                        }
+                                    </select>
+
+
+                                </div>
+
                                 <div className="colForm-descr" >
                                     <p>Description</p>
                                     <input
@@ -288,14 +334,20 @@ export class RollForm extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="colForm-300" >
-                            <b></b>
+                        <div className="colForm-all" >
+                            {/* <div className='rowForm'>
+                                {
+                                    this.props.results.map((result) => {
+                                        return <Link className='pad-10r noWrap' to="#">{result.rollType}</Link>
+                                    })
+                                }
+                            </div> */}
                         </div>
-                        <div className="colForm-300" >
+                        <div className="colFormRight" >
                             <b className='headerList'>players</b>
                             <GamePlayerList {...this.props.game} />
                         </div>
-                        <div className="colForm-300" >
+                        <div className="colFormRight" >
                             <b className='headerList'>email recipients</b>
                             <GameSubscriberList uid={this.props.player.uid} {...this.props.game} />
                         </div>
@@ -308,9 +360,9 @@ export class RollForm extends React.Component {
 
 const mapStateToProps = (state) => {
     let player = state.players.find((p) => { return p.uid === state.auth.uid });
-    let rollingGame = player.rollingGame;
-    console.log("state.sum = " + JSON.stringify(state.sum, null, 2));
+    // let rollingGame = player.rollingGame;
     let sum = state.sum === undefined ? false : state.sum;
+    console.log("state.sum = " + JSON.stringify(state.sum, null, 2) + ", sum = " + sum);
     let turnList = [];
     let game = state.games.find((g) => {
         return g.id === player.rollingGame
@@ -353,6 +405,7 @@ const mapStateToProps = (state) => {
         gameLabel: game.name,
         turn: turn,
         sum: sum,
+        results: selectBoxResults(state.results, box),
         // sides: box.sides ? box.sides : '',
     };
 };

@@ -3,14 +3,17 @@ import moment from 'moment';
 // Get visible games
 // this should be called selectGamesf
 export const selectGamePlayers = (players, gamers) => {
-    //console.log("selectGamePlayers players = " + JSON.stringify(players));
-    //console.log("selectGamePlayers gamers = " + JSON.stringify(gamers));
+    // console.log("selectGamePlayers players = " + JSON.stringify(players, null, 2));
+    // console.log("selectGamePlayers gamers = " + JSON.stringify(gamers));
     if(gamers === undefined)
         return [];
-    return players.filter((player) => {
+    const roll_players = players.filter((player) => {
         const pid = player.uid;
         if (gamers[pid]) {
+            console.log("playerid " + pid + " true");
             return true;
+        } else {
+            console.log("playerid " + pid + " false");
         }
         return false;
     }).sort((a, b) => {
@@ -23,6 +26,8 @@ export const selectGamePlayers = (players, gamers) => {
         //     return a.amount < b.amount ? 1 : -1;
         // }
     });
+    // console.log("roll_players = " + JSON.stringify(roll_players, null, 2));
+    return roll_players;
 };
 
 export const selectGameSubscribers = (players, subscribers) => {

@@ -55,7 +55,7 @@ export const startEditBox = (id, updates) => {
     return (dispatch) => {
         return database.ref(`boxes/${id}`).update(updates).then(() => {
             dispatch(editBox(id, updates));
-        });
+        });RESULTES
     };
 };
 
@@ -66,6 +66,7 @@ export const setBoxes = (boxes) => ({
 });
 
 export const startSetBoxes = () => {
+    // console.log("startSetBoxes called");
     return (dispatch, getState) => {
         const uid = getState().auth.uid;
         let boxesRef = database.ref('boxes');
