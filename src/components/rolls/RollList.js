@@ -70,7 +70,9 @@ export class RollList extends React.Component {
                                 players<br/> who don't have the "show deleted" checkbox filled.
                             </span>
                         </ReactTooltip>
-                        <div className='rollList-header-delete'><a data-tip data-for='delete'>delete?</a></div>
+                        <div className='rollList-header-delete'><a data-tip data-for='delete'>delete</a></div>
+                        <div className='rollList-header-delete'><a data-tip data-for='copy'>copy</a></div>
+
                     </div>
                     {
                         this.props.rolls.sort((a, b) => {

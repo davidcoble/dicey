@@ -134,7 +134,10 @@ $deleteWidth:     6%;
   @extend .rollListRow;
   width: $nameWidth;
 }
-.rollList-roll-button2 {
+.red {
+  background: #f99;
+}
+.rollList-roll-button {
   @extend .rollListRow;
   width: 100%;
   text-align: center;

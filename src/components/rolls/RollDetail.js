@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip'
 import RollEpilogueForm from './RollEpilogueForm';
 import { startEditRoll, startDeleteRoll, startUndeleteRoll } from '../../actions/rolls';
-
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 export class RollDetail extends React.Component {
     constructor(props) {
@@ -24,17 +24,27 @@ export class RollDetail extends React.Component {
         e.preventDefault();
         // console.log("deleteRoll e = " + e);
         // console.log("deleteRoll id = " + this.state.id);
-        this.props.startDeleteRoll({id: this.state.id});
+        this.props.startDeleteRoll({ id: this.state.id });
     };
 
     undeleteRoll = (e) => {
         e.preventDefault();
         // console.log("undeleteRoll e = " + e);
         // console.log("undeleteRoll id = " + this.state.id);
-        this.props.startUndeleteRoll({id: this.state.id});
+        this.props.startUndeleteRoll({ id: this.state.id });
     };
 
     render() {
+        let rollDetail = `
+        Date: `+ moment(this.state.createdAt).format('YY/MM/DD HH:mm:ss') + `
+        Player: `+ this.state.createdBy + `
+        Description: `+ this.state.description + `
+        Turn: `+ this.state.turn + `
+        Dice: `+ this.state.dice + ` ` + this.state.sides + `-sided dice
+        Modifier: `+ this.state.mods + `
+        Result: `+ this.state.result + `
+        Epilogue: `+ this.props.epilogue + `
+        `;
         let uid = this.props.uid;
         // console.log("RollDetail.render() props = " + JSON.stringify(this.props, null,2));
         // console.log("RollDetails uid = " + uid);
@@ -75,7 +85,7 @@ export class RollDetail extends React.Component {
         let color;
         if (deleteRequestedByMe && areRemaining) {
             color = 'pink';
-        } else if(deleteRequestedByOther && !deleteRequestedByMe) {
+        } else if (deleteRequestedByOther && !deleteRequestedByMe) {
             color = 'blue';
         }
         if (deleted === true) {
@@ -85,17 +95,17 @@ export class RollDetail extends React.Component {
             return (
                 <div className='rowForm' >
                     <ReactTooltip id={`roll${this.props.id}`}>
-                    <span>
-                        {deleteRequestedByOther || deleteRequestedByMe ? `${deleteRequestedByList}` : "no delete requests"}
-                        <br/>
-                        {deleteRequestedByOther || deleteRequestedByMe ? `${remainingPlayers}` : ""}
-                    </span>
+                        <span>
+                            {deleteRequestedByOther || deleteRequestedByMe ? `${deleteRequestedByList}` : "no delete requests"}
+                            <br />
+                            {deleteRequestedByOther || deleteRequestedByMe ? `${remainingPlayers}` : ""}
+                        </span>
                     </ReactTooltip>
                     <div className={`rollList-roll-time ${color}`}>
                         <a data-tip data-for={`roll${this.props.id}`}>
                             '{
-                            moment(this.props.createdAt).format('YY/MM/DD HH:mm:ss')
-                        }
+                                moment(this.props.createdAt).format('YY/MM/DD HH:mm:ss')
+                            }
                         </a>
                     </div>
                     <div className={`rollList-roll-name ${color}`}>
@@ -144,7 +154,7 @@ export class RollDetail extends React.Component {
                             rid={this.state.id}
                             color={color}
                             epilogue={this.state.epilogue}
-                            onSubmit={this.onSubmitEpilogue}/>
+                            onSubmit={this.onSubmitEpilogue} />
                     </div>
                     <div className='rollList-roll-delete'>
                         {
@@ -153,8 +163,23 @@ export class RollDetail extends React.Component {
                                 <button className='rollList-roll-button' onClick={this.deleteRoll}>delete</button>
                         }
                     </div>
+                    <div className='rollList-roll-delete'>
+                        <CopyToClipboard text={rollDetail}
+                            onCopy={() => this.setState({ copied: true },
+                                () => {
+                                    console.log("state set");
+                                    setTimeout(() => {
+                                        console.log("done being copied");
+                                        this.setState({ copied: false });
+                                    }, 3000);
+                                }
+                            )}>
 
-                </div>
+                            <button className={this.state.copied ? "rollList-roll-button red" : "rollList-roll-button"}
+                            >{this.state.copied ? 'copied' : 'copy'}</button>
+                        </CopyToClipboard>
+                    </div>
+                </div >
             );
         }
     }
@@ -164,7 +189,7 @@ const mapStateToProps = (state, props) => {
     return {
         players: state.players,
         uid: state.auth.uid,
-        roll: state.rolls.find((r) => {return r.id === props.id}),
+        roll: state.rolls.find((r) => { return r.id === props.id }),
         showDeleted: props.showDeleted,
     }
 };

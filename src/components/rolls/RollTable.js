@@ -135,6 +135,12 @@ export class RollTable extends React.Component {
                             </button>
                             <img className="img--sort" src={this.sortImgForColumn('delete')}/>
                         </th>
+                        <th className="rollTable__th__right">
+                            <ReactTooltip id='result'>
+                                <span>Copy the summary to the clipboard.</span>
+                            </ReactTooltip>
+                            <p className="button--tight button--bold" data-tip data-for='result'>copy</p>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
