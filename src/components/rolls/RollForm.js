@@ -24,6 +24,7 @@ export class RollForm extends React.Component {
             sum: false,
             game: props.linkedGame ? props.linkedGame : (props.game ? props.game.name : ''),
             turn: props.turn ? props.turn : '',
+            preset: '',
             createdAt: props.roll ? moment(props.roll.createdAt) : moment(),
             error: '',
             uid: props.uid,
@@ -124,13 +125,15 @@ export class RollForm extends React.Component {
     };
     onPresetSelect = (e) => {
         e.preventDefault();
-        let value = e.target.value;
-        console.log("value = " + JSON.stringify(value, null, 2));
+        let preset = e.target.value;
+        console.log("value = " + JSON.stringify(preset, null, 2));
+        let rollType = '';
         let matchedResult = {};
         const matchingResults = this.props.results.filter((result) => {
-            if(result.rollType === value) {
-                console.log("matched: " + JSON.stringify(result, null, 2));
-                matchedResult = {...result};
+            if (result.id === preset) {
+                console.log("matched: " + JSON.stringify(result));
+                matchedResult = { ...result };
+                rollType = result.rollType;
                 return true;
             }
             return false;
@@ -141,8 +144,7 @@ export class RollForm extends React.Component {
         }
         let dice = matchedResult.dice;
         let sum = true;
-        let description = matchedResult.rollType;
-        this.setState({description, dice, sum});
+        this.setState({ dice, sum, preset });
     };
     onSubmit = (e) => {
         e.preventDefault();
@@ -161,6 +163,7 @@ export class RollForm extends React.Component {
             gid: this.props.gameValue,
             turn: this.props.turn,
             sum: this.state.sum,
+            preset: this.state.preset,
             createdAt: createdAt,
             createdBy: this.props.player.name,
             // ...this.state
@@ -255,13 +258,13 @@ export class RollForm extends React.Component {
                                     <select
                                         type='select'
                                         className='preset-select'
-                                        value={this.state.description}
+                                        value={this.state.preset}
                                         onChange={this.onPresetSelect}
                                     >
                                         <option></option>
                                         {
                                             this.props.results.map((result) => {
-                                                return <option key={result.id}>{result.rollType}</option>
+                                                return <option value={result.id} key={result.id}>{result.rollType}</option>
                                             })
                                         }
                                     </select>
@@ -284,6 +287,7 @@ export class RollForm extends React.Component {
                                 <div className="colForm-other" >
                                     <p>Dice</p>
                                     <input
+                                        disabled={this.state.preset === '' ? false : true}
                                         type="text"
                                         placeholder="Dice"
                                         className="roll-text-input"
@@ -295,6 +299,7 @@ export class RollForm extends React.Component {
                                 <div className="colForm-form-sides" >
                                     <p>Sides</p>
                                     <input
+                                        disabled={this.state.preset === '' ? false : true}
                                         type="text"
                                         placeholder="Sides"
                                         className="roll-text-input"
@@ -306,6 +311,7 @@ export class RollForm extends React.Component {
                                 <div className="colForm-other" >
                                     <p>Mods</p>
                                     <input
+                                        disabled={this.state.preset === '' ? false : true}
                                         type="text"
                                         placeholder="Mods"
                                         className="roll-text-input"
@@ -320,6 +326,7 @@ export class RollForm extends React.Component {
                                     </div>
                                     <div className="rowForm-center">
                                         <input
+                                            disabled={this.state.preset === '' ? false : true}
                                             type="checkbox"
                                             placeholder="Mods"
                                             className="roll-checkbox-input"

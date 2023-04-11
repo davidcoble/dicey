@@ -14,7 +14,7 @@ const GamePlayerList = (props) => {
                         <div>No Players</div>
                     ) : (
                         props.players.map((player) => {
-                            console.log("player = " + JSON.stringify(player));
+                            //console.log("player = " + JSON.stringify(player));
                             return (
                                 <GamePlayerDetail key={player.uid} {...player} />
                             );

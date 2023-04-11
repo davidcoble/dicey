@@ -9,8 +9,9 @@ import { startSetGameTurn } from '../../actions/games';
 import { startSetPlayerRollingGame, startSetPlayerRollingGameTurn, startSetShowDeleted } from '../../actions/players';
 import { startAddRoll } from "../../actions/rolls";
 import { selectGamePlayersForCC } from '../../selectors/rolls';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import moment from 'moment';
+import { selectBoxResults } from '../../selectors/results';
 
 export class RollManagementPage extends React.Component {
     constructor(props) {
@@ -25,7 +26,8 @@ export class RollManagementPage extends React.Component {
         // console.log("u = " + u);
         // console.log("componentWillMount props" + JSON.stringify(this.props, null, 2));
         if (this.props.games.length === 0) {
-            this.props.startAddMsg({msg: {
+            this.props.startAddMsg({
+                msg: {
                     id: u,
                     type: 'error',
                     page: '/games',
@@ -36,16 +38,16 @@ export class RollManagementPage extends React.Component {
         }
     }
 
-    onSelectRollingGame = ({gid} = {}) => {
+    onSelectRollingGame = ({ gid } = {}) => {
         // console.log("gid = " + gid);
         let uid = this.props.uid;
         // console.log("uid = " + uid);
         this.props.startSetPlayerRollingGame(this.props.uid, gid);
     };
-    onSelectRollingGameTurn = ({gid, tid} = {}) => {
+    onSelectRollingGameTurn = ({ gid, tid } = {}) => {
         this.props.startSetPlayerRollingGameTurn(this.props.uid, gid, tid);
     };
-    onShowDeleted = ({showDeleted} = {}) => {
+    onShowDeleted = ({ showDeleted } = {}) => {
         console.log("RollManagementPage onShowDeleted = " + showDeleted);
         this.props.startSetShowDeleted(this.props.uid, showDeleted);
     };
@@ -59,7 +61,7 @@ export class RollManagementPage extends React.Component {
             rolls.push(j);
             rollSum += j;
         }
-        if(rollRequest.sum) {
+        if (rollRequest.sum) {
             rollRequest.result = "(" + rolls.join(' + ') + ") " +
                 (rollRequest.mods ? "+ (" + rollRequest.mods + ")" : "")
                 + " = " + rollSum + "";
@@ -68,6 +70,17 @@ export class RollManagementPage extends React.Component {
                 let tot = d + parseInt(rollRequest.mods);
                 return "( " + d + " + " + rollRequest.mods + " = " + tot + " )"
             }).join(", ");
+        }
+        let preset = rollRequest.preset;
+        if (preset !== '') {
+            // console.log("boxResults = " + JSON.stringify(this.props.boxResults, null, 2));
+            let resultSet = this.props.boxResults.filter((r) => { return r.id === preset })[0];
+            console.log("resultSet = " + JSON.stringify(resultSet, null, 2));
+            let outcome = resultSet.outcomes.filter(
+                (outcome) => { return outcome.rolled === rollSum }
+            )[0];
+            console.log("outcome = " + JSON.stringify(outcome));
+            rollRequest.epilogue = outcome.result;
         }
         console.log("RMP rollRequest = " + JSON.stringify(rollRequest, null, 2));
         // console.log("this.props = " + JSON.stringify(this.props, null, 2));
@@ -118,14 +131,16 @@ export class RollManagementPage extends React.Component {
 
 const mapStateToProps = (state, props) => {
     // console.log("state = " + JSON.stringify(state, null, 2));
-    let player = state.players.find((p) => { return p.uid === state.auth.uid});
+    let player = state.players.find((p) => { return p.uid === state.auth.uid });
     let game = state.games.find((g) => {
         return g.id === player.rollingGame;
     });
-    let games = state.games.filter((k) => { return k.players[state.auth.uid]});
+    let games = state.games.filter((k) => { return k.players[state.auth.uid] });
     // console.log("games = " + JSON.stringify(games, null, 2));
     let showDeleted = player.showDeleted == undefined ? false : player.showDeleted;
-    // console.log("showDeleted " + showDeleted);
+    let box = state.boxes.filter((box) => { return box.id === game.box.value })[0];
+    let boxResults = selectBoxResults(state.results, box);
+    // console.log("boxResults " + JSON.stringify(boxResults, null, 2));
     /*
         console.log("player.rollingGame = " + JSON.stringify(player.rollingGame));
         console.log("state.games = " + JSON.stringify(state.games, null, 2));
@@ -138,6 +153,7 @@ const mapStateToProps = (state, props) => {
         gameValue: game === undefined ? '' : game.id,
         gameLabel: game === undefined ? '' : game.name,
         games: games,
+        boxResults: boxResults,
         showDeleted: showDeleted
     };
 };
@@ -145,14 +161,14 @@ const mapStateToProps = (state, props) => {
 const mapDispatchToProps = (dispatch) => ({
     startSetPlayerRollingGame: (uid, gid) => {
         // console.log("startSetPlayerRollingGame uid = " + uid + " gid " + gid);
-        dispatch(startSetPlayerRollingGame({uid: uid, gid: gid}));
+        dispatch(startSetPlayerRollingGame({ uid: uid, gid: gid }));
     },
     startSetPlayerRollingGameTurn: (uid, gid, tid) => {
-        dispatch(startSetPlayerRollingGameTurn({uid: uid, gid: gid, tid: tid}));
-        dispatch(startSetGameTurn({gid: gid, tid: tid}));
+        dispatch(startSetPlayerRollingGameTurn({ uid: uid, gid: gid, tid: tid }));
+        dispatch(startSetGameTurn({ gid: gid, tid: tid }));
     },
     startSetShowDeleted: (uid, showDeleted) => {
-        dispatch(startSetShowDeleted({uid: uid, showDeleted: showDeleted}));
+        dispatch(startSetShowDeleted({ uid: uid, showDeleted: showDeleted }));
     },
     startAddRoll: (roll) => {
         dispatch(startAddRoll(roll));
