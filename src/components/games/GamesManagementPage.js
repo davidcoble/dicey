@@ -42,7 +42,7 @@ export class GamesManagementPage extends React.Component {
                 &&
                 <button type='button' onClick={this.setShowDeletedGames}>show deleted games</button>
                 ||
-                <button type='button' onClick={this.unsetShowDeletedGames}>show games</button>
+                <button type='button' onClick={this.unsetShowDeletedGames}>show active games</button>
                 }
                 <GameList />
             </div>

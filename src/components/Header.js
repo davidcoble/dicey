@@ -11,7 +11,7 @@ export const Header = (props) => {
         <header className="header">
             <div className="content-container-header">
                 <div className="header__content">
-                    <Link className="header__title" to="/dashboard">
+                    <Link className="header__title" to="/">
                         <h1>Alea Iacta Est</h1>
                     </Link>
                     <div className="header__right">
@@ -20,7 +20,7 @@ export const Header = (props) => {
                     </div>
                 </div>
             </div>
-            <Nav auth={props} />
+            {/* <Nav auth={props} /> */}
         </header>
     );
 };

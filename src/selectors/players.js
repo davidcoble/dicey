@@ -10,10 +10,10 @@ export const selectGamePlayers = (players, gamers) => {
     const roll_players = players.filter((player) => {
         const pid = player.uid;
         if (gamers[pid]) {
-            console.log("playerid " + pid + " true");
+            //console.log("playerid " + pid + " true");
             return true;
         } else {
-            console.log("playerid " + pid + " false");
+            //console.log("playerid " + pid + " false");
         }
         return false;
     }).sort((a, b) => {

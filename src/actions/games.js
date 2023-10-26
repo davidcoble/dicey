@@ -78,7 +78,8 @@ export const removePlayerFromGame = (gameId, playerId) => ({
 });
 
 export const startRemovePlayerFromGame = ({gid, pid} = {}) => {
-    // console.log("startRemovePlayerFromGame; gameId = " + gid);
+    console.log("startRemovePlayerFromGame; gameId = " + gid);
+    console.log("startRemovePlayerFromGame; playerId = " + pid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/players/${pid}`).set(false).then(() => {
             dispatch(removePlayerFromGame(gid, pid));

@@ -71,6 +71,34 @@
   flex-direction: row;
 }
 
+.buttonJoin {
+  margin: 0px 0px 0px 20px;
+  padding: 0px 0px 0px 0px;
+  border-radius: 3px;
+  border: 2px solid green;
+  font-size: small;
+}
+.playerBox {
+  margin: 0px 0px 0px 0px;
+  border-radius: 3px;
+  border-color: green;
+  border: 2px solid green;
+}
+.gameName {
+  display: flex;
+  flex-direction: column;
+  font-size: large;
+  margin: 10px 0px 0px 10px;
+
+}
+.gameDeet {
+  display: flex;
+  flex-direction: column;
+  font-size: small;
+  margin: 0px 0px 0px 10px;
+
+}
+
 .colList {
   display: flex;
   flex-direction: column;
