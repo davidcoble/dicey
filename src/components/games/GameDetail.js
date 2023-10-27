@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { selectGamePlayers } from '../../selectors/players';
 import { startAddPlayerToGame, startRemovePlayerFromGame } from '../../actions/games';
 import { history } from '../../routers/AppRouter';
-import { startSetPlayerRollingGame } from '../../actions/players';
+import { startAddGameToPlayer, startRemoveGameFromPlayer, startSetPlayerRollingGame } from '../../actions/players';
 
 export class GameDetail extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ export class GameDetail extends React.Component {
         console.log("GameDetail.render: this.props = " + JSON.stringify(this.props, null, 4));
         return (
             <div className='rowList'>
-                <div className='colList'>
+                <div className='gameDetail-rowName'>
                     <div className='gameName'>
                         Name
                     </div>
@@ -42,9 +42,9 @@ export class GameDetail extends React.Component {
                         Players
                     </div>
                 </div>
-                <div className='colList'>
+                <div className='gameDetail-contents'>
                     <div className='gameName'>
-                        <div className='rowList'>
+                        <div className='rowList-gameDeet'>
                             <div>
                                 {this.props.name}
                             </div>
@@ -150,8 +150,14 @@ const mapStateToProps = (state, props) => {
     };
 };
 const mapDispatchToProps = (dispatch, props) => ({
-    startJoinGame: (data) => dispatch(startAddPlayerToGame(data)),
-    startQuitGame: (data) => dispatch(startRemovePlayerFromGame(data)),
+    startJoinGame: (data) => {
+        dispatch(startAddPlayerToGame(data));
+        dispatch(startAddGameToPlayer(data));
+    },
+    startQuitGame: (data) => {
+        dispatch(startRemovePlayerFromGame(data));
+        dispatch(startRemoveGameFromPlayer(data));
+    },
     startSetPlayerRollingGame: (data) => dispatch(startSetPlayerRollingGame(data)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(GameDetail);

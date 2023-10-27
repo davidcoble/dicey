@@ -84,21 +84,31 @@
   border-color: green;
   border: 2px solid green;
 }
+.gameDetail-rowName {
+  @extend .colList;
+  width: 10%;
+}
+.gameDetail-contents {
+  @extend .colList;
+  width: 40%;
+}
 .gameName {
   display: flex;
   flex-direction: column;
   font-size: large;
   margin: 10px 0px 0px 10px;
-
 }
 .gameDeet {
   display: flex;
   flex-direction: column;
   font-size: small;
   margin: 0px 0px 0px 10px;
-
 }
 
+.rowList-gameDeet {
+  @extend .rowList;
+  width: 200px;
+}
 .colList {
   display: flex;
   flex-direction: column;

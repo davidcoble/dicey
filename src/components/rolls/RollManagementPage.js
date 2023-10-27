@@ -12,6 +12,7 @@ import { selectGamePlayersForCC } from '../../selectors/rolls';
 import { connect } from "react-redux";
 import moment from 'moment';
 import { selectBoxResults } from '../../selectors/results';
+import GameNav from '../GameNav';
 
 export class RollManagementPage extends React.Component {
     constructor(props) {
@@ -113,6 +114,7 @@ export class RollManagementPage extends React.Component {
     render() {
         return (
             <div>
+                <GameNav/>
                 <div>
                     <RollForm
                         onSelectRollingGame={this.onSelectRollingGame}

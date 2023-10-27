@@ -17,13 +17,16 @@ class GameList extends React.Component {
                         this.props.games.length === 0 ? (
                             <div>No Games</div>
                         ) : (
-                                this.props.games.map((game) => {
-                                    game.uid = uid;
-                                    return (
+                            this.props.games.map((game) => {
+                                game.uid = uid;
+                                return (
+                                    <div>
                                         <GameDetail key={game.id} {...game} />
-                                    );
-                                })
-                            )
+                                        <div className='horizontalDivider'>&nbsp;</div>
+                                    </div>
+                                );
+                            })
+                        )
                     }
                 </div>
             </div>
