@@ -27,6 +27,14 @@ button:disabled {
   cursor: default;
 }
 
+.mapScrollable {
+  width: 1100px;
+  height: 900px;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  resize: both;
+}
+
 .is-active {
   font-weight: bold;
 }

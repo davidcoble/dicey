@@ -62,7 +62,7 @@ export const addPlayerToGame = (gameId, playerId) => ({
     playerId
 });
 
-export const startAddPlayerToGame = ({gid, pid} = {}) => {
+export const startAddPlayerToGame = ({ gid, pid } = {}) => {
     // console.log("startAddPlayerToGame; gameId = " + gid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/players/${pid}`).set(true).then(() => {
@@ -77,7 +77,7 @@ export const removePlayerFromGame = (gameId, playerId) => ({
     playerId
 });
 
-export const startRemovePlayerFromGame = ({gid, pid} = {}) => {
+export const startRemovePlayerFromGame = ({ gid, pid } = {}) => {
     console.log("startRemovePlayerFromGame; gameId = " + gid);
     console.log("startRemovePlayerFromGame; playerId = " + pid);
     return (dispatch, getState) => {
@@ -93,7 +93,7 @@ export const addSubscriberToGame = (gameId, subscriberId) => ({
     subscriberId
 });
 
-export const startAddSubscriberToGame = ({gid, uid} = {}) => {
+export const startAddSubscriberToGame = ({ gid, uid } = {}) => {
     // console.log("startAddSubscriberToGame; gameId = " + gid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/subscribers/${uid}`).set(true).then(() => {
@@ -108,7 +108,7 @@ export const removeSubscriberFromGame = (gameId, subscriberId) => ({
     subscriberId
 });
 
-export const startRemoveSubscriberFromGame = ({gid, uid} = {}) => {
+export const startRemoveSubscriberFromGame = ({ gid, uid } = {}) => {
     // console.log("startRemoveSubscriberFromGame; gameId = " + gid);
     // console.log("startRemoveSubscriberFromGame; userId = " + uid);
     return (dispatch, getState) => {
@@ -118,6 +118,30 @@ export const startRemoveSubscriberFromGame = ({gid, uid} = {}) => {
     }
 };
 
+export const setPlayerGameMapPosition = (gid, pid, xPos, yPos) => ({
+    type: 'EDIT_GAME',
+    gid,
+    'playerData': 
+    {
+        pid: 
+        {
+            'position': 
+            {
+                x: xPos,
+                y: yPos,
+            }
+        }
+    }
+});
+
+export const startSetPlayerGameMapPosition = ({ gid, pid, xPos, yPos } = {}) => {
+    console.log(`startSetPlayerGameMapPosition gid = ${gid} pid = ${pid} `)
+    return (dispatch, getState) => {
+        return database.ref(`games/${gid}/playerData/${pid}/position`).set({ x: xPos, y: yPos }).then(() => {
+            dispatch(setPlayerGameMapPosition(gid, pid, xPos, yPos));
+        });
+    }
+}
 
 // EDIT_GAME
 export const editGame = (id, updates) => ({
@@ -140,10 +164,10 @@ export const startEditGame = (id, updates) => {
 
 export const setGameTurn = (gid, tid) => ({
     type: "EDIT_GAME",
-    currentTurn: {tid}
+    currentTurn: { tid }
 });
 
-export const startSetGameTurn = ({gid, tid} = {}) => {
+export const startSetGameTurn = ({ gid, tid } = {}) => {
     // console.log("uid = " + uid + " gid  = " + gid + " tid  = " + tid);
     return (dispatch, getState) => {
         return database.ref(`games/${gid}/turn`).set(tid).then(() => {

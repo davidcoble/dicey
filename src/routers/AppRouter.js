@@ -21,6 +21,7 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { startSaveUserPage } from '../actions/auth';
 import connect from "react-redux/es/connect/connect";
+import MapPage from '../components/maps/MapPage';
 
 export const history = createHistory();
 
@@ -48,6 +49,8 @@ const AppRouter = ({startSaveUserPage}) => {
                     <PrivateRoute path="/game/:gid/player/:pid/remove" component={GamePlayerRemovePage}/>
                     <PrivateRoute path="/game/:gid/subscriber/:pid/subscribe" component={GameSubscriberAddPage}/>
                     <PrivateRoute path="/game/:gid/subscriber/:pid/unsubscribe" component={GameSubscriberRemovePage}/>
+                    <PrivateRoute path="/maps/:gid" component={MapPage}/>
+                    <PrivateRoute path="/maps" component={MapPage}/>
                     <PrivateRoute path="/players" component={PlayerManagementPage}/>
                     <PrivateRoute path="/rolls/:gid" component={RollManagementPage}/>
                     <PrivateRoute path="/rolls/" component={RollManagementPage}/>
