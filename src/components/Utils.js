@@ -9,6 +9,10 @@ const range = len => {
     return arr;
 };
 
+export const HorizontalDivider = () => (
+    <div className="horizontalDivider">nbsp;</div>
+
+);
 const newPerson = () => {
     const statusChance = Math.random();
     return {
