@@ -2,7 +2,7 @@ import React from 'react';
 import MapInset from './MapInset';
 import { connect } from 'react-redux';
 import { startSetPlayerGameMapPosition } from '../../actions/games';
-import Draggable from './Draggable';
+import DraggableThree from './DraggableThree';
 
 
 
@@ -118,27 +118,29 @@ export class MapPage extends React.Component {
         mapElement.scrollTo(this.scrollX, this.scrollY);
     }
 
+    onMouseUp(arg1, arg2) {
+        console.log("MapPage onStop called arg1 = " + arg1 + ", arg2 = " + arg2);
+
+    }
+
+    onScroll = (e) => {
+        e.preventDefault();
+        let nameArray = Object.getOwnPropertyNames(e);
+        console.log("MapPage.onScroll e nameArray = " + JSON.stringify(nameArray, null, 2));
+
+        let nameArray2 = Object.getOwnPropertyNames(e.detail);
+        console.log("MapPage.onScroll e.detail nameArray = " + JSON.stringify(nameArray2, null, 2));
+    }
+
     render() {
         return (
             <div>
                 <div className='rowList'>
                     <div
                         className='mapScrollable'
-                        id='myMapElement'
-
-                    >
-                        <div className='unitDiv1' >
-                            <img
-                                src="/images/countersheets/03Back.png"
-                                className="unit0001"
-                            />
-                        </div>
-                        <div className='unitDiv2' >
-                            <img
-                                src="/images/countersheets/03Back.png"
-                                className="unit0002"
-                            />
-                        </div>
+                        onScroll={this.onScroll}
+                        id='myMapElement' >
+                        <DraggableThree x={0} y={0} onMouseUp={this.onMouseUp} />
                         <div className='mapImageDiv'>
 
                             <img src="/images/ETO.png"
@@ -148,15 +150,8 @@ export class MapPage extends React.Component {
                                 onMouseDown={this.mapMouseDown}
                                 onMouseUp={this.mapMouseUp}
                                 onMouseMove={this.mapMouseMove}
-
                             />
                         </div>
-                        {/* <div className='unitDiv3' >
-                            <img
-                                src="/images/countersheets/03Back.png"
-                                className="unit0003"
-                            />
-                        </div> */}
                     </div>
                     <div>
                         <MapInset mapScrollEvent={this.mapScrollEvent} />
@@ -170,7 +165,7 @@ export class MapPage extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-    console.log("MapPage.mapStateToProps state.games = " + JSON.stringify(state.games, null, 2));
+    // console.log("MapPage.mapStateToProps state.games = " + JSON.stringify(state.games, null, 2));
     return {
         game: {}
     };

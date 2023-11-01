@@ -19,8 +19,9 @@ class GameList extends React.Component {
                         ) : (
                             this.props.games.map((game) => {
                                 game.uid = uid;
+                                // console.log("game.id = " + game.id);
                                 return (
-                                    <div>
+                                    <div key={game.id}>
                                         <GameDetail key={game.id} {...game} />
                                         <div className='horizontalDivider'>&nbsp;</div>
                                     </div>
