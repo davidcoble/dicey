@@ -5,11 +5,14 @@ import PropTypes from 'prop-types';
 class DraggableThree extends React.Component {
     constructor(props) {
         super(props);
+        console.log("DraggableThree props.parentxoff = " + props.parentxoff);
         this.state = {
             relX: 0,
             relY: 0,
             x: props.x,
-            y: props.y
+            y: props.y,
+            parentxoff: props.parentxoff,
+            parentyoff: props.parentyoff,
         };
         this.gridX = props.gridX || 1;
         this.gridY = props.gridY || 1;
@@ -41,8 +44,9 @@ class DraggableThree extends React.Component {
     }
 
     onMove(e) {
-        const x = Math.trunc((e.pageX - this.state.relX) / this.gridX) * this.gridX;
-        const y = Math.trunc((e.pageY - this.state.relY) / this.gridY) * this.gridY;
+        //console.log("this.state.parentxoff = " + this.state.parentxoff);
+        const x = (Math.trunc((e.pageX - this.state.relX) / this.gridX) * this.gridX) + this.state.parentxoff;
+        const y = (Math.trunc((e.pageY - this.state.relY) / this.gridY) * this.gridY) + this.state.parentyoff;
         if (x !== this.state.x || y !== this.state.y) {
             this.setState({
                 x,
@@ -50,6 +54,7 @@ class DraggableThree extends React.Component {
             });
             this.props.onMove && this.props.onMove(this.state.x, this.state.y);
         }
+        this.props.onUnitMove(x, y);
     }
 
     onMouseDown(e) {
@@ -96,7 +101,7 @@ class DraggableThree extends React.Component {
             'width': '50px',
             'height': '50px',
             'overflow': 'hidden',
-            'position': 'absolute',
+            'position': 'relative',
             'left': 0,
             'top': 0,
             'border': '1px solid black',
@@ -111,9 +116,9 @@ class DraggableThree extends React.Component {
     }
 
     render() {
+        
         return <div
             onMouseDown={this.onMouseDown}
-            
             onTouchStart={this.onTouchStart}
             style={{
                 position: 'absolute',
