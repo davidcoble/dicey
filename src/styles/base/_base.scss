@@ -43,12 +43,11 @@ button:disabled {
   overflow-x: scroll;
   overflow-y: scroll;
   resize: both;
-  scroll-margin-inline-start: 200px;
-
+  
 }
 
 .mapImage {
-  position: absolute;
+  position: relative;
   top: 0px;
   left: 0px;
   z-index: 200;
