@@ -53,7 +53,7 @@ export class GamesManagementPage extends React.Component {
 const mapStateToProps = (state) => {
     //console.log("GamesManagementPage state = " + JSON.stringify(state, null, 2));
     let player = state.players.find((p) => (p.uid === state.auth.uid));
-    console.log("GMP player = " + JSON.stringify(player, null,2));
+    // console.log("GMP player = " + JSON.stringify(player, null,2));
     
     let sDG = false;
     if (player !== undefined) {

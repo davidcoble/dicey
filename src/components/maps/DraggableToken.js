@@ -1,71 +1,53 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
 
-
-export class DraggableToken extends React.Component {
+export default class DraggableToken extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ...props,
-            x: 100,
-            y: 200,
-            dragging: false,
+            ...props
         }
 
     }
 
-
-
-    onMouseDown = (e) => {
-        e.preventDefault();
-        console.log("Draggable onMouseDown");
-        this.state.dragging = true;
-    }
-    onMouseUp = (e) => {
-        e.preventDefault();
-        console.log("Draggable onMouseUp");
-        this.state.dragging = false;
-    }
-    onMouseMove = (e) => {
-        e.preventDefault();
-        e.persist();
-        // let nameArray = Object.getOwnPropertyNames(e);
-        // console.log("nameArray = " + JSON.stringify(nameArray, null, 2));
-        console.log("mouseMove Event");
-        if (this.state.dragging) {
-            console.log("updating location");
-            this.state.x = e.clientX - 25;
-            this.state.y = e.clientY - 25;
-
+    unitStyles = {
+        div: {
+            'width': '50px',
+            'height': '50px',
+            'overflow': 'hidden',
+            'position': 'absolute',
+            'left': 155,
+            'top': 155,
+            'border': '1px solid black',
+            'borderRadius': 5,
+            'zIndex': 1001,
+        },
+        img: {
+            'height': 850,
+            'width': 1100,
+            'objectPosition': '-25px -90px'
         }
+    }
+
+    handleDrag = (e) => {
+        e.preventDefault();
+        let nameArray = Object.getOwnPropertyNames(e);
+        console.log("nameArray = " + JSON.stringify(nameArray, null, 2));
+        console.log("e.pageX = " + e.pageX);
     }
 
     render() {
-        const left = this.props.x + "px";
-        const top = this.props.y + "px";
-        const padding = "0px";
-        console.log("left = " + left);
-        console.log("top = " + top);
+        // transferPropsTo will merge style & other props passed into our
+        // component to also be on the child DIV.
         return (
             <div
-                onMouseDown={this.onMouseDown}
-                onMouseUp={this.onMouseUp}
-                onMouseMove={this.onMouseMove}
+                style={this.unitStyles.div}
+                draggable="true"
+                onDrag={this.handleDrag}
             >
-                <div id="unit" className='unitDiv3' style={{ padding, left, top, position: 'absolute' }}>
-                    <img height="60px" width="60px" src="/images/countersheets/03Back.png" className="unit0003" />
-                </div>
+                <img
+                    style={this.unitStyles.img}
+                    src="/images/countersheets/03Back.png" />
             </div >
         )
     }
 }
-const mapStateToProps = (state, props) => {
-    console.log("MapPage.mapStateToProps state.games = " + JSON.stringify(state.games, null, 2));
-    return {
-        x: state.x,
-        y: state.y,
-        dragging: state.dragging,
-    };
-};
-
-export default connect(mapStateToProps, null)(DraggableToken);

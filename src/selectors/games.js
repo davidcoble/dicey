@@ -5,6 +5,9 @@ import moment from 'moment';
 export const selectGames = (games, player) => {
     //console.log("games = " + JSON.stringify(games));
     // console.log("player = " + JSON.stringify(player, null, 2));
+    if (player === undefined) {
+        return [];
+    }
     let hideNotPlaying = player.hideNotPlaying ? true : false;
     let playerShowDeleted = player.showDeletedGames ? true : false;
     return games.filter((game) => {

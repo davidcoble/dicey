@@ -28,7 +28,7 @@ export class GameDetail extends React.Component {
         history.push('/rolls');
     }
     render() {
-        console.log("GameDetail.render: this.props = " + JSON.stringify(this.props, null, 4));
+        // console.log("GameDetail.render: this.props = " + JSON.stringify(this.props, null, 4));
         return (
             <div className='rowList'>
                 <div className='gameDetail-rowName'>
@@ -75,7 +75,7 @@ export class GameDetail extends React.Component {
                                     <div>No players</div>
                                 ) : (
                                     this.props.players.map((player) => {
-                                        return (<div className='playerBox'> {player.name} </div>);
+                                        return (<div key={player.uid} className='playerBox'> {player.name} </div>);
                                     })
                                 )
 
