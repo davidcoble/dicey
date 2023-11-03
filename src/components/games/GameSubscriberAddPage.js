@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { startAddSubscriberToGame } from '../../actions/games';
 
 export class GameSubscriberAddPage extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.startAddSubscriberToGame({ gid: this.props.game.id, pid: this.props.player.uid });
         this.props.history.push('/games');
     }

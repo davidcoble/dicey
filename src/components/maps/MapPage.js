@@ -2,15 +2,14 @@ import React from 'react';
 import MapInset from './MapInset';
 import { connect } from 'react-redux';
 import { startSetPlayerGameMapPosition } from '../../actions/games';
-import Draggable from './Draggable';
-
+import DraggableToken from './DraggableToken';
 
 
 export class MapPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ...props
+            ...props,
         }
 
     }
@@ -139,6 +138,7 @@ export class MapPage extends React.Component {
                                 className="unit0002"
                             />
                         </div>
+                        <DraggableToken />
                         <div className='mapImageDiv'>
 
                             <img src="/images/ETO.png"
@@ -151,12 +151,6 @@ export class MapPage extends React.Component {
 
                             />
                         </div>
-                        {/* <div className='unitDiv3' >
-                            <img
-                                src="/images/countersheets/03Back.png"
-                                className="unit0003"
-                            />
-                        </div> */}
                     </div>
                     <div>
                         <MapInset mapScrollEvent={this.mapScrollEvent} />

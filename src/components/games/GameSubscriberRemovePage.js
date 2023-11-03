@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { startRemoveSubscriberFromGame } from '../../actions/games';
 
 export class GameSubscriberRemovePage extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.startRemoveSubscriberFromGame({ gid: this.props.game.id, pid: this.props.player.uid });
         this.props.history.push('/games');
     }

@@ -43,6 +43,8 @@ button:disabled {
   overflow-x: scroll;
   overflow-y: scroll;
   resize: both;
+  scroll-margin-inline-start: 200px;
+
 }
 
 .mapImage {
@@ -62,7 +64,7 @@ button:disabled {
   width: 50px;
   height: 50px;
   overflow: hidden;
-  position: relative;
+  position: absolute;
   left: 155px;
   top: 155px;
   border: 1px solid black;
@@ -74,9 +76,9 @@ button:disabled {
   width: 50px;
   height: 50px;
   overflow: hidden;
-  position: relative;
+  position: absolute;
   left: 165px;
-  top: 110px;
+  top: 165px;
   border: 1px solid black;
   border-radius: 5px;
   z-index: 1002;
@@ -86,9 +88,7 @@ button:disabled {
   width: 50px;
   height: 50px;
   overflow: hidden;
-  position: relative;
-  left: 175px;
-  top: 175px;
+  position: absolute;
   border: 1px solid black;
   border-radius: 5px;
   z-index: 1003;

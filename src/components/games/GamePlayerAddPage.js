@@ -5,7 +5,7 @@ import { startAddPlayerToGame } from '../../actions/games';
 import { startAddGameToPlayer, startSetPlayerRollingGame } from '../../actions/players';
 
 export class GamePlayerAddPage extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         console.log("about to add game " + this.props.game.name + " to player " + this.props.player.name);
         this.props.startAddGameToPlayer({ gid: this.props.game.id, pid: this.props.player.uid });
         this.props.startSetPlayerRollingGame({uid: this.props.player.uid, gid: this.props.game.id});

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { startRemoveGame } from '../../actions/games';
 
 export class GameDeletePage extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         //this.props.startRemoveGame({ id: this.props.game.id });
         //this.props.history.push('/games');
     };

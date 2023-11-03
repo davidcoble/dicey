@@ -19,7 +19,7 @@ export class BoxManagementPage extends React.Component {
         this.props.startRemoveBox({id: this.props.box.id});
         this.props.history.push("/boxes");
     };
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.match.path.startsWith('/boxes/delete')) {
             this.onRemoveBox();
         }

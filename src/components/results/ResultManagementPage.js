@@ -20,7 +20,7 @@ export class ResultManagementPage extends React.Component {
         this.props.startRemoveResult({ id: this.props.result.id });
         this.props.history.push("/results");
     };
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.match.path.startsWith('/results/delete')) {
             //this.props.onSubmit();
             this.onRemoveResult();
