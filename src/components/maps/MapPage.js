@@ -102,6 +102,31 @@ export class MapPage extends React.Component {
         mapElement.scrollTo(this.state.scrollX, this.state.scrollY);
     }
 
+    onScroll(e) {
+        console.log
+    }
+
+    myStyles = {
+        mapDiv: {
+            width: 1100,
+            height: 900,
+            overflowX: 'hidden',
+            overflowY: 'hidden',
+            resize: 'both',
+            
+        },
+        mapImageDiv: {
+            position: 'relative',
+            top: 0, 
+            left: 0,
+            
+        },
+        mapImage: {
+            objectPosition: '1000 1000'
+            
+        },
+    }
+
     render() {
         console.log("MapPage render()");
         return (
@@ -109,22 +134,15 @@ export class MapPage extends React.Component {
                 <GameNav />
                 <div className='rowList'>
                     <div
-                        className='mapScrollable'
+                        style={this.myStyles.mapDiv}
                         onScroll={this.onScroll}
                         id='myMapElement' >
-                        <DraggableThree
-                            x={this.state.scrollX}
-                            y={this.state.scrollY}
-                            parentxoff={this.state.scrollX}
-                            parentyoff={this.state.scrollY}
-                            onMouseOut={this.onMouseOut}
-                            onUnitMove={this.onUnitMove} />
-                        <div className='mapImageDiv'
+                        <div style={this.myStyles.mapImageDiv}
                             id='myMapImageDiv' >
 
                             <img src="/images/ETO.png"
                                 id='myMapImage'
-                                className="mapImage"
+                                style={this.myStyles.mapImage}
                                 onClick={this.mapClick}
                                 onMouseDown={this.mapMouseDown}
                                 onMouseUp={this.mapMouseUp}
