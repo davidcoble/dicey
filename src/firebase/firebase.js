@@ -10,7 +10,7 @@ const firebaseConfig = {
   appId: "1:704900569107:web:5a56af39e3695e2a"
 };
 
-console.log("firebaseConfig = " + JSON.stringify(firebaseConfig, null, 2));
+// console.log("firebaseConfig = " + JSON.stringify(firebaseConfig, null, 2));
 const config = {
   apiKey: firebaseConfig.apiKey,
   authDomain: firebaseConfig.authDomain,

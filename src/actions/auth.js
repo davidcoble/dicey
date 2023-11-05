@@ -51,12 +51,12 @@ export const startSetLoggedIn = () => {
         }).then(() => {
             let playerIsAdminRef = database.ref(`players/${uid}/isAdmin`)
             playerIsAdminRef.once('value', (snapshot) => {
-                console.log("once setLoggedIn snapshot = " + JSON.stringify(snapshot, null, 2));
+                // console.log("once setLoggedIn snapshot = " + JSON.stringify(snapshot, null, 2));
                 auth.isAdmin = !!snapshot;
             });
             
             playerIsAdminRef.on('value', (snapshot) => {
-                console.log("on setLoggedIn snapshot = " + JSON.stringify(snapshot, null, 2));
+                // console.log("on setLoggedIn snapshot = " + JSON.stringify(snapshot, null, 2));
                 auth.isAdmin = !!snapshot;
             });
         }).then(() => {

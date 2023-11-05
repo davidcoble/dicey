@@ -47,7 +47,7 @@ firebase.auth().onAuthStateChanged((user) => {
             auth.isAdmin = true;
         }
         auth.isAdmin = true;
-        console.log("auth = " + JSON.stringify(auth, null, 2));
+        // console.log("auth = " + JSON.stringify(auth, null, 2));
         store.dispatch(login(auth));
         store.dispatch(startSetLoggedIn())
             .then(store.dispatch(startSetPlayers()))

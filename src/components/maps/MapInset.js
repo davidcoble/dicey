@@ -12,7 +12,7 @@ export default class MapInset extends React.Component {
     imageClick = (e) => {
         e.preventDefault();
     
-        // console.log("image clicked e = " + e);
+        //console.log("image clicked this.state  = " + JSON.stringify(this.state));
         // for(var key in e) {
         //     console.log("image clicked key = " + key);
         // }
@@ -23,15 +23,16 @@ export default class MapInset extends React.Component {
         // console.log("x = " + x);
         // console.log("y = " + y);
     
-        this.state.mapScrollEvent(x, y);
+        this.state.mapScrollEvent(x, y, this.state.mapFile );
     };
     
     render() {
+        const imageFile = `/images/${this.state.mapFile}.png`;
         return (
             <div>
                 <div className='rowList'>
                     <div>
-                        <img src="/images/ETO.png" width="200px" onClick={this.imageClick} />
+                        <img src={imageFile} width="200px" onClick={this.imageClick} />
                     </div>
                 </div>
             </div>

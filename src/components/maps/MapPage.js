@@ -2,30 +2,29 @@ import React from 'react';
 import MapInset from './MapInset';
 import { connect } from 'react-redux';
 import { startSetPlayerGameMapPosition } from '../../actions/games';
-import DraggableThree from './DraggableThree';
 import GameNav from '../GameNav';
+import Units from './units/Units';
+
 
 
 
 export class MapPage extends React.Component {
     constructor(props) {
         super(props);
-        console.log("MapPage props = " + JSON.stringify(props, null, 2));
         this.state = {
-            ...props,
+            scrollX: -1000,
+            scrollY: -1000,
             startClientX: 0,
             startClientY: 0,
-            scrollX: 0,
-            scrollY: 0,
-            newScrollX: 0,
-            newScrollY: 0,
+            startScrollX: 0,
+            startScrollY: 0,
             mapDrag: false,
-        }
-
+            theater: 'ETO',
+        };
     }
 
-    mapScrollEvent = (xS, yS) => {
-        //console.log("scrollEvent called. xS = " + xS + " yS = " + yS);
+    mapScrollEvent = (xS, yS, theater) => {
+        // console.log(`scrollEvent called. xS = ${xS} yS = ${yS} theater = ${theater}`);
         const mapImage = document.getElementById("myMapImage");
         //console.log("mapImage.width = " + mapImage.width);
         const mapElement = document.getElementById("myMapElement");
@@ -38,72 +37,52 @@ export class MapPage extends React.Component {
         let y = yS * scale - centerY;
         x = x < 0 ? 0 : x;
         y = y < 0 ? 0 : y;
-        this.state.scrollX = x;
-        this.state.scrollY = y;
-        mapElement.scrollTo(x, y);
-
+        x = x > mapImage.width - mapElement.clientWidth ? mapImage.width - mapElement.clientWidth : x;
+        y = y > mapImage.height - mapElement.clientHeight ? mapImage.height - mapElement.clientHeight : y;
+        x *= -1;
+        y *= -1;
+        this.setState({
+            mapDrag: false,
+            scrollX: x,
+            scrollY: y,
+            theater,
+        });
     }
     mapClick = (e) => {
         e.preventDefault();
         const xPos = (e.clientX + this.state.scrollX);
         const yPos = (e.clientY + this.state.scrollY);
-        startSetPlayerGameMapPosition({ x: xPos, y: yPos });
     }
 
     mapMouseDown = (e) => {
         e.preventDefault();
-        const mapElement = document.getElementById("myMapElement");
-        this.state.startClientX = e.clientX;
-        this.state.startClientY = e.clientY;
-        if (e.nativeEvent.button === 1) {
-            this.state.mapDrag = true;
+        if (e.nativeEvent.button === 0) {
+            this.setState({
+                mapDrag: true,
+                startClientX: e.clientX,
+                startClientY: e.clientY,
+                startScrollX: this.state.scrollX,
+                startScrollY: this.state.scrollY,
+            });
         }
     }
     mapMouseUp = (e) => {
         e.preventDefault();
-        if (e.nativeEvent.button === 1) {
-            this.state.scrollX = this.state.newScrollX >= 0 ? this.state.newScrollX : 0;
-            this.state.scrollY = this.state.newScrollY >= 0 ? this.state.newScrollY : 0;
-            console.log("mouseUp with (x,y) = (" + this.state.scrollX + "," + this.state.scrollY + ")");
-            this.state.mapDrag = false;
+        if (e.nativeEvent.button === 0) {
+            this.setState({ mapDrag: false });
         }
     }
     mapMouseMove = (e) => {
         e.preventDefault();
         if (this.state.mapDrag) {
-            this.state.newScrollX = this.state.scrollX + this.state.startClientX - e.clientX;
-            this.state.newScrollY = this.state.scrollY + this.state.startClientY - e.clientY;
-            if (this.state.newScrollX < 0) {
-                this.state.newScrollX = 0;
-            }
-            if (this.state.newScrollY < 0) {
-                this.state.newScrollY = 0;
-            }
-            const mapElement = document.getElementById("myMapElement");
-            mapElement.scrollTo(this.state.newScrollX, this.state.newScrollY);
+            let x = this.state.startScrollX - this.state.startClientX + e.clientX;
+            let y = this.state.startScrollY - this.state.startClientY + e.clientY;
+            this.setState({ scrollX: x, scrollY: y });
         }
     }
 
-    onUnitMove = (x, y) => {
-        //console.log("onUnitMove called with x = " + x + " y = " + y);
-        if (x < 0) {
-            --this.state.scrollX;
-        }
-        if (y < 0) {
-            --this.state.scrollY;
-        }
-        const mapElement = document.getElementById("myMapElement");
-        mapElement.scrollTo(this.state.scrollX, this.state.scrollY);
-
-    }
-
-    componentDidUpdate() {
-        const mapElement = document.getElementById("myMapElement");
-        mapElement.scrollTo(this.state.scrollX, this.state.scrollY);
-    }
-
-    onScroll(e) {
-        console.log
+    getScrollState = () => {
+        return ({ x: this.state.scrollX, y: this.state.scrollY });
     }
 
     myStyles = {
@@ -113,22 +92,17 @@ export class MapPage extends React.Component {
             overflowX: 'hidden',
             overflowY: 'hidden',
             resize: 'both',
-            
-        },
-        mapImageDiv: {
-            position: 'relative',
-            top: 0, 
-            left: 0,
-            
+
         },
         mapImage: {
             objectPosition: '1000 1000'
-            
+
         },
     }
 
     render() {
-        console.log("MapPage render()");
+        // console.log(`MapPage render() with this.state.scrollX = ${this.state.scrollX} this.state.scrollY = ${this.state.scrollY}`);
+        let imageFile = `/images/${this.state.theater}.png`;
         return (
             <div>
                 <GameNav />
@@ -137,10 +111,18 @@ export class MapPage extends React.Component {
                         style={this.myStyles.mapDiv}
                         onScroll={this.onScroll}
                         id='myMapElement' >
-                        <div style={this.myStyles.mapImageDiv}
+                        <div style={{
+                            'position': 'relative',
+                            'top': this.state.scrollY,
+                            'left': this.state.scrollX
+                        }}
                             id='myMapImageDiv' >
-
-                            <img src="/images/ETO.png"
+                            <Units
+                                mapScrollX={this.state.scrollX}
+                                mapScrollY={this.state.scrollY}
+                                getScrollState={this.getScrollState}
+                            />
+                            <img src={imageFile}
                                 id='myMapImage'
                                 style={this.myStyles.mapImage}
                                 onClick={this.mapClick}
@@ -151,7 +133,8 @@ export class MapPage extends React.Component {
                         </div>
                     </div>
                     <div>
-                        <MapInset mapScrollEvent={this.mapScrollEvent} />
+                        <MapInset mapFile="ETO" mapScrollEvent={this.mapScrollEvent} />
+                        <MapInset mapFile="PTO" mapScrollEvent={this.mapScrollEvent} />
                     </div>
 
                 </div>
