@@ -7,7 +7,4 @@ dev: install
 
 pub:
 	npm run build:prod
-	rsync -avze ssh public/ ubuntu@tuskypi:/var/www/html/dice
-
-clean:
-	rm -rf ./node_modules
+	rsync -avz public/ /var/www/html/dice
