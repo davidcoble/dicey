@@ -16,18 +16,18 @@ export default class MapInset extends React.Component {
         // for(var key in e) {
         //     console.log("image clicked key = " + key);
         // }
-        let w = e.target.width;
         let x = e.clientX - e.target.x;
         let y = e.clientY - e.target.y;
         // console.log("clientX = " + e.clientX);
         // console.log("x = " + x);
         // console.log("y = " + y);
+
     
-        this.state.mapScrollEvent(x, y, this.state.mapFile );
+        this.state.mapScrollEvent(x/e.target.width, y/e.target.height, this.state.theater );
     };
     
     render() {
-        const imageFile = `/images/${this.state.mapFile}.png`;
+        const imageFile = `/images/${this.state.theater}.png`;
         return (
             <div>
                 <div className='rowList'>

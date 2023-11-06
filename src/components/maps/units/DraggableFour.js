@@ -23,9 +23,12 @@ class DraggableFour extends React.Component {
 
     handleDragEnd = (e) => {
         let scrollPos = this.state.getScrollState();
+        const x = e.clientX - scrollPos.x - 25;
+        const y = e.clientY - scrollPos.y - 80;
+        console.log(`drop loc = ${x}, ${y}`);
         this.setState({
-            x: e.clientX - scrollPos.x - 25,
-            y: e.clientY - scrollPos.y - 80,
+            x, 
+            y, 
             dragging: false
         })
     }
