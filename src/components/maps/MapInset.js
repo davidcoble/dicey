@@ -11,19 +11,25 @@ export default class MapInset extends React.Component {
     };
     imageClick = (e) => {
         e.preventDefault();
-    
-        //console.log("image clicked this.state  = " + JSON.stringify(this.state));
-        // for(var key in e) {
-        //     console.log("image clicked key = " + key);
-        // }
-        let x = e.clientX - e.target.x;
-        let y = e.clientY - e.target.y;
-        // console.log("clientX = " + e.clientX);
-        // console.log("x = " + x);
-        // console.log("y = " + y);
+        const target = e.currentTarget.getBoundingClientRect();
+        const left = Math.floor(target.left);
+        // console.log("inset left = " + left);
+        const width = Math.floor(target.width);
+        // console.log("inset width = " + width);
+        const top = Math.floor(target.top);
+        // console.log("inset top = " + top);
+        const height = Math.floor(target.height);
+        // console.log("inset height = " + height);
+        // console.log("inset e.clientX = " + e.clientX);
+        // console.log("inset e.clientY = " + e.clientY);
+        // console.log("e.target keys = " + Object.keys(e.target));
+        const x = e.clientX - left;
+        const y = e.clientY - top;
+        // console.log("inset x = " + x);
+        // console.log("inset y = " + y);
 
     
-        this.state.mapScrollEvent(x/e.target.width, y/e.target.height, this.state.theater );
+        this.state.mapScrollEvent(x/width, y/height, this.state.theater );
     };
     
     render() {

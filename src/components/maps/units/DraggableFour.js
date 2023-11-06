@@ -66,7 +66,7 @@ class DraggableFour extends React.Component {
 
 
     render() {
-        console.log("DraggableFour render() called with state: " + JSON.stringify(this.state));
+        // console.log("DraggableFour render() called with state: " + JSON.stringify(this.state));
         let fqImageName = `/images/countersheets/units/${this.state.imageName}`
         let borderColor = 'black';
         let borderWidth = 1;
@@ -110,7 +110,7 @@ const mapStateToProps = (state, props) => {
     let player = state.players.find((p) => { return p.uid === state.auth.uid });
     let game = state.games.find((g) => { return g.id === player.rollingGame });
     let gameUnit = game.units[props.id];
-    console.log("DF gameUnit = " + JSON.stringify(gameUnit, null, 2));
+    // console.log("DF gameUnit = " + JSON.stringify(gameUnit, null, 2));
     return {
         pid: player.id,
         gid: game.id,

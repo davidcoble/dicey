@@ -5,7 +5,7 @@ import Units from './units/Units';
 export class Map extends React.Component {
     constructor(props) {
         super(props);
-        console.log("Map constructor called with props = " + JSON.stringify(props, null, 2));
+        // console.log("Map constructor called with props = " + JSON.stringify(props, null, 2));
         this.state = {
             ...props,
             startClientX: 0,
@@ -20,7 +20,7 @@ export class Map extends React.Component {
 
 
     mapMouseDown = (e) => {
-        console.log("mapMouseDown this.state = " + JSON.stringify(this.state, null, 2));
+        // console.log("mapMouseDown this.state = " + JSON.stringify(this.state, null, 2));
         const scrollState = this.state.getScrollState();
         e.preventDefault();
         if (e.nativeEvent.button === 1) {
@@ -44,7 +44,7 @@ export class Map extends React.Component {
     }
 
     mapMouseMove = (e) => {
-        console.log("mapMouseMove this.state = " + JSON.stringify(this.state, null, 2));
+        // console.log("mapMouseMove this.state = " + JSON.stringify(this.state, null, 2));
         e.preventDefault();
         if (this.state.mapDrag) {
             let x = this.state.startScrollX - this.state.startClientX + e.clientX;
@@ -79,7 +79,7 @@ export class Map extends React.Component {
         this.myStyles.mapDiv.height = viewSize.y;
         const scrollState = this.state.getScrollState();
         const imageFile = `/images/${scrollState.theater}.png`;
-        console.log("Map rendering with scrollState = " + JSON.stringify(scrollState, null, 2));
+        // console.log("Map rendering with scrollState = " + JSON.stringify(scrollState, null, 2));
         return (
             <div
                 style={{
