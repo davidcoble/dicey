@@ -1,7 +1,5 @@
 import React from 'react';
 import MapInset from './MapInset';
-import { connect } from 'react-redux';
-import { startSetPlayerGameMapPosition } from '../../actions/games';
 import GameNav from '../GameNav';
 import Map from './Map';
 
@@ -15,8 +13,8 @@ export class MapPage extends React.Component {
             currentMap: 'ETO',
             viewSize:
             {
-                x: 1000,
-                y: 700
+                x: 1800,
+                y: 1000
             },
             scrollStates: {
                 ETO: {
@@ -50,18 +48,27 @@ export class MapPage extends React.Component {
 
         console.log(`scrollEvent called. xS = ${xS} yS = ${yS} theater = ${theater}`);
         let x = Math.floor(xS * this.state.mapSize[theater].x);
-        x += this.state.
-         * -1;
+        x -= Math.floor(this.state.viewSize.x / 2);
+        x *= -1;
         let y = Math.floor(yS * this.state.mapSize[theater].y);
-         * -1;
+        y -= Math.floor(this.state.viewSize.y / 2);
+        y *= -1;
+        // console.log("2. x = " + x);
+        // console.log("3. x = " + x);
+        // console.log("1. x = " + x);
+        x = x > 0 ? 0 : x;
+        // console.log("4. x = " + x);
+        y = y > 0 ? 0 : y;
+        //x = -1000;
+        //y = -1000;
 
         this.setState(oldState => {
-            console.log("oldState = " + JSON.stringify(oldState, null, 2));
+            // console.log("oldState = " + JSON.stringify(oldState, null, 2));
             oldState.currentMap = theater;
             oldState.scrollStates[theater] = {
                 x, y, theater
             }
-            console.log("modified oldState = " + JSON.stringify(oldState, null, 2));
+            // console.log("modified oldState = " + JSON.stringify(oldState, null, 2));
             return oldState;
         });
     }
@@ -72,11 +79,24 @@ export class MapPage extends React.Component {
     }
 
     getScrollState = () => {
-        return (this.state.scrollStates[this.state.currentMap]);
+        return this.state.scrollStates[this.state.currentMap];
+    }
+    setScrollState = (newState) => {
+        this.setState(oldState => {
+            console.log("newState = " + JSON.stringify(newState, null, 2));
+            console.log("oldState = " + JSON.stringify(oldState, null, 2));
+            oldState.currentMap = newState.theater;
+            oldState.scrollStates[newState.theater] = newState;
+            console.log("modified oldState = " + JSON.stringify(oldState, null, 2));
+            return oldState;
+        });
+    }
+    getViewSize = () => {
+        return this.state.viewSize;
     }
 
     render() {
-        console.log("MapPage render() with this.state = " + JSON.stringify(this.state, null, 2));
+        //console.log("MapPage render() with this.state = " + JSON.stringify(this.state, null, 2));
         return (
             <div>
                 <GameNav />
@@ -85,6 +105,7 @@ export class MapPage extends React.Component {
                         <Map
                             getScrollState={this.getScrollState}
                             setScrollState={this.setScrollState}
+                            getViewSize={this.getViewSize}
                         />
                     </div>
                     <div>
@@ -101,14 +122,4 @@ export class MapPage extends React.Component {
     }
 }
 
-const mapStateToProps = (state, props) => {
-    // console.log("MapPage.mapStateToProps state.games = " + JSON.stringify(state.games, null, 2));
-    return {
-        game: {}
-    };
-};
-const mapDispatchToProps = (dispatch, props) => ({
-    startSetPlayerGameMapPosition: (data) => { dispatch(startSetPlayerGameMapPosition(data)) }
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(MapPage);
+export default MapPage;

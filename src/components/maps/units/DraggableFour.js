@@ -1,14 +1,17 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { startSetGameTokenPosition } from '../../../actions/games';
 
 class DraggableFour extends React.Component {
     constructor(props) {
         super(props);
+        console.log("DraggableFour props = " + JSON.stringify(props, null, 2));
         this.state = {
+            ...props,
             dragging: false,
             x: props.x,
             y: props.y,
             imageName: props.imageName,
-            ...props
         };
     }
 
@@ -23,44 +26,67 @@ class DraggableFour extends React.Component {
 
     handleDragEnd = (e) => {
         let scrollPos = this.state.getScrollState();
-        const x = e.clientX - scrollPos.x - 25;
-        const y = e.clientY - scrollPos.y - 80;
+        const x = e.clientX - scrollPos.x - 22;
+        const y = e.clientY - scrollPos.y - 77;
         console.log(`drop loc = ${x}, ${y}`);
         this.setState({
-            x, 
-            y, 
+            x,
+            y,
             dragging: false
         })
+        this.props.startSetGameTokenPosition(this.state.gid, {
+            id: this.state.id,
+            x,
+            y,
+            theater: this.state.theater,
+            imageName: this.state.imageName,
+            name: this.state.name
+        });
     }
 
     handleDrag = (e) => {
         let scrollPos = this.state.getScrollState();
+        const x = e.clientX - scrollPos.x - 22;
+        const y = e.clientY - scrollPos.y - 77;
         if (e.clientX != 0) {
             this.setState({
-                x: e.clientX - scrollPos.x - 25,
-                y: e.clientY - scrollPos.y - 80,
+                x,
+                y
             });
         }
+        this.props.startSetGameTokenPosition(this.state.gid, {
+            id: this.state.id,
+            x,
+            y,
+            theater: this.state.theater,
+            imageName: this.state.imageName,
+            name: this.state.name
+        });
     }
 
 
     render() {
+        console.log("DraggableFour render() called with state: " + JSON.stringify(this.state));
         let fqImageName = `/images/countersheets/units/${this.state.imageName}`
         let borderColor = 'black';
         let borderWidth = 1;
+        let width = 50;
+        let height = 50;
         if (this.state.dragging) {
-            borderColor = 'red';
-            borderWidth = 3;
+            borderColor = this.state.selectedColor;
+            borderWidth = 5;
+            width = 55;
+            height = 55;
         }
 
         return <div
             style={{
                 position: 'absolute',
-                left: this.state.x,
-                top: this.state.y,
+                left: this.props.x,
+                top: this.props.y,
                 touchAction: 'none',
-                width: 50,
-                height: 50,
+                width: width,
+                height: height,
                 overflowX: 'hidden',
                 overflowY: 'hidden',
                 borderColor: borderColor,
@@ -80,6 +106,23 @@ class DraggableFour extends React.Component {
         </div>;
     }
 }
+const mapStateToProps = (state, props) => {
+    let player = state.players.find((p) => { return p.uid === state.auth.uid });
+    let game = state.games.find((g) => { return g.id === player.rollingGame });
+    let gameUnit = game.units[props.id];
+    console.log("DF gameUnit = " + JSON.stringify(gameUnit, null, 2));
+    return {
+        pid: player.id,
+        gid: game.id,
+        x: gameUnit.x,
+        y: gameUnit.y,
+        
+    }
+}
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        startSetGameTokenPosition: (id, data) => dispatch(startSetGameTokenPosition(id, data))
+    }
+}
 
-
-export default DraggableFour;
+export default connect(mapStateToProps, mapDispatchToProps)(DraggableFour);

@@ -4,8 +4,8 @@ import {connect} from "react-redux";
 export class RollEpilogueForm extends React.Component {
     constructor(props) {
         super(props);
-        console.log("RollEpilogueForm.onEpilogueChange props = " +
-            JSON.stringify(props, null, 2));
+        // console.log("RollEpilogueForm.onEpilogueChange props = " +
+        //     JSON.stringify(props, null, 2));
 
         this.state = {
             ...props

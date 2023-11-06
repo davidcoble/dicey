@@ -19,7 +19,7 @@ export const gameReducer = (state = gameReducerDefaultState, action) => {
                 if (game.id === action.id) {
                     return {
                         ...game,
-                        ...action.updates
+                        ...action.updates,
                     };
                 } else {
                     return game;
@@ -27,6 +27,26 @@ export const gameReducer = (state = gameReducerDefaultState, action) => {
             });
         case 'SET_GAMES':
             return action.games;
+        case 'SET_GAME_TOKEN_POSITION':
+            // console.log("SET_GAME_TOKEN_POSITION action = " + JSON.stringify(action, null, 2));
+            return state.map((game) => {
+                if (game.id === action.gid) {
+                    game.units[action.id] = {
+                      id: action.id,
+                      imageName: action.imageName,
+                      name: action.name,
+                      theater: action.theater,
+                      x: action.x,
+                      y: action.y,  
+                    }
+                    return {
+                        ...game,
+                        
+                    };
+                } else {
+                    return game;
+                }
+            });
         default:
             return state;
     }

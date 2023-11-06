@@ -36,18 +36,18 @@ export const startSetLoggedIn = () => {
     return (dispatch, getState) => {
         let auth = getState().auth;
         let my_state = getState();
-        // console.log("my_state = " + JSON.stringify(my_state, null, 2));
+        console.log("startSetLoggedIn auth = " + JSON.stringify(auth, null, 2));
         const uid = auth.uid;
         const name = auth.name;
         const email = auth.email;
         const photoURL = auth.photoURL;
         const isAdmin = auth.isAdmin;
-        return database.ref(`login/${uid}/name`).set(name).then(() => {
-            database.ref(`login/${uid}/loggedIn`).set(true);
+        return database.ref(`players/${uid}/name`).set(name).then(() => {
+            database.ref(`players/${uid}/loggedIn`).set(true);
         }).then(() => {
-            database.ref(`login/${uid}/email`).set(email);
+            database.ref(`players/${uid}/email`).set(email);
         }).then(() => {
-            database.ref(`login/${uid}/photoURL`).set(photoURL);
+            database.ref(`players/${uid}/photoURL`).set(photoURL);
         }).then(() => {
             let playerIsAdminRef = database.ref(`players/${uid}/isAdmin`)
             playerIsAdminRef.once('value', (snapshot) => {

@@ -20,7 +20,7 @@ export class RollManagementPage extends React.Component {
         this.state = {
             ...props
         }
-        //console.log("RollManagementPage props = " + JSON.stringify(props,null,2));
+        console.log("RollManagementPage props = " + JSON.stringify(props,null,2));
     }
     componentDidMount() {
         let u = uuid();

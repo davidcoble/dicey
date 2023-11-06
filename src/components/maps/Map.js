@@ -21,14 +21,15 @@ export class Map extends React.Component {
 
     mapMouseDown = (e) => {
         console.log("mapMouseDown this.state = " + JSON.stringify(this.state, null, 2));
+        const scrollState = this.state.getScrollState();
         e.preventDefault();
         if (e.nativeEvent.button === 1) {
             this.setState({
                 mapDrag: true,
                 startClientX: e.clientX,
                 startClientY: e.clientY,
-                startScrollX: this.state.scrollState.x,
-                startScrollY: this.state.scrollState.y,
+                startScrollX: scrollState.x,
+                startScrollY: scrollState.y,
             });
         }
     }
@@ -48,17 +49,19 @@ export class Map extends React.Component {
         if (this.state.mapDrag) {
             let x = this.state.startScrollX - this.state.startClientX + e.clientX;
             let y = this.state.startScrollY - this.state.startClientY + e.clientY;
-            this.setState({
-                scrollX: x,
-                scrollY: y
+            let theater = this.state.getScrollState().theater;
+            this.state.setScrollState({
+                x,
+                y,
+                theater
             });
         }
     }
 
     myStyles = {
         mapDiv: {
-            width: 1100,
-            height: 900,
+            width: 500,
+            height: 500,
             overflowX: 'hidden',
             overflowY: 'hidden',
             resize: 'both',
@@ -71,20 +74,30 @@ export class Map extends React.Component {
     }
 
     render() {
+        const viewSize = this.state.getViewSize();
+        this.myStyles.mapDiv.width = viewSize.x;
+        this.myStyles.mapDiv.height = viewSize.y;
         const scrollState = this.state.getScrollState();
         const imageFile = `/images/${scrollState.theater}.png`;
         console.log("Map rendering with scrollState = " + JSON.stringify(scrollState, null, 2));
         return (
             <div
-                style={this.myStyles.mapDiv}
-                // onScroll={onScroll}
+                style={{
+                    'width': viewSize.x,
+                    'height': viewSize.y,
+                    'overflowX': 'hidden',
+                    'overflowY': 'hidden',
+                    'resize': 'both',
+
+                }}
                 id='myMapElement' >
                 <div style={{
                     'position': 'relative',
-                    'top': scrollState.x,
-                    'left': scrollState.y
+                    'top': scrollState.y,
+                    'left': scrollState.x,
                 }}
                     id='myMapImageDiv' >
+                    <Units getScrollState={this.state.getScrollState} />
                     <img src={imageFile}
                         id='myMapImage'
                         style={this.myStyles.mapImage}
