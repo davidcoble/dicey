@@ -22,6 +22,7 @@ import PublicRoute from './PublicRoute';
 import { startSaveUserPage } from '../actions/auth';
 import connect from "react-redux/es/connect/connect";
 import MapPage from '../components/maps/MapPage';
+import Forcepool from '../components/forcepools/Forcepool';
 
 export const history = createHistory();
 
@@ -37,9 +38,8 @@ const AppRouter = ({startSaveUserPage}) => {
                     <PrivateRoute path="/boxes/edit/:id" component={BoxManagementPage}/>
                     <PrivateRoute path="/boxes/delete/:id" component={BoxManagementPage}/>
                     <PrivateRoute path="/boxes" component={BoxManagementPage}/>
-                    <PrivateRoute path="/results/edit/:id" component={ResultManagementPage}/>
-                    <PrivateRoute path="/results/delete/:id" component={ResultManagementPage}/>
-                    <PrivateRoute path="/results" component={ResultManagementPage}/>
+                    <PrivateRoute path="/email" component={ContactForm}/>
+                    <PrivateRoute path="/forcepool/:power" component={Forcepool}/>
                     <PrivateRoute path="/games" component={GamesManagementPage}/>
                     <PrivateRoute path="/game/create" component={GameAddPage}/>
                     <PrivateRoute path="/game/edit/:id" component={GameEditPage}/>
@@ -52,9 +52,11 @@ const AppRouter = ({startSaveUserPage}) => {
                     <PrivateRoute path="/maps/:gid" component={MapPage}/>
                     <PrivateRoute path="/maps" component={MapPage}/>
                     <PrivateRoute path="/players" component={PlayerManagementPage}/>
+                    <PrivateRoute path="/results" component={ResultManagementPage}/>
+                    <PrivateRoute path="/results/delete/:id" component={ResultManagementPage}/>
+                    <PrivateRoute path="/results/edit/:id" component={ResultManagementPage}/>
                     <PrivateRoute path="/rolls/:gid" component={RollManagementPage}/>
                     <PrivateRoute path="/rolls/" component={RollManagementPage}/>
-                    <PrivateRoute path="/email" component={ContactForm}/>
                     <Route component={NotFoundPage}/>
                 </Switch>
             </div>

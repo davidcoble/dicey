@@ -55,7 +55,7 @@ export const startEditBox = (id, updates) => {
     return (dispatch) => {
         return database.ref(`boxes/${id}`).update(updates).then(() => {
             dispatch(editBox(id, updates));
-        });RESULTES
+        });
     };
 };
 
@@ -91,4 +91,23 @@ export const startSetBoxes = () => {
             dispatch(setBoxes(boxes));
         });
     };
+};
+
+export const addTokenToGameBox = (data) => ({
+    type: 'ADD_TOKEN_TO_GAMEBOX',
+    id: data.bid,
+    data
+});
+
+export const startAddTokenToGameBox = (data) => {
+    const bid = data.bid;
+    const power = data.power;
+    const tid = data.id;
+    // console.log("startAddTokenToGameBox bid = " + bid);
+    return (dispatch, getState) => {
+        return database.ref(`boxes/${bid}/forcepools/${power}/${tid}`).set(data).then(() => {
+            dispatch(addTokenToGameBox(data));
+        })
+    }
+
 };

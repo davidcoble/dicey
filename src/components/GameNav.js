@@ -8,8 +8,15 @@ export const GameNav = (props) => {
     return (
         <div className='navDiv'>
             <nav className='navNav'>
-            <NavLink activeClassName="selected" className='nav__link' to='/rolls'>rolls</NavLink>
-            <NavLink activeClassName="selected" className='nav__link' to='/maps'>maps</NavLink>
+            <NavLink activeClassName="selected" className='nav__link' to='/rolls'>Rolls</NavLink>
+            <NavLink activeClassName="selected" className='nav__link' to='/maps'>Maps</NavLink>
+            <NavLink activeClassName="selected" className='nav__link' to='/forcepool/german'>GE Forcepool</NavLink>
+            <NavLink activeClassName="selected" className='nav__link' to='/forcepool/japanese'>JA Forcepool</NavLink>
+            <NavLink activeClassName="selected" className='nav__link' to='/forcepool/wally-eto'>WA ETO Forcepool</NavLink>
+            <NavLink activeClassName="selected" className='nav__link' to='/forcepool/wally-pto'>WA PTO Forcepool</NavLink>
+            <NavLink activeClassName="selected" className='nav__link' to='/forcepool/soviet-eto'>RU ETO Forcepool</NavLink>
+            <NavLink activeClassName="selected" className='nav__link' to='/forcepool/soviet-pto'>RU PTO Forcepool</NavLink>
+            <NavLink activeClassName="selected" className='nav__link' to='/forcepool/neutral-minors'>Neutral Minors</NavLink>
             </nav>
         </div>
     );

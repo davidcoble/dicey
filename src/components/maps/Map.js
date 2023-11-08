@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Units from './units/Units';
+import Units from '../units/Units';
 
 
 export class Map extends React.Component {
@@ -97,7 +97,7 @@ export class Map extends React.Component {
                     'left': scrollState.x,
                 }}
                     id='myMapImageDiv' >
-                    <Units getScrollState={this.state.getScrollState} />
+                    <Units mapName={scrollState.theater} getScrollState={this.state.getScrollState} />
                     <img src={imageFile}
                         id='myMapImage'
                         style={this.myStyles.mapImage}

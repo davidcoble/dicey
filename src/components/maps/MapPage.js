@@ -2,6 +2,7 @@ import React from 'react';
 import MapInset from './MapInset';
 import GameNav from '../GameNav';
 import Map from './Map';
+import HoldingBox from './HoldingBox';
 
 
 
@@ -108,13 +109,17 @@ export class MapPage extends React.Component {
                             getViewSize={this.getViewSize}
                         />
                     </div>
-                    <div>
-                        <MapInset theater="ETO" mapScrollEvent={this.mapScrollEvent} />
+                    <div className='colList'>
+                        <div className='rowList'>
+                            <div>
+                                <MapInset theater="ETO" mapScrollEvent={this.mapScrollEvent} />
+                            </div>
+                            <div>
+                                <MapInset theater="PTO" mapScrollEvent={this.mapScrollEvent} />
+                            </div>
+                        </div>
+                        <HoldingBox />
                     </div>
-                    <div>
-                        <MapInset theater="PTO" mapScrollEvent={this.mapScrollEvent} />
-                    </div>
-
                 </div>
             </div>
         );
