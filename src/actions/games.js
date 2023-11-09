@@ -127,10 +127,12 @@ export const setGameTokenPosition = (gid, data) => (
 )
 
 export const startSetGameTokenPosition = (gid, data) => {
-    console.log("startSetGameTokenPosition  gid = " + JSON.stringify(gid));
-    console.log("startSetGameTokenPosition  data = " + JSON.stringify(data, null, 2));
+    // console.log("startSetGameTokenPosition  gid = " + JSON.stringify(gid));
+    // console.log("startSetGameTokenPosition  data = " + JSON.stringify(data, null, 2));
     return (dispatch, getState) => {
-        return database.ref(`games/${gid}/units/${data.id}`).set(data).then(() => {
+        return database.ref(`games/${gid}/units/${data.theater}/${data.id}`).set(
+            data
+        ).then(() => {
             dispatch(setGameTokenPosition(gid, data));
         })
     }

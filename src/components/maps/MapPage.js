@@ -78,7 +78,9 @@ export class MapPage extends React.Component {
         const xPos = (e.clientX + this.state.scrollX);
         const yPos = (e.clientY + this.state.scrollY);
     }
-
+    getMapSize = (theater) => {
+        return this.state.mapSize[theater];
+    }
     getScrollState = () => {
         return this.state.scrollStates[this.state.currentMap];
     }
@@ -107,6 +109,7 @@ export class MapPage extends React.Component {
                             getScrollState={this.getScrollState}
                             setScrollState={this.setScrollState}
                             getViewSize={this.getViewSize}
+                            getMapSize={this.getMapSize}
                         />
                     </div>
                     <div className='colList'>

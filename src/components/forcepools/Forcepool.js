@@ -8,8 +8,13 @@ export default function Forcepool(props) {
     const power = props.match.params.power;
     console.log("Forcepool power = " + power);
     const imageFile = `/images/forcepools/${power}.png`
+    const theater = `${power}-forcepool`;
     function getScrollState() {
-        return {}
+        return {
+            x: 0,
+            y: 0,
+            theater: theater
+        }
     }
     const mapName = `${power}-forcepool`;
     return (
@@ -18,6 +23,7 @@ export default function Forcepool(props) {
             {/* <PopulateBoxForcepool /> */}
             <Units theater={mapName} forcepool={power} getScrollState={getScrollState} />
             <img src={imageFile} />
+            
         </div>
     );
 }

@@ -11,58 +11,56 @@ class Unit extends React.Component {
             dragging: false,
             x: props.x,
             y: props.y,
-            frontImageFileName: props.frontImageFileName,
-            backImageFileName: props.backImageFileName,
         };
     }
-
+    
     handleDragStart = (e) => {
         let scrollPos = this.state.getScrollState();
         this.setState({
-            x: e.clientX - scrollPos.x - 25,
-            y: e.clientY - scrollPos.y - 80,
+            x: e.clientX - scrollPos.x,
+            y: e.clientY - scrollPos.y,
             dragging: true
         })
     }
-
+    
     handleDragEnd = (e) => {
         let scrollPos = { x : 0 , y : 0 };
-        const x = e.clientX - scrollPos.x - 22;
-        const y = e.clientY - scrollPos.y - 77;
+        const x = e.clientX - scrollPos.x;
+        const y = e.clientY - scrollPos.y;
         console.log(`drop loc = ${x}, ${y}`);
         this.setState({
             x,
             y,
             dragging: false
         })
-        this.props.startSetGameTokenPosition(this.state.gid, {
-            id: this.state.id,
+        const data = {
+            id: this.state.name,
             x,
             y,
             theater: this.state.theater,
-            imageName: this.state.imageName,
-            name: this.state.name
-        });
+        };
+        console.log("about to pass data = " + JSON.stringify(data, null, 2));
+        this.props.startSetGameTokenPosition(this.state.gid, data);
     }
 
     handleDrag = (e) => {
         let scrollPos = { x : 0 , y : 0 };
-        const x = e.clientX - scrollPos.x - 22;
-        const y = e.clientY - scrollPos.y - 77;
+        const x = e.clientX - scrollPos.x;
+        const y = e.clientY - scrollPos.y;
         if (e.clientX != 0) {
             this.setState({
                 x,
                 y
             });
         }
-        this.props.startSetGameTokenPosition(this.state.gid, {
-            id: this.state.id,
+        const data = {
+            id: this.state.name,
             x,
             y,
             theater: this.state.theater,
-            imageName: this.state.imageName,
-            name: this.state.name,
-        });
+        };
+        // console.log("about to pass data = " + JSON.stringify(data, null, 2));
+        this.props.startSetGameTokenPosition(this.state.gid, data);
     }
 
 
@@ -118,7 +116,10 @@ const mapStateToProps = (state, props) => {
 }
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        startSetGameTokenPosition: (id, data) => dispatch(startSetGameTokenPosition(id, data))
+        startSetGameTokenPosition: (id, data) => { 
+            // console.log("XXXXXXXXXXXXXXXXX data = " + JSON.stringify(data, null, 2));
+            dispatch(startSetGameTokenPosition(id, data));
+        }
     }
 }
 
