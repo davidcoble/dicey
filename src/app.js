@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import AppRouter, { history } from './routers/AppRouter';
@@ -29,6 +29,7 @@ const renderApp = () => {
     if (!hasRendered) {
         ReactDOM.render(jsx, document.getElementById('app'));
         hasRendered = true;
+    
     }
 };
 

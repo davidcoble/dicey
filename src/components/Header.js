@@ -18,10 +18,13 @@ export const Header = (props) => {
                         <p>Logged in as {name}</p>
                         <button className="button-tiny button--link" onClick={startLogout}>Logout</button>
                     </div>
+                    <div className="header__right">
+                        <button className="button-big button--link">&bull;&bull;&bull;</button>
+                    </div>
                 </div>
-            </div>
+            </div >
             {/* <Nav auth={props} /> */}
-        </header>
+        </header >
     );
 };
 

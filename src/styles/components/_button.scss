@@ -35,6 +35,18 @@
   text-decoration: none;
 }
 
+.button-big {
+  background: $blue;
+  border: none;
+  color: white;
+  display: inline-block;
+  font-size: $l-size;
+  font-weight: 300;
+  line-height: 1;
+  padding: $t-size;
+  text-decoration: none;
+}
+
 .tightButton {
   background: $off-white;
   border: none;

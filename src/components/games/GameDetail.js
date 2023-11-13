@@ -25,7 +25,7 @@ export class GameDetail extends React.Component {
     viewGame = (e) => {
         e.preventDefault();
         this.props.startSetPlayerRollingGame({uid: this.state.uid, gid: this.state.id});
-        history.push('/rolls');
+        history.push('/maps');
     }
     render() {
         // console.log("GameDetail.render: this.props = " + JSON.stringify(this.props, null, 4));

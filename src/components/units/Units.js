@@ -2,23 +2,26 @@ import React, { Fragment } from "react"
 import Unit from "./Unit";
 import { connect } from "react-redux";
 import { startSetGameTokenPosition } from "../../actions/games";
+import { isPointInRect } from "../utils/RectMath";
 
 export class Units extends React.Component {
     constructor(props) {
         super(props);
+        console.log("Units props.selectRect = " + JSON.stringify(props.selectRect));
         this.state = {
             ...props,
 
         }
     }
     componentDidMount() {
-        // this.props.units.map((unit) => {
-        //     this.props.startSetGameTokenPosition(this.state.gid, unit);
-        // });
+        this.props.units.map((unit) => {
+            this.props.startSetGameTokenPosition(this.state.gid, unit);
+        });
     }
     render() {
-        // console.log("Units.render()");
+        console.log("Units.render() selectRect = " + JSON.stringify(this.props.selectRect));
         const theater = this.state.getScrollState().theater;
+        const selectRect = this.props.selectRect;
         // console.log("Units theater = " + theater);
         // console.log("Units.render() units = " + JSON.stringify(this.props.units, null, 2));
 
@@ -26,6 +29,10 @@ export class Units extends React.Component {
             <Fragment>
                 {
                     this.props.units.map((unit) => {
+                        const point = { ...unit };
+                        const rect = { ...selectRect }
+                        const selected = isPointInRect({ point, rect });
+                        console.log("unit.selectedColor = " + unit.selectedColor);
                         return <Unit
                             key={unit.id}
                             name={unit.id}
@@ -35,6 +42,7 @@ export class Units extends React.Component {
                             x={unit.x}
                             y={unit.y}
                             theater={theater}
+                            selected={selected}
                             selectedColor={unit.selectedColor}
                             getScrollState={this.state.getScrollState}
 
@@ -54,30 +62,31 @@ const mapStateToProps = (state, props) => {
     const bid = game.box.value;
     // const units = game.units[props.theater];
     // console.log("Units game = " + JSON.stringify(game, null, 2));
-    // const box = state.boxes.find((box) => box.id === bid);
+    const box = state.boxes.find((box) => box.id === bid);
     // console.log("Units box = " + JSON.stringify(box, null, 2));
     // console.log("Units props = " + JSON.stringify(props, null, 2));
-    //const units = box.forcepools[props.forcepool];
-    const units = game.units[props.theater];
-    //console.log("Units units = " + JSON.stringify(units, null, 2));
+    const units = box.forcepools[props.forcepool];
+    // const units = []; 
+    // game.units[props.theater];
+    // console.log("Units units = " + JSON.stringify(units, null, 2));
     let unitList = [];
-    // let xoff = 10;
-    // let yoff = 100;
+    let xoff = 10;
+    let yoff = 100;
     // if (units instanceof Object) {
     if (units) {
         Object.keys(units).map((key) => {
             let unit = units[key];
-            //         unit.name = key;
-            //         unit.x = xoff;
-            //         unit.y = yoff;
-            //         unit.theater = props.theater;
-            //         xoff += 80;
-            //         if (xoff > 1080) {
-            //             xoff = 10;
-            //             yoff += 80;
-            //         }
+            unit.name = key;
+            unit.x = xoff;
+            unit.y = yoff;
+            unit.theater = props.theater;
+            xoff += 80;
+            if (xoff > 1080) {
+                xoff = 10;
+                yoff += 80;
+            }
             unitList.unshift(unit)
-            //     });
+
         });
     }
     return ({

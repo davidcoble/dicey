@@ -4,7 +4,7 @@ import { startAddTokenToGameBox } from "../../actions/boxes";
 
 export class PopulateBoxForcepool extends React.Component {
 
-    createUnitList = (page, iMin, iMax, jMin, jMax, power) => {
+    createUnitList = (page, jMin, jMax, iMin, iMax, power) => {
         const units = [];
         const fileName1 = page;
         for (let i = iMin; i <= iMax; i++) {

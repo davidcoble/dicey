@@ -13,20 +13,21 @@ class Unit extends React.Component {
             y: props.y,
         };
     }
-    
+
     handleDragStart = (e) => {
         let scrollPos = this.state.getScrollState();
+        console.log("unit drag start handleDragStart e = " + Object.keys(e));
         this.setState({
             x: e.clientX - scrollPos.x,
             y: e.clientY - scrollPos.y,
             dragging: true
         })
     }
-    
+
     handleDragEnd = (e) => {
-        let scrollPos = { x : 0 , y : 0 };
-        const x = e.clientX - scrollPos.x;
-        const y = e.clientY - scrollPos.y;
+        let scrollPos = { x: 0, y: 0 };
+        const x = e.clientX - scrollPos.x - 25;
+        const y = e.clientY - scrollPos.y - 25;
         console.log(`drop loc = ${x}, ${y}`);
         this.setState({
             x,
@@ -44,9 +45,9 @@ class Unit extends React.Component {
     }
 
     handleDrag = (e) => {
-        let scrollPos = { x : 0 , y : 0 };
-        const x = e.clientX - scrollPos.x;
-        const y = e.clientY - scrollPos.y;
+        let scrollPos = { x: 0, y: 0 };
+        const x = e.clientX - scrollPos.x - 25;
+        const y = e.clientY - scrollPos.y - 25;
         if (e.clientX != 0) {
             this.setState({
                 x,
@@ -71,7 +72,7 @@ class Unit extends React.Component {
         let borderWidth = 1;
         let width = 50;
         let height = 50;
-        if (this.state.dragging) {
+        if (this.state.dragging || this.props.selected) {
             borderColor = this.state.selectedColor;
             borderWidth = 5;
             width = 55;
@@ -92,13 +93,15 @@ class Unit extends React.Component {
                 borderWidth: borderWidth,
                 borderStyle: 'solid',
                 borderRadius: 5,
+                zIndex: 10000,
             }}
-            onDrag={this.handleDrag}
-            onDragStart={this.handleDragStart}
-            onDragEnd={this.handleDragEnd}
 
         >
             <img
+                onDrag={this.handleDrag}
+                onDragStart={this.handleDragStart}
+                onDragEnd={this.handleDragEnd}
+                visible="false"
                 width="50px"
                 src={fqImageName}
             />
@@ -116,7 +119,7 @@ const mapStateToProps = (state, props) => {
 }
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        startSetGameTokenPosition: (id, data) => { 
+        startSetGameTokenPosition: (id, data) => {
             // console.log("XXXXXXXXXXXXXXXXX data = " + JSON.stringify(data, null, 2));
             dispatch(startSetGameTokenPosition(id, data));
         }

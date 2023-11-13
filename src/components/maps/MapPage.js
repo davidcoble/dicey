@@ -3,6 +3,8 @@ import MapInset from './MapInset';
 import GameNav from '../GameNav';
 import Map from './Map';
 import HoldingBox from './HoldingBox';
+import { handleKeyDown } from '../../routers/PrivateRoute';
+import { connect } from 'react-redux';
 
 
 
@@ -11,6 +13,7 @@ export class MapPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            onKeyDown: props.onKeyDown,
             currentMap: 'ETO',
             viewSize:
             {
@@ -103,14 +106,16 @@ export class MapPage extends React.Component {
         return (
             <div>
                 <GameNav />
-                <div className='rowList'>
+                <div className='rowList'
+                >
                     <div>
                         <Map
                             getScrollState={this.getScrollState}
                             setScrollState={this.setScrollState}
                             getViewSize={this.getViewSize}
                             getMapSize={this.getMapSize}
-                        />
+                            onKeyDown={this.handleKeyDown}
+                            />
                     </div>
                     <div className='colList'>
                         <div className='rowList'>
@@ -130,4 +135,10 @@ export class MapPage extends React.Component {
     }
 }
 
-export default MapPage;
+const mapStateToProps = (state) => ({
+});
+const mapDispatchToProps = (dispatch) => ({
+    handleKeyDown: (e) => dispatch(handleKeyDown(e))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapPage);
