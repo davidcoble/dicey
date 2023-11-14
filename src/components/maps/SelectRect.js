@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function SelectRect({ left, top, width, height, onMouseUp, onMouseMove }) {
-    console.log(`SelectRect left=${left}`)
+    // console.log(`SelectRect left=${left}`)
     return <div
         onMouseUp={onMouseUp}
         onMouseMove={onMouseMove}

@@ -14,12 +14,12 @@ export class Units extends React.Component {
         }
     }
     componentDidMount() {
-        this.props.units.map((unit) => {
-            this.props.startSetGameTokenPosition(this.state.gid, unit);
-        });
+        // this.props.units.map((unit) => {
+        //     this.props.startSetGameTokenPosition(this.state.gid, unit);
+        // });
     }
     render() {
-        console.log("Units.render() selectRect = " + JSON.stringify(this.props.selectRect));
+        // console.log("Units.render() selectRect = " + JSON.stringify(this.props.selectRect));
         const theater = this.state.getScrollState().theater;
         const selectRect = this.props.selectRect;
         // console.log("Units theater = " + theater);
@@ -32,7 +32,10 @@ export class Units extends React.Component {
                         const point = { ...unit };
                         const rect = { ...selectRect }
                         const selected = isPointInRect({ point, rect });
-                        console.log("unit.selectedColor = " + unit.selectedColor);
+                        // console.log("unit.selectedColor = " + unit.selectedColor);
+                        // if (selected) {
+                        //     console.log("unit selected = " + JSON.stringify(unit));
+                        // }
                         return <Unit
                             key={unit.id}
                             name={unit.id}
@@ -65,9 +68,9 @@ const mapStateToProps = (state, props) => {
     const box = state.boxes.find((box) => box.id === bid);
     // console.log("Units box = " + JSON.stringify(box, null, 2));
     // console.log("Units props = " + JSON.stringify(props, null, 2));
-    const units = box.forcepools[props.forcepool];
+    // const units = box.forcepools[props.forcepool];
     // const units = []; 
-    // game.units[props.theater];
+    const units = game.units[props.theater];
     // console.log("Units units = " + JSON.stringify(units, null, 2));
     let unitList = [];
     let xoff = 10;
@@ -76,15 +79,15 @@ const mapStateToProps = (state, props) => {
     if (units) {
         Object.keys(units).map((key) => {
             let unit = units[key];
-            unit.name = key;
-            unit.x = xoff;
-            unit.y = yoff;
-            unit.theater = props.theater;
-            xoff += 80;
-            if (xoff > 1080) {
-                xoff = 10;
-                yoff += 80;
-            }
+            // unit.name = key;
+            // unit.x = xoff;
+            // unit.y = yoff;
+            // unit.theater = props.theater;
+            // xoff += 80;
+            // if (xoff > 1080) {
+            //     xoff = 10;
+            //     yoff += 80;
+            // }
             unitList.unshift(unit)
 
         });

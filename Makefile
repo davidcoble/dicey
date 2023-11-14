@@ -16,3 +16,6 @@ clean:
 pub: clean pubi
 	npm run build:prod
 	rsync -avz public/ /var/www/html/dice
+
+never:
+	nvm use 12.22.12

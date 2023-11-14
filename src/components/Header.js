@@ -7,6 +7,11 @@ import Nav from "./Nav";
 export const Header = (props) => {
     const startLogout = props.startLogout;
     const name = props.name;
+
+    function showMenu() {
+        history.push("/gameMenu")
+    }
+
     return (
         <header className="header">
             <div className="content-container-header">
@@ -19,7 +24,7 @@ export const Header = (props) => {
                         <button className="button-tiny button--link" onClick={startLogout}>Logout</button>
                     </div>
                     <div className="header__right">
-                        <button className="button-big button--link">&bull;&bull;&bull;</button>
+                        <button className="button-big button--link" onClick={showMenu}>&bull;&bull;&bull;</button>
                     </div>
                 </div>
             </div >

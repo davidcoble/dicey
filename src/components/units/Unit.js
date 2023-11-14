@@ -5,7 +5,7 @@ import { startSetGameTokenPosition } from '../../actions/games';
 class Unit extends React.Component {
     constructor(props) {
         super(props);
-        // console.log("Unit props = " + JSON.stringify(props, null, 2));
+        console.log("Unit props = " + JSON.stringify(props, null, 2));
         this.state = {
             ...props,
             dragging: false,
@@ -16,7 +16,9 @@ class Unit extends React.Component {
 
     handleDragStart = (e) => {
         let scrollPos = this.state.getScrollState();
-        console.log("unit drag start handleDragStart e = " + Object.keys(e));
+        this.state.relX = e.pageX - this.state.x;
+        this.state.relY = e.pageY - this.state.y;
+        console.log(`Unit.handleDragStart relX = ${this.state.relX} relY = ${this.state.relY}`);
         this.setState({
             x: e.clientX - scrollPos.x,
             y: e.clientY - scrollPos.y,
@@ -26,8 +28,8 @@ class Unit extends React.Component {
 
     handleDragEnd = (e) => {
         let scrollPos = { x: 0, y: 0 };
-        const x = e.clientX - scrollPos.x - 25;
-        const y = e.clientY - scrollPos.y - 25;
+        const x = e.clientX - scrollPos.x - this.state.relX;
+        const y = e.clientY - scrollPos.y - this.state.relY;
         console.log(`drop loc = ${x}, ${y}`);
         this.setState({
             x,
@@ -46,8 +48,8 @@ class Unit extends React.Component {
 
     handleDrag = (e) => {
         let scrollPos = { x: 0, y: 0 };
-        const x = e.clientX - scrollPos.x - 25;
-        const y = e.clientY - scrollPos.y - 25;
+        const x = e.clientX - scrollPos.x - this.state.relX;
+        const y = e.clientY - scrollPos.y - this.state.relY;
         if (e.clientX != 0) {
             this.setState({
                 x,
@@ -64,26 +66,41 @@ class Unit extends React.Component {
         this.props.startSetGameTokenPosition(this.state.gid, data);
     }
 
+    handleClick = (e) => {
+        console.log("handleClick on Unit");
+        this.setState((oldState) => {
+            const selected = oldState.selected ? false: true;
+            return {
+                ...oldState,
+                selected
+            }
+        })
+    }
+
 
     render() {
         // console.log("Unit render() called with state: " + JSON.stringify(this.state));
         let fqImageName = `/images/countersheets/units/Front/${this.state.name}Front.png`;
         let borderColor = 'black';
         let borderWidth = 1;
-        let width = 50;
-        let height = 50;
-        if (this.state.dragging || this.props.selected) {
-            borderColor = this.state.selectedColor;
-            borderWidth = 5;
-            width = 55;
-            height = 55;
+        let width = 57;
+        let height = 57;
+        let left = this.props.x;
+        let top = this.props.y;
+        if (this.state.dragging || this.props.selected || this.state.selected) {
+            borderColor = "#F00";
+            borderWidth = 4;
+            left -= 3;
+            top -= 3;
+            width += 3;
+            height += 3;
         }
 
         return <div
             style={{
                 position: 'absolute',
-                left: this.props.x,
-                top: this.props.y,
+                left: left,
+                top: top,
                 touchAction: 'none',
                 width: width,
                 height: height,
@@ -101,8 +118,9 @@ class Unit extends React.Component {
                 onDrag={this.handleDrag}
                 onDragStart={this.handleDragStart}
                 onDragEnd={this.handleDragEnd}
+                onClick={this.handleClick}
                 visible="false"
-                width="50px"
+                width="55px"
                 src={fqImageName}
             />
         </div>;

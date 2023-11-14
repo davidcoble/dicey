@@ -12,7 +12,7 @@ export default class Forcepool extends React.Component {
         const power = props.match.params.power;
         const imageFile = `/images/forcepools/${power}.png`
         const theater = `${power}-forcepool`;
-        console.log("Forcepool props = " + JSON.stringify(props, null, 2));
+        // console.log("Forcepool props = " + JSON.stringify(props, null, 2));
         this.state = {
             ...props,
             selectBox: {
@@ -36,7 +36,10 @@ export default class Forcepool extends React.Component {
         this.imgRef = React.createRef();
     }
     componentDidMount() {
-        console.log("imgRef stuff = " + this.imgRef);
+        Object.keys(this.imgRef.current).map((key) => {
+            console.log("imgRef.current["+key+"] stuff = " + Object.keys(this.imgRef.current[key]));
+
+        })
     }
 
     getScrollState = () => {
@@ -73,7 +76,7 @@ export default class Forcepool extends React.Component {
     }
     handleMouseMove = (e) => {
         if (this.state.selectBox.x1 !== 0) {
-            console.log("forcepool event e.target.top = " + e.target.top);
+            console.log("forcepool this.state.selectBox = " + JSON.stringify(this.state.selectBox));
             this.setState({
                 selectBox: {
                     x1: this.state.selectBox.x1,
@@ -84,14 +87,8 @@ export default class Forcepool extends React.Component {
             })
         }
     }
-    selectRect = {
-        left: 1,
-        top: 1,
-        width: 1,
-        height: 1,
-    };
     render() {
-        console.log("Forcepool render state = " + JSON.stringify(this.state, null, 2));
+        // console.log("Forcepool render state = " + JSON.stringify(this.state, null, 2));
         const power = this.state.power;
         const mapName = `${power}-forcepool`;
         const selectRectLeft = this.state.selectBox.x1 < this.state.selectBox.x2 ? this.state.selectBox.x1 : this.state.selectBox.x2;
@@ -104,7 +101,7 @@ export default class Forcepool extends React.Component {
             width: selectRectWidth,
             height: selectRectHeight,
         }
-        console.log("ForcePool render selectRect = "+JSON.stringify(this.selectRect));
+        // console.log("ForcePool render selectRect = "+JSON.stringify(this.selectRect));
         return (
             <div>
                 <GameNav />

@@ -30,7 +30,7 @@ export const history = createHistory();
 const AppRouter = ({ startSaveUserPage }) => {
     let path = window.location.href;
     startSaveUserPage(path);
-    console.log("about to useEffect");
+    // console.log("about to useEffect");
     useEffect(() => {
         let shifted = false;
         const handleKeyUp = (e) => {
@@ -43,12 +43,12 @@ const AppRouter = ({ startSaveUserPage }) => {
 
 
         const handleKeyDown = (e) => {
-            console.log("key down = " + key);
+            // console.log("key down = " + key);
             let path = window.location.href;
-            console.log("path = " + path);
+            // console.log("path = " + path);
             e.preventDefault();
             const key = e.key;
-            console.log("e.keys = " + Object.keys(e));
+            // console.log("e.keys = " + Object.keys(e));
 
             let newIndex = 0;
             if (key === 'Shift') {
@@ -57,14 +57,14 @@ const AppRouter = ({ startSaveUserPage }) => {
             if (key === 'Tab') {
                 console.log("That's a tab!");
                 for (var i = 0; i < gameNavList.length; i++) {
-                    console.log(`gameNavList[${i}] = ${JSON.stringify(gameNavList[i])}`)
+                    // console.log(`gameNavList[${i}] = ${JSON.stringify(gameNavList[i])}`)
                     if (path.endsWith(gameNavList[i].path)) {
-                        console.log("current index = " + i);
+                        // console.log("current index = " + i);
                         newIndex = i;
                     }
                 }
-                console.log("newIndex = " + newIndex);
-                console.log("gameNavList.length = " + gameNavList.length);
+                // console.log("newIndex = " + newIndex);
+                // console.log("gameNavList.length = " + gameNavList.length);
                 if (shifted) {
                     newIndex--;
                 } else {
@@ -75,8 +75,8 @@ const AppRouter = ({ startSaveUserPage }) => {
                 }
                 if (newIndex < 0)
                     newIndex = gameNavList.length - 1;
-                console.log("newIndex = " + newIndex);
-                console.log("new path = " + gameNavList[newIndex].path);
+                // console.log("newIndex = " + newIndex);
+                // console.log("new path = " + gameNavList[newIndex].path);
                 startSaveUserPage(gameNavList[newIndex].path);
                 history.push(gameNavList[newIndex].path)
             }
