@@ -46,7 +46,7 @@ const AppRouter = ({ startSaveUserPage }) => {
             // console.log("key down = " + key);
             let path = window.location.href;
             // console.log("path = " + path);
-            e.preventDefault();
+            // e.preventDefault();
             const key = e.key;
             // console.log("e.keys = " + Object.keys(e));
 
