@@ -5,7 +5,7 @@ import { startSetGameTokenPosition } from '../../actions/games';
 class Unit extends React.Component {
     constructor(props) {
         super(props);
-        console.log("Unit props = " + JSON.stringify(props, null, 2));
+        // console.log("Unit props = " + JSON.stringify(props, null, 2));
         this.state = {
             ...props,
             dragging: false,

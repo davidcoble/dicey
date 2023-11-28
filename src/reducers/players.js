@@ -11,6 +11,7 @@ export default (state = playersReducerDefaultState, action) => {
           //console.log("EDIT_PLAYER called action = " + JSON.stringify(action, null, 2));
           return state.map((player) => {
               if (player.uid === action.uid) {
+                console.log("player === " + JSON.stringify(player));
                   return {
                       ...player,
                       ...action.updates

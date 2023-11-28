@@ -11,6 +11,13 @@ export default (state = authReducerDefaultState, action) => {
                 photoURL: action.photoURL,
                 isAdmin: action.isAdmin
             };
+        case 'UPDATE_LOGIN':
+            console.log("action = " + JSON.stringify(action))
+            const update = {
+                ...state,
+                ...action,
+            }
+            return update;
         case 'LOGOUT':
             return {};
         default:

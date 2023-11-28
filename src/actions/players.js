@@ -86,10 +86,10 @@ export const startSetPlayerRollingGameTurn = ({ uid, gid, tid } = {}) => {
 
 export const setShowDeleted = (uid, showDeleted) => ({
     type: "EDIT_PLAYER",
-    showDeleted: {showDeleted}
+    showDeleted: { showDeleted }
 });
 
-export const startSetShowDeleted = ({uid, showDeleted} = {}) => {
+export const startSetShowDeleted = ({ uid, showDeleted } = {}) => {
     // console.log("uid = " + uid + " gid  = " + gid + " tid  = " + tid);
     return (dispatch, getState) => {
         return database.ref(`players/${uid}/showDeleted`).set(showDeleted).then(() => {
@@ -221,7 +221,7 @@ export const startSetPrevSortCol = (uid, gid, prevSortCol) => {
     if (prevSortCol === undefined) {
         prevSortCol = 'createdAt';
     }
-    console.log("startSetPrevSortCol uid = " +  uid + " gid = " + gid + " prevSortCol =" + prevSortCol);
+    console.log("startSetPrevSortCol uid = " + uid + " gid = " + gid + " prevSortCol =" + prevSortCol);
     return (dispatch, getState) => {
         return database.ref(`players/${uid}/games/${gid}/prevSortCol`).set(prevSortCol).then(() => {
             dispatch(setPrevSortCol(uid, prevSortCol));
@@ -236,13 +236,30 @@ export const setLinesPerPage = (uid, gid, linesPerPage) => ({
 });
 
 export const startSetLinesPerPage = (uid, gid, linesPerPage) => {
-    console.log("startSetLinesPerPage uid = " +  uid + " gid = " + gid + " prevSortCol =" + linesPerPage);
+    console.log("startSetLinesPerPage uid = " + uid + " gid = " + gid + " prevSortCol =" + linesPerPage);
     return (dispatch, getState) => {
         return database.ref(`players/${uid}/games/${gid}/linesPerPage`).set(linesPerPage).then(() => {
             dispatch(setLinesPerPage(linesPerPage));
         });
     };
 };
+
+
+export const setPlayerData = (data) => {
+    const retval = {
+        type: 'EDIT_PLAYER',
+        ...data,
+    }
+    console.log("setPlayerData retval = " + JSON.stringify(retval));
+    return retval;
+};
+export const startSetPlayerData = (data) => {
+    console.log("startSetPlayerData data = " + JSON.stringify(data));
+    return (dispatch, getState) => {
+        console.log("dispatch function called");
+        return dispatch(setPlayerData(data));
+    }
+}
 
 export const setPrevSortDir = (uid, gid, prevSortDir) => ({
     type: 'EDIT_PLAYER',

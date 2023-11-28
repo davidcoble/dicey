@@ -23,75 +23,19 @@ import { startSaveUserPage } from '../actions/auth';
 import connect from "react-redux/es/connect/connect";
 import MapPage from '../components/maps/MapPage';
 import Forcepool from '../components/forcepools/Forcepool';
-import { gameNavList } from '../components/games/GameNavList';
+import { keystrokeClearinghouse } from '../components/utils/KeystrokeClearinghouse';
+
 
 export const history = createHistory();
 
 const AppRouter = ({ startSaveUserPage }) => {
+// const AppRouter = ({}) => {
     let path = window.location.href;
+    console.log("path = " + path)
     startSaveUserPage(path);
     // console.log("about to useEffect");
-    useEffect(() => {
-        let shifted = false;
-        const handleKeyUp = (e) => {
-            const key = e.key;
-            console.log("key up = " + key);
-            if (key === 'Shift') {
-                shifted = false;
-            }
-        }
-
-
-        const handleKeyDown = (e) => {
-            // console.log("key down = " + key);
-            let path = window.location.href;
-            // console.log("path = " + path);
-            // e.preventDefault();
-            const key = e.key;
-            // console.log("e.keys = " + Object.keys(e));
-
-            let newIndex = 0;
-            if (key === 'Shift') {
-                shifted = true;
-            }
-            if (key === 'Tab') {
-                console.log("That's a tab!");
-                for (var i = 0; i < gameNavList.length; i++) {
-                    // console.log(`gameNavList[${i}] = ${JSON.stringify(gameNavList[i])}`)
-                    if (path.endsWith(gameNavList[i].path)) {
-                        // console.log("current index = " + i);
-                        newIndex = i;
-                    }
-                }
-                // console.log("newIndex = " + newIndex);
-                // console.log("gameNavList.length = " + gameNavList.length);
-                if (shifted) {
-                    newIndex--;
-                } else {
-                    newIndex++;
-                }
-                if (newIndex >= gameNavList.length) {
-                    newIndex = 0;
-                }
-                if (newIndex < 0)
-                    newIndex = gameNavList.length - 1;
-                // console.log("newIndex = " + newIndex);
-                // console.log("new path = " + gameNavList[newIndex].path);
-                startSaveUserPage(gameNavList[newIndex].path);
-                history.push(gameNavList[newIndex].path)
-            }
-        }
-
-        document.addEventListener('keydown', handleKeyDown, true);
-        document.addEventListener('keyup', handleKeyUp, true);
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-            document.removeEventListener('keyup', handleKeyUp);
-        };
-
-    }, []);
-
+    useEffect(keystrokeClearinghouse, []);
+    
     return (
         <Router history={history}>
             <div>
@@ -127,7 +71,7 @@ const AppRouter = ({ startSaveUserPage }) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    startSaveUserPage: (path) => dispatch(startSaveUserPage(path))
+    startSaveUserPage: (path) => dispatch(startSaveUserPage(path)),
 });
 
 export default connect(undefined, mapDispatchToProps)(AppRouter);

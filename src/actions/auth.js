@@ -9,6 +9,13 @@ export const login = (auth) => {
     }
 };
 
+export const updateLogin = (auth) => {
+    return {
+        type: 'UPDATE_LOGIN',
+        ...auth
+    }
+};
+
 export const startLogin = () => {
     googleAuthProvider.setCustomParameters({
         'prompt': 'select_account'
@@ -21,7 +28,7 @@ export const startLogin = () => {
 };
 
 export const startSaveUserPage = (path) => {
-    //console.log("startSaveUserPage called with path = " + path);
+    console.log("startSaveUserPage called with path = " + path);
     return (dispatch, getState) => {
         //console.log("state = " + JSON.stringify(getState(), null, 2));
         const uid = getState().auth.uid;

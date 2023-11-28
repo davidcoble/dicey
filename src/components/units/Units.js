@@ -10,7 +10,6 @@ export class Units extends React.Component {
         console.log("Units props.selectRect = " + JSON.stringify(props.selectRect));
         this.state = {
             ...props,
-
         }
     }
     componentDidMount() {
