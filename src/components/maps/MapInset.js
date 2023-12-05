@@ -33,7 +33,7 @@ export default class MapInset extends React.Component {
     };
     
     render() {
-        const imageFile = `/images/${this.state.theater}.png`;
+        const imageFile = `/images/ae/${this.state.theater}.png`;
         return (
             <div>
                 <div className='rowList'>

@@ -20,6 +20,10 @@ export const gameNavList =
             path: '/forcepool/soviet-eto',
             displayText: 'ETO Russian Forcepool',
         },
+        {
+            path: '/forcepool/neutral-eto',
+            displayText: 'European Neutrals',
+        },
         
         {
             path: '/forcepool/japanese',
@@ -32,5 +36,9 @@ export const gameNavList =
         {
             path: '/forcepool/soviet-pto',
             displayText: 'PTO Russian Forcepool',
+        },
+        {
+            path: '/forcepool/neutral-pto',
+            displayText: 'Pacific Neutrals',
         },
     ];

@@ -24,7 +24,7 @@ export class GameDetail extends React.Component {
     };
     viewGame = (e) => {
         e.preventDefault();
-        this.props.startSetPlayerRollingGame({uid: this.state.uid, gid: this.state.id});
+        this.props.startSetPlayerRollingGame({ uid: this.state.uid, gid: this.state.id });
         history.push('/maps');
     }
     render() {
@@ -91,7 +91,10 @@ export class GameDetail extends React.Component {
                         // console.log("about to return " + !!(player.uid === props.uid));
                         return (player.uid === this.props.uid)
                     }) ? (
-                        <button className='buttonView' onClick={this.viewGame}>View</button>
+                        <div className='rowList'>
+                            <button className='buttonView' onClick={this.viewGame}>View</button>
+                            <button className='buttonView' onClick={this.deleteGame}>Delete</button>
+                        </div>
                     ) : (<div></div>)
                 }
             </div >

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { startSetGameTokenPosition } from '../../actions/games';
+import { startSetGameTokenData } from '../../actions/games';
 
 class Unit extends React.Component {
     constructor(props) {
@@ -43,7 +43,7 @@ class Unit extends React.Component {
             theater: this.state.theater,
         };
         console.log("about to pass data = " + JSON.stringify(data, null, 2));
-        this.props.startSetGameTokenPosition(this.state.gid, data);
+        this.props.startSetGameTokenData(this.state.gid, data);
     }
 
     handleDrag = (e) => {
@@ -63,7 +63,7 @@ class Unit extends React.Component {
             theater: this.state.theater,
         };
         // console.log("about to pass data = " + JSON.stringify(data, null, 2));
-        this.props.startSetGameTokenPosition(this.state.gid, data);
+        this.props.startSetGameTokenData(this.state.gid, data);
     }
 
     handleClick = (e) => {
@@ -80,7 +80,7 @@ class Unit extends React.Component {
 
     render() {
         // console.log("Unit render() called with state: " + JSON.stringify(this.state));
-        let fqImageName = `/images/countersheets/units/Front/${this.state.name}Front.png`;
+        let fqImageName = `/images/ae/countersheets/units/Front/${this.state.name}Front.png`;
         let borderColor = 'black';
         let borderWidth = 1;
         let width = 57;
@@ -137,9 +137,9 @@ const mapStateToProps = (state, props) => {
 }
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        startSetGameTokenPosition: (id, data) => {
+        startSetGameTokenData: (id, data) => {
             // console.log("XXXXXXXXXXXXXXXXX data = " + JSON.stringify(data, null, 2));
-            dispatch(startSetGameTokenPosition(id, data));
+            dispatch(startSetGameTokenData(id, data));
         }
     }
 }

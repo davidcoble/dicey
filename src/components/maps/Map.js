@@ -81,6 +81,7 @@ export class Map extends React.Component {
             let x = this.state.startScrollX - this.state.startClientX + e.clientX;
             console.log("x = " + x);
             let y = this.state.startScrollY - this.state.startClientY + e.clientY;
+            console.log("y = " + y);
             x = x > 0 ? 0 : x;
             y = y > 0 ? 0 : y;
             let theater = this.state.getScrollState().theater;
@@ -168,7 +169,7 @@ export class Map extends React.Component {
                 }}
                     id='myMapImageDiv' >
                     <Units
-                        mapName={scrollState.theater}
+                        theater={scrollState.theater}
                         getScrollState={this.state.getScrollState}
                         onAddUnit={this.handleAddUnit}
                         onRemoveUnit={this.handleRemoveUnit}

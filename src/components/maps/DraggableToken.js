@@ -46,7 +46,7 @@ export default class DraggableToken extends React.Component {
             >
                 <img
                     style={this.unitStyles.img}
-                    src="/images/countersheets/03Back.png" />
+                    src="/images/ae/countersheets/03Back.png" />
             </div >
         )
     }

@@ -22,7 +22,7 @@ import PublicRoute from './PublicRoute';
 import { startSaveUserPage } from '../actions/auth';
 import connect from "react-redux/es/connect/connect";
 import MapPage from '../components/maps/MapPage';
-import Forcepool from '../components/forcepools/Forcepool';
+import Forcepool from '../components/maps/Forcepool';
 import { keystrokeClearinghouse } from '../components/utils/KeystrokeClearinghouse';
 
 
@@ -31,7 +31,7 @@ export const history = createHistory();
 const AppRouter = ({ startSaveUserPage }) => {
 // const AppRouter = ({}) => {
     let path = window.location.href;
-    console.log("path = " + path)
+    // console.log("path = " + path)
     startSaveUserPage(path);
     // console.log("about to useEffect");
     useEffect(keystrokeClearinghouse, []);

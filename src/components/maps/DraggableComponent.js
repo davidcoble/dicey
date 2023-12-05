@@ -58,7 +58,7 @@ const DraggableComponent = () => {
       onMouseMove={ onMouseMove }
       onMouseDown={ () => setPressed(true) }
       onMouseUp={ () => setPressed(false) }>
-      <img style={unitStyles.img} src="/images/countersheets/03Back.png" />
+      <img style={unitStyles.img} src="/images/ae/countersheets/03Back.png" />
     </div>
   )
 }

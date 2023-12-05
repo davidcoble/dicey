@@ -21,14 +21,14 @@ export const startLogin = () => {
         'prompt': 'select_account'
     });
     return () => {
-        console.log("startLogin callback called.");
+        //console.log("startLogin callback called.");
         let retval = firebase.auth().signInWithPopup(googleAuthProvider);
         return retval;
     };
 };
 
 export const startSaveUserPage = (path) => {
-    console.log("startSaveUserPage called with path = " + path);
+    //console.log("startSaveUserPage called with path = " + path);
     return (dispatch, getState) => {
         //console.log("state = " + JSON.stringify(getState(), null, 2));
         const uid = getState().auth.uid;

@@ -22,6 +22,7 @@ export const Header = (props) => {
                     <div className="header__right">
                         <p>Logged in as {name}</p>
                         <button className="button-tiny button--link" onClick={startLogout}>Logout</button>
+                        <Link to="/boxes">boxes</Link>
                     </div>
                     <div className="header__right">
                         <button className="button-big button--link" onClick={showMenu}>&bull;&bull;&bull;</button>

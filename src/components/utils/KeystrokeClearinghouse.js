@@ -14,7 +14,7 @@ export const keystrokeClearinghouse = () => {
     let shifted = false;
     const handleKeyUp = (e) => {
         const key = e.key;
-        console.log("key up = " + key);
+        //console.log("key up = " + key);
         if (key === 'Shift') {
             shifted = false;
         }
@@ -28,7 +28,7 @@ export const keystrokeClearinghouse = () => {
         // e.preventDefault();
         const key = e.key;
         // console.log("e.keys = " + Object.keys(e));
-        e.preventDefault();
+        // e.preventDefault();
 
         let newIndex = 0;
         switch (key) {
@@ -66,13 +66,13 @@ export const keystrokeClearinghouse = () => {
                 console.log("new path = " + gameNavList[newIndex].path);
                 // startSaveUserPage(gameNavList[newIndex].path);
                 history.push(gameNavList[newIndex].path)
-            default:
-                if (e.ctrlKey) {
-                    console.log("ctrl " + key + " pressed");
-                }
-                else {
-                    console.log(key + " pressed");
-                }
+            // default:
+            //     if (e.ctrlKey) {
+            //         console.log("ctrl " + key + " pressed");
+            //     }
+            //     else {
+            //         console.log(key + " pressed");
+            //     }
 
         }
 

@@ -27,18 +27,21 @@ export const gameReducer = (state = gameReducerDefaultState, action) => {
             });
         case 'SET_GAMES':
             return action.games;
-        case 'SET_GAME_TOKEN_POSITION':
-            // console.log("SET_GAME_TOKEN_POSITION action = " + JSON.stringify(action, null, 2));
+        case 'SET_GAME_TOKEN_DATA':
+            // console.log("SET_GAME_TOKEN_DATA action = " + JSON.stringify(action, null, 2));
             return state.map((game) => {
                 if (game.id === action.gid) {
-                    game.units[action.id] = {
-                      id: action.id,
-                      imageName: action.imageName,
-                      name: action.name,
-                      theater: action.theater,
-                      x: action.x,
-                      y: action.y,  
-                    }
+                    let newData = {
+                        ...action,
+                        id: action.id,
+                        imageName: action.imageName,
+                        name: action.name,
+                        theater: action.theater,
+                        x: action.x,
+                        y: action.y,  
+                    };
+                    // console.log("newData = " + JSON.stringify(newData, null, 2));
+                    game.units[action.id] = newData;
                     return {
                         ...game,
                         

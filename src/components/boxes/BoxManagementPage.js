@@ -1,8 +1,9 @@
 import React from 'react';
 import BoxList from './BoxList';
-import BoxForm from './BoxForm';
+import NewBoxForm from './NewBoxForm';
 import {startAddBox, startEditBox, startRemoveBox} from "../../actions/boxes";
 import {connect} from "react-redux";
+import EditBoxForm from './EditBoxForm';
 
 export class BoxManagementPage extends React.Component {
 
@@ -36,7 +37,7 @@ export class BoxManagementPage extends React.Component {
                         </div>
                     </div>
                     <div className="content-container">
-                        <BoxForm onSubmit={this.onSubmitAddBox} />
+                        <NewBoxForm onSubmit={this.onSubmitAddBox} />
                     </div>
                 </div>
             );
@@ -47,11 +48,11 @@ export class BoxManagementPage extends React.Component {
                 <div>
                     <div className="page-header">
                         <div className="content-container">
-                            <h1 className="page-header__title">Editing box {this.props.box.name}</h1>
+                            <h1 className="page-header__title">Editing box: {this.props.box.name}</h1>
                         </div>
                     </div>
                     <div className="box-content-container">
-                        <BoxForm box={this.props.box} onSubmit={this.onSubmitEditBox} />
+                        <EditBoxForm box={this.props.box} onSubmit={this.onSubmitEditBox} bid={this.props.box.id} />
                     </div>
                 </div>
             );
