@@ -143,7 +143,7 @@ export class Map extends React.Component {
         // this.myStyles.mapDiv.height = viewSize.y;
         const scrollState = this.state.getScrollState();
         // console.log("Map.render() boundingRect = " + JSON.stringify(this.state.boundingRect));
-        const imageFile = `/images/${scrollState.theater}.png`;
+        const imageFile = `/images/ae/${scrollState.theater}.png`;
         // console.log("Map rendering with state = " + JSON.stringify(this.state, null, 2));
         const selectRectLeft = this.state.selectBox.x1 < this.state.selectBox.x2 ? this.state.selectBox.x1 : this.state.selectBox.x2;
         const selectRectTop = this.state.selectBox.y1 < this.state.selectBox.y2 ? this.state.selectBox.y1 : this.state.selectBox.y2;

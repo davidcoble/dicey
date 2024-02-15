@@ -87,7 +87,7 @@ export default class EditBoxForm extends React.Component {
                         <textarea onChange={this.onTurnListChange} value={this.state.turnList} className="turnListArea" />
                     </div>
                 </div>
-                <PopulateBoxForcepool bid={this.props.bid} />
+                
             </form>
         )
     }
