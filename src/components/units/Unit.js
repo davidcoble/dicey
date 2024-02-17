@@ -83,8 +83,8 @@ class Unit extends React.Component {
         let fqImageName = `/images/ae/countersheets/units/Front/${this.state.name}Front.png`;
         let borderColor = 'black';
         let borderWidth = 1;
-        let width = 57;
-        let height = 57;
+        let width = 47;
+        let height = 47;
         let left = this.props.x;
         let top = this.props.y;
         if (this.state.dragging || this.props.selected || this.state.selected) {
@@ -109,7 +109,7 @@ class Unit extends React.Component {
                 borderColor: borderColor,
                 borderWidth: borderWidth,
                 borderStyle: 'solid',
-                borderRadius: 5,
+                borderRadius: 3,
                 zIndex: 10000,
             }}
 
@@ -120,7 +120,7 @@ class Unit extends React.Component {
                 onDragEnd={this.handleDragEnd}
                 onClick={this.handleClick}
                 visible="false"
-                width="55px"
+                width="45px"
                 src={fqImageName}
             />
         </div>;

@@ -34,12 +34,12 @@ export class MapPage extends React.Component {
             },
             mapSize: {
                 ETO: {
-                    x: 4220,
-                    y: 3400,
+                    x: 4725,
+                    y: 3760,
                 },
                 PTO: {
-                    x: 4220,
-                    y: 3400,
+                    x: 4725,
+                    y: 3760,
                 }
             }
 

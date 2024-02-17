@@ -74,7 +74,7 @@ export class Map extends React.Component {
     }
 
     mapMouseMove = (e) => {
-        // console.log("mapMouseMove this.state = " + JSON.stringify(this.state, null, 2));
+        console.log("mapMouseMove this.state = " + JSON.stringify(this.state, null, 2));
         e.preventDefault();
         const scrollState = this.state.getScrollState();
         if (this.state.mapDrag) {
@@ -85,7 +85,7 @@ export class Map extends React.Component {
             x = x > 0 ? 0 : x;
             y = y > 0 ? 0 : y;
             let theater = this.state.getScrollState().theater;
-            // console.log("this.state.getMapSize(theater).x =" + this.state.getMapSize(theater).x);
+            console.log("this.state.getMapSize(theater).x =" + this.state.getMapSize(theater).x);
             // console.log("this.state.getViewSize().x =" + this.state.getViewSize().x);
             let maxX = -1 * (this.state.getMapSize(theater).x - this.state.boundingRect.width);
             let maxY = -1 * (this.state.getMapSize(theater).y - this.state.boundingRect.height);
@@ -143,7 +143,7 @@ export class Map extends React.Component {
         // this.myStyles.mapDiv.height = viewSize.y;
         const scrollState = this.state.getScrollState();
         // console.log("Map.render() boundingRect = " + JSON.stringify(this.state.boundingRect));
-        const imageFile = `/images/ae/${scrollState.theater}.png`;
+        const imageFile = `/images/ae/${scrollState.theater}2.png`;
         // console.log("Map rendering with state = " + JSON.stringify(this.state, null, 2));
         const selectRectLeft = this.state.selectBox.x1 < this.state.selectBox.x2 ? this.state.selectBox.x1 : this.state.selectBox.x2;
         const selectRectTop = this.state.selectBox.y1 < this.state.selectBox.y2 ? this.state.selectBox.y1 : this.state.selectBox.y2;

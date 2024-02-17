@@ -1,14 +1,14 @@
 #!/bin/perl
 my @hoff;
 # voff is the left hand side of the 4 columns of 5 units
-$voff[0] = 55;
-$voff[1] = 579;
-$voff[2] = 1132;
-$voff[3] = 1656;
-my $chitdim = 90;
+$voff[0] = 61;
+$voff[1] = 585;
+$voff[2] = 1138;
+$voff[3] = 1662;
+my $chitdim = 80;
 my $chitstep = 100;
 my $rowstep = 225;
-my $topoff = 80;
+my $topoff = 86;
 for my $sheet ('01', '02', '03', '04', '05', '06', '07', '08', '09') {
     for my $fob ('Front','Back') {
 	my $file = sprintf("%s%s", $sheet, $fob);

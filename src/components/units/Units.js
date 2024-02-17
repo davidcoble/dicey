@@ -77,32 +77,35 @@ const mapStateToProps = (state, props) => {
     // const units = box.forcepools[props.forcepool];
     // const units = []; 
     //console.log("About to get unitIds, props.theater = " + props.theater);
-    const unitIds = Object.keys(game.units).filter((unit) => {
-        return game.units[unit].theater === props.theater
-    });
-    //console.log("Units units = " + JSON.stringify(unitIds));
     let unitList = [];
     let xoff = 10;
     let yoff = 100;
-    // if (units instanceof Object) {
-    if (unitIds) {
-        unitIds.map((unitId) => {
-            const unit = game.units[unitId];
-            unitList.unshift(unit);
+    if (game.units !== undefined) {
 
+        const unitIds = Object.keys(game.units).filter((unit) => {
+            return game.units[unit].theater === props.theater
         });
-        // Object.keys(units).map((key) => {
-        //     let unit = units[key];
-        //     // unit.name = key;
-        //     // unit.x = xoff;
-        //     // unit.y = yoff;
-        //     // unit.theater = props.theater;
-        //     // xoff += 80;
-        //     // if (xoff > 1080) {
-        //     //     xoff = 10;
-        //     //     yoff += 80;
-        //     // }
-        // });
+        //console.log("Units units = " + JSON.stringify(unitIds));
+        // if (units instanceof Object) {
+        if (unitIds !== undefined) {
+            unitIds.map((unitId) => {
+                const unit = game.units[unitId];
+                unitList.unshift(unit);
+
+            });
+            // Object.keys(units).map((key) => {
+            //     let unit = units[key];
+            //     // unit.name = key;
+            //     // unit.x = xoff;
+            //     // unit.y = yoff;
+            //     // unit.theater = props.theater;
+            //     // xoff += 80;
+            //     // if (xoff > 1080) {
+            //     //     xoff = 10;
+            //     //     yoff += 80;
+            //     // }
+            // });
+        }
     }
     return ({
         gid,
