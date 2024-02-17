@@ -3,7 +3,13 @@ import moment from 'moment';
 // Get visible rolls
 // this should be called selectRollsf
 export const selectRolls = (rolls, gid, player) => {
-    //console.log("selectRolls player = " + JSON.stringify(player, null, 2));
+    console.log("selectRolls player = " + JSON.stringify(player, null, 2));
+    if (player.games === undefined) {
+        return [];
+    }
+    if (player.games[gid] === undefined) {
+        return [];
+    }
     let sortCol = player.games[gid].sortCol;
     let sortDir = player.games[gid].sortDir;
     let prevSortCol = player.games[gid].prevSortCol;

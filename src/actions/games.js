@@ -10,7 +10,11 @@ export const addGame = (game) => ({
 export const startAddGame = (gameData = {}) => {
     return (dispatch, getState) => {
         const userName = getState().auth.name;
-        gameData.createdBy = userName;
+        console.log("startAddGame gameData.box = " + JSON.stringify(gameData.box, null, 2));
+        // console.log("startAddGame boxes = " + JSON.stringify(getState().boxes, null, 2));
+        const dbBox = getState().boxes.find((box) => box.id === gameData.box.value);
+        const forcepools = dbBox.forcepools;
+        console.log("startAddGame forcepools = " + JSON.stringify(forcepools, null, 2));
         const {
             description = '',
             name = '',
@@ -18,9 +22,10 @@ export const startAddGame = (gameData = {}) => {
             createdAt = 0,
             createdBy = userName
         } = gameData;
-        const game = { description, name, box, createdAt, createdBy };
+        const game = { description, name, box, forcepools, createdAt, createdBy };
         // console.log("about to store game: " + JSON.stringify(game, null, 2));
         return database.ref(`games`).push(game).then((ref) => {
+
             // console.log("added game");
         });
     };

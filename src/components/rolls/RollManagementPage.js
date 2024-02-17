@@ -114,7 +114,7 @@ export class RollManagementPage extends React.Component {
     render() {
         return (
             <div>
-                <GameNav/>
+                <GameNav />
                 <div>
                     <RollForm
                         onSelectRollingGame={this.onSelectRollingGame}
@@ -137,7 +137,15 @@ const mapStateToProps = (state, props) => {
     let game = state.games.find((g) => {
         return g.id === player.rollingGame;
     });
-    let games = state.games.filter((k) => { return k.players[state.auth.uid] });
+    let games = state.games.filter((k) => {
+        console.log("k = " + JSON.stringify(k, null, 2));
+        if (k.players !== undefined) {
+            if (k.players[state.auth.uid] !== undefined) {
+                return k.players[state.auth.uid];
+            }
+        }
+        return false;
+    });
     // console.log("games = " + JSON.stringify(games, null, 2));
     let showDeleted = player.showDeleted == undefined ? false : player.showDeleted;
     let box = state.boxes.filter((box) => { return box.id === game.box.value })[0];
