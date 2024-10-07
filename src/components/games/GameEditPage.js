@@ -15,6 +15,7 @@ export class GameEditPage extends React.Component {
         this.props.history.push('/games');
     };
     render() {
+        console.log("GameEditPage props = " + JSON.stringify(this.props,null,2));
         return (
             <div>
                 <div className="page-header">

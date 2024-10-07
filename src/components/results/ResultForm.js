@@ -7,17 +7,26 @@ import ResultBoxCheckbox from './ResultBoxCheckbox';
 class ResultForm extends React.Component {
     constructor(props) {
         super(props);
-        // console.log("ResultForm props = " + JSON.stringify(props, null, 2));
-        this.state = { ...props };
-        // id: props.result ? props.result.id : '',
-        // rollType: props.result ? props.result.rollType : '',
-        // dice: props.result ? props.result.dice : '',
-        // sides: props.result ? props.result.sides : '',
-        // outcomes: props.result.outcomes ? props.result.outcomes : [],
-        // createdAt: props.result ? moment(props.result.createdAt) : moment(),
-        // createdBy: '',
-        // error: ''
-        // };
+        console.log("ResultForm props.result = " + JSON.stringify(props.result, null, 2));
+        this.state = {
+            result: {
+                id: props.result ? props.result.id : '',
+                rollType: props.result ? props.result.rollType : '',
+                dice: props.result ? props.result.dice : '',
+                sides: props.result ? props.result.sides : '',
+                outcomes: props.result ? props.result.outcomes : [
+                    // {
+                    //     rolled: '0',
+                    //     result: 'na',
+                    // }
+                ],
+                createdAt: props.result ? moment(props.result.createdAt) : moment(),
+                createdBy: '',
+                error: '',
+            },
+            boxes: props.boxes
+        };
+        //console.log("ResultForm this.state = " + JSON.stringify(this.state, null, 2));
     }
     onDiceChange = (e) => {
         e.preventDefault();
@@ -62,7 +71,7 @@ class ResultForm extends React.Component {
         //     this.props.startEditResult(this.state.result.id, this.state.result);
         // });
         let updates = { rollType: this.state.result.rollType };
-        this.props.startEditResult(this.props.result.id, updates);
+        this.props.startEditResult(this.state.result.id, updates);
     };
 
     onBoxSelectionChange = (e) => {
@@ -140,11 +149,11 @@ class ResultForm extends React.Component {
         e.preventDefault();
         // console.log("this.state = " + JSON.stringify(this.state, null, 2));
         this.setState(() => ({ error: '' }));
-        this.props.history.push("/results");
+        history.push("/results");
     };
     render() {
         // console.log("in ResultForm render, this.state = " + JSON.stringify(this.state));
-        // console.log("in ResultForm render, this.props.boxes = " + JSON.stringify(this.props.boxes, null, 2));
+        console.log("in ResultForm render, this.state.result = " + JSON.stringify(this.state.result, null, 2));
 
         return (
             <form onSubmit={this.onSubmit}>
@@ -156,7 +165,7 @@ class ResultForm extends React.Component {
                                 autoFocus
                                 type='text'
                                 placeholder='Roll Type'
-                                value={this.props.result.rollType}
+                                value={this.state.result.rollType}
                                 onChange={this.onRollTypeChange}
                             />
                         </div>
@@ -165,7 +174,7 @@ class ResultForm extends React.Component {
                             <input
                                 type='text'
                                 placeholder='dice'
-                                value={this.props.result.dice}
+                                value={this.state.result.dice}
                                 onChange={this.onDiceChange}
                                 onBlur={this.resizeOutcomes}
                             />
@@ -175,7 +184,7 @@ class ResultForm extends React.Component {
                             <input
                                 type='text'
                                 placeholder='sides'
-                                value={this.props.result.sides}
+                                value={this.state.result.sides}
                                 onChange={this.onSidesChange}
                                 onBlur={this.resizeOutcomes}
                             />
@@ -194,7 +203,10 @@ class ResultForm extends React.Component {
                                 </div>
                             </div>
                             {
-                                this.props.result.outcomes.map(
+                                console.log("this.state.result.outcomes = " + JSON.stringify(this.state.result.outcomes))
+                            }
+                            {
+                                this.state.result.outcomes.map(
                                     (oc) => {
                                         return <div className='rowForm' key={oc.rolled}>
                                             <div className='colForm ten-per center'>
@@ -223,10 +235,10 @@ class ResultForm extends React.Component {
                                 this.state.boxes.map(
                                     (box) => {
                                         // console.log("box = " + JSON.stringify(box));
-                                        let gobox = {name: box.name, checked: false, id: box.id};
-                                        if (this.props.result.boxes !== undefined) {
-                                            if (this.props.result.boxes[box.id]) {
-                                                if (this.props.result.boxes[box.id].checked === true) {
+                                        let gobox = { name: box.name, checked: false, id: box.id };
+                                        if (this.state.result.boxes !== undefined) {
+                                            if (this.state.result.boxes[box.id]) {
+                                                if (this.state.result.boxes[box.id].checked === true) {
                                                     gobox.checked = true;
                                                 }
                                             }
@@ -250,8 +262,9 @@ class ResultForm extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-    // console.log("state.results = " + JSON.stringify(state.results, null, 2));
+    console.log("ResultForm.mapStateToProps props.result = " + JSON.stringify(props.result, null, 2));
     return {
+        result: props.result,
         boxes: state.boxes,
     };
 };

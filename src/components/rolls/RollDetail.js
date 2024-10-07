@@ -36,14 +36,14 @@ export class RollDetail extends React.Component {
 
     render() {
         let rollDetail = `
-        Date: `+ moment(this.state.createdAt).format('YY/MM/DD HH:mm:ss') + `
-        Player: `+ this.state.createdBy + `
         Description: `+ this.state.description + `
-        Turn: `+ this.state.turn + `
-        Dice: `+ this.state.dice + ` ` + this.state.sides + `-sided dice
-        Modifier: `+ this.state.mods + `
         Result: `+ this.state.result + `
         Epilogue: `+ this.props.epilogue + `
+        Date: `+ moment(this.state.createdAt).format('YY/MM/DD HH:mm:ss') + `
+        Player: `+ this.state.createdBy + `
+        Turn: `+ this.state.turn + `
+        Dice: `+ this.state.dice + ` ` + this.state.sides + `-sided dice ` + ( this.state.sum ? "summed" : "" ) +`
+        Modifier: `+ this.state.mods + `
         `;
         let uid = this.props.uid;
         // console.log("RollDetail.render() props = " + JSON.stringify(this.props, null,2));
@@ -167,7 +167,7 @@ export class RollDetail extends React.Component {
                         <CopyToClipboard text={rollDetail}
                             onCopy={() => this.setState({ copied: true },
                                 () => {
-                                    console.log("state set");
+                                    console.log("state set rollDetail = " + rollDetail);
                                     setTimeout(() => {
                                         console.log("done being copied");
                                         this.setState({ copied: false });

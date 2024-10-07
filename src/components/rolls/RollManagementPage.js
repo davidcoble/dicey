@@ -138,7 +138,7 @@ const mapStateToProps = (state, props) => {
         return g.id === player.rollingGame;
     });
     let games = state.games.filter((k) => {
-        console.log("k = " + JSON.stringify(k, null, 2));
+        //console.log("k = " + JSON.stringify(k, null, 2));
         if (k.players !== undefined) {
             if (k.players[state.auth.uid] !== undefined) {
                 return k.players[state.auth.uid];

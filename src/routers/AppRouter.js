@@ -58,7 +58,8 @@ const AppRouter = ({ startSaveUserPage }) => {
                     <PrivateRoute path="/maps/:gid" component={MapPage} />
                     <PrivateRoute path="/maps" component={MapPage} />
                     <PrivateRoute path="/players" component={PlayerManagementPage} />
-                    <PrivateRoute path="/results" component={ResultManagementPage} />
+                    <PrivateRoute path="/results" component={ResultManagementPage} exact={true}/>
+                    <PrivateRoute path="/results/create" component={ResultManagementPage} exact={true}/>
                     <PrivateRoute path="/results/delete/:id" component={ResultManagementPage} />
                     <PrivateRoute path="/results/edit/:id" component={ResultManagementPage} />
                     <PrivateRoute path="/rolls/:gid" component={RollManagementPage} />

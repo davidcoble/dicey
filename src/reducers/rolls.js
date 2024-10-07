@@ -23,6 +23,18 @@ export const rollReducer = (state = rollReducerDefaultState, action) => {
                     return roll;
                 }
             });
+        case 'EDIT_ROLL_EPILOGUE':
+            return state.map((roll) => {
+                if (roll.id === action.id) {
+                    epilogue = action.epilogue;
+                    return {
+                        ...roll,
+                        epilogue
+                    };
+                } else {
+                    return roll;
+                }
+            });
         case 'SET_ROLLS':
             return action.rolls;
         default:

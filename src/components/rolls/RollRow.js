@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import RollEpilogueForm from './RollEpilogueForm';
-import { startEditRoll } from '../../actions/rolls';
+import { startEditRoll, startEditRollEpilogue } from '../../actions/rolls';
 
 
 export class RollRow extends React.Component {
@@ -15,7 +15,7 @@ export class RollRow extends React.Component {
     onSubmitEpilogue = (e) => {
         // console.log("RollRows.onSubmitEpilogue e = " + JSON.stringify(e));
         e.updates = { epilogue: e.epilogue };
-        this.props.startEditRoll(e);
+        this.props.startEditRollEpilogue(e);
     };
     render() {
         return (
@@ -54,7 +54,7 @@ const mapStateToProps = (state, props) => {
 
 
 const mapDispatchToProps = (dispatch, props) => ({
-    startEditRoll: (id, epilogue) => dispatch(startEditRoll(id, epilogue))
+    startEditRollEpilogue: (id, epilogue) => dispatch(startEditRollEpilogue(id, epilogue))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RollRow);

@@ -27,6 +27,10 @@ export class GameDetail extends React.Component {
         this.props.startSetPlayerRollingGame({ uid: this.state.uid, gid: this.state.id });
         history.push('/maps');
     }
+    editGame = (e) => {
+        e.preventDefault();
+        history.push('/game/edit/'+this.state.id);
+    }
     render() {
         // console.log("GameDetail.render: this.props = " + JSON.stringify(this.props, null, 4));
         return (
@@ -93,6 +97,7 @@ export class GameDetail extends React.Component {
                     }) ? (
                         <div className='rowList'>
                             <button className='buttonView' onClick={this.viewGame}>View</button>
+                            <button className='buttonView' onClick={this.editGame}>Edit</button>
                             <button className='buttonView' onClick={this.deleteGame}>Delete</button>
                         </div>
                     ) : (<div></div>)

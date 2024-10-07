@@ -33,6 +33,42 @@ export class Map extends React.Component {
             }
         };
     }
+    // const [keyDown, setKeyDown] = useState('nope');
+    // useEffect(() => {
+    //     const handleKeyDown = (e) => {
+
+    //         const key = e.key;
+    //         setKeyDown(key);
+    //         // console.log("Header key down = " + key);
+    //     };
+    //     const handleKeyUp = (e) => {
+    //         e.preventDefault();
+    //         const key = e.key;
+    //         setKeyDown('none');
+    //         // console.log("Header key up = " + key);
+    //     };
+
+    //     document.addEventListener('keydown', handleKeyDown, true);
+    //     document.addEventListener('keyup', handleKeyUp, true);
+
+    //     return () => {
+    //         document.removeEventListener('keydown', handleKeyDown);
+    //         document.removeEventListener('keyup', handleKeyUp);
+    //     };
+    // });
+    handleKeyDown(e) {
+        const key = e.key;
+        console.log("class Map key = " + key);
+    }
+
+    componentDidMount() {
+        console.log("about to addEventListener");
+        document.addEventListener('keydown', this.handleKeyDown, true);
+    }
+    componentWillUnmount() {
+        console.log("about to removeEventListener");
+        document.removeEventListener('keydown', this.handleKeyDown);
+    }
 
     mapMouseDown = (e) => {
         // console.log("mapMouseDown this.state = " + JSON.stringify(this.state, null, 2));

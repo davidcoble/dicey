@@ -13,6 +13,8 @@ class Unit extends React.Component {
             y: props.y,
         };
     }
+    
+
 
     handleDragStart = (e) => {
         let scrollPos = this.state.getScrollState();
@@ -67,7 +69,8 @@ class Unit extends React.Component {
     }
 
     handleClick = (e) => {
-        console.log("handleClick on Unit");
+        console.log("handleClick on Unit, keyDown = "+this.state.keyDown);
+        
         this.setState((oldState) => {
             const selected = oldState.selected ? false: true;
             return {
@@ -83,8 +86,8 @@ class Unit extends React.Component {
         let fqImageName = `/images/ae/countersheets/units/Front/${this.state.name}Front.png`;
         let borderColor = 'black';
         let borderWidth = 1;
-        let width = 47;
-        let height = 47;
+        let width = 45;
+        let height = 45;
         let left = this.props.x;
         let top = this.props.y;
         if (this.state.dragging || this.props.selected || this.state.selected) {

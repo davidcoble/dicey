@@ -64,7 +64,7 @@ export class Units extends React.Component {
     }
 }
 const mapStateToProps = (state, props) => {
-    console.log("Units mapStateToProps called for theater: " + props.theater);
+    // console.log("Units mapStateToProps called for theater: " + props.theater);
     const player = state.players.find((player) => player.uid === state.auth.uid)
     const gid = player.rollingGame;
     const game = state.games.find((game) => game.id === gid);
@@ -76,7 +76,7 @@ const mapStateToProps = (state, props) => {
     // console.log("Units props = " + JSON.stringify(props, null, 2));
     // const units = box.forcepools[props.forcepool];
     // const units = []; 
-    //console.log("About to get unitIds, props.theater = " + props.theater);
+    // console.log("About to get unitIds, props.theater = " + props.theater);
     let unitList = [];
     let xoff = 10;
     let yoff = 100;
@@ -85,7 +85,7 @@ const mapStateToProps = (state, props) => {
         const unitIds = Object.keys(game.units).filter((unit) => {
             return game.units[unit].theater === props.theater
         });
-        //console.log("Units units = " + JSON.stringify(unitIds));
+        // console.log("Units units = " + JSON.stringify(unitIds));
         // if (units instanceof Object) {
         if (unitIds !== undefined) {
             unitIds.map((unitId) => {
