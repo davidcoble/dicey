@@ -89,7 +89,7 @@ export const startEditRoll = ({id, updates} = {}) => {
     // console.log("id = " + JSON.stringify(id));
     // console.log("updates = " + JSON.stringify(updates));
     return (dispatch, getState) => {
-        updates.createdBy = getState().auth.name;
+//        updates.createdBy = getState().auth.name;
         return database.ref(`rolls/${id}`).update(updates).then(() => {
             // dispatch(editRoll(id, updates));
         });
