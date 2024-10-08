@@ -156,13 +156,13 @@ export class RollDetail extends React.Component {
                             epilogue={this.state.epilogue}
                             onSubmit={this.onSubmitEpilogue} />
                     </div>
-                    <div className='rollList-roll-delete'>
+                    {/* <div className='rollList-roll-delete'>
                         {
                             deleteRequestedByMe ?
                                 <button className='rollList-roll-button' onClick={this.undeleteRoll}>retain</button> :
                                 <button className='rollList-roll-button' onClick={this.deleteRoll}>delete</button>
                         }
-                    </div>
+                    </div> */}
                     <div className='rollList-roll-delete'>
                         <CopyToClipboard text={rollDetail}
                             onCopy={() => this.setState({ copied: true },
