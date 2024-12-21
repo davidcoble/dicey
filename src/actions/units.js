@@ -46,38 +46,6 @@ export const startRemoveUnit = ({ id } = {}) => {
     };
 };
 
-// DELETE_UNIT
-export const deleteUnit = ({ id } = {}) => ({
-    type: 'DELETE_UNIT',
-    id
-});
-
-export const startDeleteUnit = ({ id } = {}) => {
-    return (dispatch, getState) => {
-        const uid = getState().auth.uid;
-        return database.ref(`units/${id}/deleters/${uid}`).set(true).then(() => {
-            dispatch(deleteUnit({ id }));
-        });
-    };
-};
-
-// UNDELETE_UNIT
-export const undeleteUnit = ({ id } = {}) => ({
-    type: 'UNDELETE_UNIT',
-    id
-});
-
-export const startUndeleteUnit = ({ id } = {}) => {
-    // console.log("startUndeleteUnit id = " + id);
-    return (dispatch, getState) => {
-        const uid = getState().auth.uid;
-        return database.ref(`units/${id}/deleters/${uid}`).set(false).then(() => {
-            dispatch(undeleteUnit({ id }));
-        });
-    };
-};
-
-
 // EDIT_UNIT
 export const editUnit = (id, updates) => ({
     type: 'EDIT_UNIT',
@@ -88,23 +56,6 @@ export const editUnit = (id, updates) => ({
 export const startEditUnit = ({id, updates} = {}) => {
     // console.log("id = " + JSON.stringify(id));
     console.log("startEditUnit updates = " + JSON.stringify(updates));
-    return (dispatch, getState) => {
-        //updates.createdBy = getState().auth.name;
-        return database.ref(`units/${id}`).update(updates).then(() => {
-            // dispatch(editUnit(id, updates));
-        });
-    };
-};
-export const editUnitEpilogue = (id, epilogue) => ({
-    type: 'EDIT_UNIT_EPILOGUE',
-    id,
-    epilogue
-});
-
-export const startEditUnitEpilogue = ({id, epilogue} = {}) => {
-    // console.log("id = " + JSON.stringify(id));
-    const updates = {epilogue};
-    console.log("startEditUnitEpilogue updates = " + JSON.stringify(updates));
     return (dispatch, getState) => {
         //updates.createdBy = getState().auth.name;
         return database.ref(`units/${id}`).update(updates).then(() => {
