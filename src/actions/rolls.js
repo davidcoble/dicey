@@ -11,6 +11,7 @@ export const startAddRoll = (rollData = {}) => {
         const userName = getState().auth.name;
         rollData.createdBy = userName;
         const {
+            id = '',
             description = '',
             dice = '',
             sides = '',
@@ -22,10 +23,10 @@ export const startAddRoll = (rollData = {}) => {
             createdAt = 0,
             createdBy = userName
         } = rollData;
-        const roll = { description, dice, sides, mods, gid, turn, result, epilogue, createdAt, createdBy };
+        const roll = { id, description, dice, sides, mods, gid, turn, result, epilogue, createdAt, createdBy };
         // console.log("about to store roll: " + JSON.stringify(roll, null, 2));
         return database.ref(`rolls`).push(roll).then((ref) => {
-            // console.log("added roll");
+            console.log("added roll ref = " + JSON.stringify(ref, null, 2));
         });
     };
 };

@@ -1,11 +1,11 @@
-var firebaseConfig = {
-    apiKey: "AIzaSyBeeeDKdb7JozWhd8zk2b1jSUpC5K5nRjg",
-    authDomain: "dicey2.firebaseapp.com",
-    databaseURL: "https://dicey2.firebaseio.com",
-    projectId: "dicey2",
-    storageBucket: "dicey2.appspot.com",
-    messagingSenderId: "55773619106",
-    appId: "1:55773619106:web:924fb8f3df7997224108fb",
-    measurementId: "G-RFW3R0WM12"
+const firebaseConfig = {
+  apiKey: "AIzaSyD6LjpcBvbhD6KSfrllZyEB4SxWzyzDT9E",
+  authDomain: "dicey-test.firebaseapp.com",
+  databaseURL: "https://dicey-test.firebaseio.com",
+  projectId: "dicey-test",
+  storageBucket: "dicey-test.appspot.com",
+  messagingSenderId: "704900569107",
+    appId: "1:704900569107:web:5a56af39e3695e2a"
 };
+
 export default firebaseConfig;
