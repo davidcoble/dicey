@@ -9,7 +9,7 @@ if (process.env.NODE_ENV === 'test') {
 } else if (process.env.NODE_ENV === 'development') {
   require('dotenv').config({ path: '.env.development' });
 } else {
-  console.log("XXXXXXXXXXXXXX huston, not sure about the environment here.");
+  console.log("XXXXXXXXXXXXXX houston, not sure about the environment here.");
 }
 
 module.exports.debug = true;
