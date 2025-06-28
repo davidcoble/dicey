@@ -1,9 +1,9 @@
 
 install:
-	yarn install
+	npm install
 
 dev: install
-	yarn run dev-server --host 0.0.0.0
+	npm run dev-server
 
 pub:
 	npm run build:prod
@@ -11,3 +11,6 @@ pub:
 
 clean:
 	rm -rf ./node_modules
+
+never:
+	npm use 12.22.22
