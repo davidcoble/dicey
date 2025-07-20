@@ -90,7 +90,6 @@ export default class NewBoxForm extends React.Component {
                         <textarea onChange={this.onTurnListChange} value={this.state.turnList} className="turnListArea" />
                     </div>
                 </div>
-                <PopulateBoxForcepool bid={this.state.bid} />
             </form>
         )
     }
