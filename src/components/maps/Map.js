@@ -10,7 +10,7 @@ import ResizableDiv from '../utils/ResizableDiv';
 export class Map extends React.Component {
     constructor(props) {
         super(props);
-        // console.log("Map constructor called with props = " + JSON.stringify(props, null, 2));
+        console.log("Map constructor called with props = " + JSON.stringify(props, null, 2));
         this.state = {
             ...props,
             startClientX: 0,
@@ -18,6 +18,7 @@ export class Map extends React.Component {
             startScrollX: 0,
             startScrollY: 0,
             mapDrag: false,
+
             selectBox: {
                 x1: 0,
                 y1: 0,
@@ -28,34 +29,44 @@ export class Map extends React.Component {
             {
                 offsetLeft: 0,
                 offsetTop: 0,
-                width: 1800,
-                height: 1000,
+                width: 955,
+                height: 848,
             }
         };
     }
 
     mapMouseDown = (e) => {
-        // console.log("mapMouseDown this.state = " + JSON.stringify(this.state, null, 2));
+        console.log("mapMouseDown this.state = " + JSON.stringify(this.state, null, 2));
+        console.log("mapMouseDown e.nativeEvent = " + JSON.stringify(e.nativeEvent, null, 2));
+        // for (var prop in e.nativeEvent) {
+        //     console.log(`mapMouseDown e.nativeEvent.${prop} = ` + JSON.stringify(e.nativeEvent[prop], null, 2));
+        // }
         const scrollState = this.state.getScrollState();
         e.preventDefault();
         if (e.nativeEvent.button === 1) {
-            this.setState({
-                mapDrag: true,
-                startClientX: e.clientX,
-                startClientY: e.clientY,
-                startScrollX: scrollState.x,
-                startScrollY: scrollState.y,
-            });
         } else if (e.nativeEvent.button === 0) {
             //manage selectBox
-            this.setState({
-                selectBox: {
-                    x1: e.clientX - scrollState.x - this.state.boundingRect.offsetLeft,
-                    y1: e.clientY - scrollState.y - this.state.boundingRect.offsetTop,
-                    x2: e.clientX - scrollState.x + 1 - this.state.boundingRect.offsetLeft,
-                    y2: e.clientY - scrollState.y + 1 - this.state.boundingRect.offsetTop,
-                }
-            })
+            if (e.nativeEvent.ctrlKey) {
+                console.log("control key pressed with left click")
+            } else if (e.nativeEvent.shiftKey) {
+
+                this.setState({
+                    selectBox: {
+                        x1: e.clientX - scrollState.x - this.state.boundingRect.offsetLeft,
+                        y1: e.clientY - scrollState.y - this.state.boundingRect.offsetTop,
+                        x2: e.clientX - scrollState.x + 1 - this.state.boundingRect.offsetLeft,
+                        y2: e.clientY - scrollState.y + 1 - this.state.boundingRect.offsetTop,
+                    }
+                })
+            } else {
+                this.setState({
+                    mapDrag: true,
+                    startClientX: e.clientX,
+                    startClientY: e.clientY,
+                    startScrollX: scrollState.x,
+                    startScrollY: scrollState.y,
+                });
+            }
         }
     }
 
@@ -74,7 +85,7 @@ export class Map extends React.Component {
     }
 
     mapMouseMove = (e) => {
-        console.log("mapMouseMove this.state = " + JSON.stringify(this.state, null, 2));
+        //console.log("mapMouseMove this.state = " + JSON.stringify(this.state, null, 2));
         e.preventDefault();
         const scrollState = this.state.getScrollState();
         if (this.state.mapDrag) {
@@ -142,7 +153,7 @@ export class Map extends React.Component {
         // this.myStyles.mapDiv.width = viewSize.x;
         // this.myStyles.mapDiv.height = viewSize.y;
         const scrollState = this.state.getScrollState();
-        // console.log("Map.render() boundingRect = " + JSON.stringify(this.state.boundingRect));
+        console.log("Map.render() boundingRect = " + JSON.stringify(this.state.boundingRect));
         const imageFile = `/images/ae/${scrollState.theater}2.png`;
         // console.log("Map rendering with state = " + JSON.stringify(this.state, null, 2));
         const selectRectLeft = this.state.selectBox.x1 < this.state.selectBox.x2 ? this.state.selectBox.x1 : this.state.selectBox.x2;

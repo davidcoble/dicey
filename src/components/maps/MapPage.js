@@ -3,6 +3,7 @@ import MapInset from './MapInset';
 import GameNav from '../GameNav';
 import Map from './Map';
 import HoldingBox from './HoldingBox';
+import PopulateBoxForcepool from '../boxes/PopulateBoxForcepool';
 import { handleKeyDown } from '../../routers/PrivateRoute';
 import { connect } from 'react-redux';
 
@@ -17,8 +18,8 @@ export class MapPage extends React.Component {
             currentMap: 'ETO',
             viewSize:
             {
-                x: 1800,
-                y: 1000
+                x: 955,
+                y: 848,
             },
             scrollStates: {
                 ETO: {
@@ -100,6 +101,10 @@ export class MapPage extends React.Component {
     getViewSize = () => {
         return this.state.viewSize;
     }
+    populateForcepools = () => {
+        console.log("Populate Forcepools");
+        PopulateBoxForcepool.createLists();
+    }
 
     render() {
         //console.log("MapPage render() with this.state = " + JSON.stringify(this.state, null, 2));
@@ -127,6 +132,7 @@ export class MapPage extends React.Component {
                             </div>
                         </div>
                         <HoldingBox />
+                        <button className="button-big" onClick={this.populateForcepools}>Populate Forcepools</button>
                     </div>
                 </div>
             </div>

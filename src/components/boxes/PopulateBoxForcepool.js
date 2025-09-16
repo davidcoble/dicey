@@ -1,17 +1,9 @@
-import React from "react";
-import { connect } from "react-redux";
 import { startAddTokenToGameBox } from "../../actions/boxes";
+import { connect } from 'react-redux';
 
-export class PopulateBoxForcepool extends React.Component {
-    constructor(props) {
-        super(props);
-        console.log("props = " + JSON.stringify(props));
-        this.state = {
-            ...props
-        }
-    };
+const PopulateBoxForcepool = () => {
 
-    createUnitList = (page, jMin, jMax, iMin, iMax, power) => {
+    const createUnitList = (page, jMin, jMax, iMin, iMax, power) => {
         const units = [];
         const fileName1 = page;
         let theater = 'none';
@@ -44,8 +36,7 @@ export class PopulateBoxForcepool extends React.Component {
         });
     }
 
-    render() {
-        console.log("bid = " + this.props.bid);
+    const createLists = () => {
         this.createUnitList('u01', 0, 9, 0, 13, 'japanese');
         this.createUnitList('u01', 11, 14, 0, 5, 'japanese');
         this.createUnitList('u01', 10, 10, 6, 7, 'amur');
@@ -131,8 +122,6 @@ export class PopulateBoxForcepool extends React.Component {
         this.createUnitList('u05', 19, 19, 7, 7, 'tunisia');
         this.createUnitList('u05', 15, 16, 9, 9, 'yugoslavia');
         this.createUnitList('u05', 17, 19, 8, 9, 'yugoslavia');
-
-        return <p>Populated!</p>
     }
 }
 

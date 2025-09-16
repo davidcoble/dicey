@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
+import { history } from "../routers/AppRouter";
 import Nav from "./Nav";
 
 export const Header = (props) => {
@@ -25,6 +26,9 @@ export const Header = (props) => {
                     </div>
                     <div className="header__right">
                         <Link className="button-tiny button--link" to="/boxes">boxes</Link>
+                    </div>
+                    <div className="header__right">
+                        <Link className="button-tiny button--link" to="/scenarios">scenarios</Link>
                     </div>
                     <div className="header__right">
                         <button className="button-big button--link" onClick={showMenu}>&bull;&bull;&bull;</button>

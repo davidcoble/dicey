@@ -109,7 +109,7 @@ class Unit extends React.Component {
                 borderColor: borderColor,
                 borderWidth: borderWidth,
                 borderStyle: 'solid',
-                borderRadius: 3,
+                borderRadius: 5,
                 zIndex: 10000,
             }}
 
