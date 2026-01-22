@@ -37,7 +37,7 @@ export class RollDetail extends React.Component {
     render() {
         let rollDetail = `
         *******************************************
-        * Dice Rolled on Iacta Alea Est
+        * Dice Rolled on Alea Iacta Est
         * Description: `+ this.state.description + `
         * Dice: `+ this.state.dice + ` ` + this.state.sides + `-sided dice
         * Modifier: `+ this.state.mods + `
