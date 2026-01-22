@@ -36,14 +36,18 @@ export class RollDetail extends React.Component {
 
     render() {
         let rollDetail = `
-        Date: `+ moment(this.state.createdAt).format('YY/MM/DD HH:mm:ss') + `
-        Player: `+ this.state.createdBy + `
-        Description: `+ this.state.description + `
-        Turn: `+ this.state.turn + `
-        Dice: `+ this.state.dice + ` ` + this.state.sides + `-sided dice
-        Modifier: `+ this.state.mods + `
-        Result: `+ this.state.result + `
-        Epilogue: `+ this.props.epilogue + `
+        *******************************************
+        * Dice Rolled on Iacta Alea Est
+        * Description: `+ this.state.description + `
+        * Dice: `+ this.state.dice + ` ` + this.state.sides + `-sided dice
+        * Modifier: `+ this.state.mods + `
+        * Result: `+ this.state.result + `
+        * Epilogue: `+ this.props.epilogue + `
+        * Turn: `+ this.state.turn + `
+        * 
+        * Date and Time Requested: `+ moment(this.state.createdAt).format('YY/MM/DD HH:mm:ss') + `
+        * Requesting Player: `+ this.state.createdBy + `
+        *******************************************
         `;
         let uid = this.props.uid;
         // console.log("RollDetail.render() props = " + JSON.stringify(this.props, null,2));

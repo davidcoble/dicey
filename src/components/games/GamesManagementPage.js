@@ -36,7 +36,7 @@ export class GamesManagementPage extends React.Component {
                         );
                     })
                 }
-                <div className='pageTitle'>{ this.props.showDeletedGames === true && <p>Deleted Games</p> || <p>Games</p> }</div>
+                <div className='pageTitle'>{ this.props.showDeletedGames === true && <p>Deleted Games</p> || <p>Active Games</p> }</div>
                 <button type='button' onClick={this.goToCreateGame}>create a game</button>
                 { this.props.showDeletedGames !== true
                 &&
