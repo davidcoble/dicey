@@ -3,6 +3,7 @@ import moment from 'moment';
 // Get visible rolls
 // this should be called selectRollsf
 export const selectRolls = (rolls, gid, player) => {
+    console.log("******* selectRolls rolls = " + JSON.stringify(rolls, null, 2));
     console.log("selectRolls player = " + JSON.stringify(player, null, 2));
     if (player.games === undefined) {
         return [];
